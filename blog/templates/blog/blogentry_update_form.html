@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Editar un post{% endblock %}
+{% block ExtraScript %}
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+{% endblock %}
+{% block content %}
+<main role="main">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-md-9 mx-auto">
+        <div>
+          {% if 'ok' in request.GET %}
+          <p style="color: green;">
+            Pagina editada correctamente
+            <a href="{% url 'blog:blog' object.id object.name|slugify %}">Haz click aqui para ir al post editado</a>
+          </p>
+          {% endif %}
+          <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <table>
+              <ul>{{ form.name }}</ul>
+              <ul>{{ form.description }}</ul>
+              <ul>{{ form.category }}</ul>
+              <ul>{{ form.image_ref}}</ul>
+            </table>
+            <div class="text-center">
+              <input type="submit" class="btn btn-primary btn-block" value="Actualizar Post" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
