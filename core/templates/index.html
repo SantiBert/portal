@@ -38,8 +38,11 @@
                                 <!-- Login -->
                                 <div class="login d-flex">
                                     {% if not request.user.is_authenticated %}
-                                    <a href="{% url 'login'%}">Login</a>
-                                    {% endif %}                                  
+                                    <a href="{% url 'login'%}">Iniciar secion</a>
+                                    {% elif  request.user.is_authenticated %}
+                                    <a href="{% url 'logout'%}">Cerrar secion</a>
+                                    <a href="{% url 'administration'%}">Aministrador</a>
+                                    {% endif %}                      
                                 </div>
                                 <!-- Search Form -->
                                 <div class="search-form">
