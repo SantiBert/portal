@@ -1,5 +1,4 @@
-{% extends 'base.html' %}
-{% load pool_extras %}
+{% extends 'index.html' %}
 {% load static %}
 {% block title %}Admin Blogs{% endblock %}
 
@@ -109,8 +108,9 @@
 <h3 style="text-align: center;"> No hay blogs registrados &#128533; </h3>
 </p>
 {% endif %}
-
+      <!--
 <div class="col-md-6">
+{% comment %}
   {% if is_paginated %}
   <ul class="pagination pagination-info">
     {% if page_obj.has_previous %}   
@@ -124,7 +124,10 @@
     {% endif %} 
   </ul>
   {% endif %}
-</div>
+  {% endcomment %}
+  -->
+</div> 
+
 
 {% endblock %}
 

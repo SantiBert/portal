@@ -1,15 +1,20 @@
+from django.shortcuts import render
 from django.views.generic.list import View, ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
-from django.shortcuts import HttpResponse
+from django.shortcuts import HttpResponse, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django_filters.views import FilterView
 
 from .models import BlogEntry, BlogCategory
 from .filters import BlogAdminListFilter
 from .forms import BlogEntryForm, BlogCategoryEntryForm
+
+from audit.signals import Audits
+from unicodedata import category, category
 
 
 class BlogEntryListView(ListView):
@@ -25,6 +30,20 @@ class BlogEntryListView(ListView):
 class BlogEntryDetailView(DetailView):
     # Vista del contendido de cada post
     model = BlogEntry
+
+
+class BlogEntryCategoryList(ListView):
+
+    def get(self, request, slug, *args, **kwargs):
+        try:
+            category = BlogCategory.objects.get(slug=slug)
+            new_context = BlogEntry.objects.filter(category=category)
+            context = {
+                'object_list': new_context
+            }
+        except:
+            context = {}
+        return render(request, 'blog/categories-post.html', context)
 
 
 @method_decorator(login_required, name='dispatch')
@@ -115,7 +134,6 @@ class BlogAdminListView(FilterView):
         return BlogEntry.objects.all()
 
 
-"""
 @method_decorator(login_required, name='dispatch')
 class BlogChangeStateView(View):
     # Cambia el estado de un blog, usado en el jquerry de blogadmin-list.html
@@ -135,4 +153,3 @@ class BlogChangeStateView(View):
         except Exception as e:
             print(e)
             return HttpResponse("error code", status=500)
-"""

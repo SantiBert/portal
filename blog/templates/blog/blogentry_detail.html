@@ -1,31 +1,60 @@
-{% extends 'base.html' %}
+{% extends 'index.html' %}
 {% load static %}
 {% block title %}{{object.title}}{% endblock %}
 {% block content %}
 
-<main role="main">
-  <div class="container">
-    <div class="row mt-3">
-      <div class="col-md-9 mx-auto">
-        <h2 class="section-heading mb-4">{{object.name}}</h2>
-        <div>
-          {{object.description|safe}}
-          <p> {{object.user.username}}  </p>
 
-          {% for cat in object.category.all %}
-            <p>{{ cat }}</p>
-          {% endfor %}
-          
-          {% for img in object.images.all %}
-            <img src="{{ img.image.url }}" alt=""width="auto" height="340"/>
-          {% endfor %}
+<!-- ##### Blog Area Start ##### -->
+<div class="blog-area section-padding-0-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                <div class="blog-posts-area">
 
-          {% if request.user %}
-            <p><a href="{% url 'blog:update' object.id %}">Editar</a></p>
-          {% endif %}
+                    <!-- Single Featured Post -->
+                    <div class="single-blog-post featured-post single-post">
+                        <div class="post-thumb">
+                            <a href="#"><img src="{{object.image_ref.url}}" width="500px" alt=""></a>
+                        </div>
+                        <div class="post-data">
+                            {% for cat in object.category.all %}
+                            <a href="#" class="post-catagory">{{ cat }}</a>
+                            {% endfor %}
+                            <a href="#" class="post-title">
+                                <h6>{{object.name}}</h6>
+                            </a>
+                            <div class="post-meta">
+                                <p class="post-author">por {{object.user.get_full_name}}</p>
+                                {{object.description|safe}}
+                                <div class="newspaper-post-like d-flex align-items-center justify-content-between">
+                                    <!-- Post Like & Post Comment -->
+                                    <div class="d-flex align-items-center post-like--comments">
+                                        <a href="#" class="post-like"><img src="img/core-img/like.png" alt="">
+                                            <span>392</span></a>
+                                        <a href="#" class="post-comment"><img src="img/core-img/chat.png" alt="">
+                                            <span>10</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- About Author -->
+                    <div class="blog-post-author d-flex">
+                        <div class="author-thumbnail">
+                            <img src="{{object.user.Profile.image.url}}" alt="">
+                        </div>
+                        <div class="author-info">
+                            <a class="author-name"> {{object.user.get_full_name}}</a>
+                            <p>{{object.user.Profile.description}}</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-</main>
+</div>
+<!-- ##### Blog Area End ##### -->
+
 {% endblock %}

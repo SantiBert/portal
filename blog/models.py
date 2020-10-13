@@ -31,6 +31,7 @@ class BlogEntry(models.Model):
     date = models.DateTimeField(null=True, blank=True)
     description = RichTextField(null=True, blank=True)
     active = models.BooleanField(default=True)
+    featured = models.BooleanField(default=False)
     image_ref = models.ImageField(
         upload_to='blog/', default="image_placeholder.jpg", null=True, blank=True)
 

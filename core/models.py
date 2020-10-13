@@ -17,6 +17,7 @@ class Profile(models.Model):
     phone = models.CharField(max_length=12)
     image = models.ImageField(
         upload_to=get_upload_user_path, default="no-profile-picture.jpg", null=True, blank=True)
+    description = models.TextField("Descripción", null=True, blank=True)
 
     class Meta:
         verbose_name = 'Perfil'

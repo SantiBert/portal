@@ -1,0 +1,46 @@
+{% extends 'index.html' %} 
+{% load static %}
+{% block title %}Contáctenos{% endblock %}
+{% block content %} 
+<!-- ##### Contact Form Area Start ##### -->
+    <div class="contact-area section-padding-0-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="contact-title">
+                        <h2>Contáctenos</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-lg-8">
+                    <div class="contact-form-area">
+                        <form action="#" method="post">{% csrf_token %}
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    {{ form.name }}
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    {{ form.lastname}}
+                                </div>
+                                <div class="col-12">
+                                    {{ form.email}}
+                                </div>
+                                <div class="col-12">
+                                    {{ form.issue}}
+                                </div>
+                                <div class="col-12">
+                                    {{ form.messaje}}
+                                </div>
+                                <div class="col-12 text-center">
+                                    <button class="btn newspaper-btn mt-30 w-100" type="submit">Send Message</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

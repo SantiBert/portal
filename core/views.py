@@ -1,19 +1,36 @@
 from django.shortcuts import render
 from django.views import View
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
 from django.views.generic.edit import UpdateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django import forms
 
+from blog.models import BlogEntry, BlogCategory
 from .models import Profile
 from .forms import ProfileForm, EmailForm, NameUpdateForm
 
 
-def IndexView(request):
-    return render(request, 'index.html')
+class IndexView(View):
+    def get(self, request, *args, **kwargs):
+        try:
+            posts = BlogEntry.objects.all()
+            categories = BlogCategory.objects.filter(is_active=True)
+            context = {
+                'posts': posts,
+                'categories': categories,
+            }
+        except:
+            context = {}
+        return render(request, 'index.html', context)
+
+
+@method_decorator(login_required, name='dispatch')
+class AdministrationView(View):
+    def get(self, request):
+        return render(request, "administration.html")
 
 
 @method_decorator(login_required, name='dispatch')

@@ -1,6 +1,6 @@
 import django_filters
 
-from .models import BlogEntry
+from .models import BlogEntry, BlogCategory
 
 
 class BlogAdminListFilter(django_filters.FilterSet):
