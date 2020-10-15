@@ -3,7 +3,7 @@
 {% block ExtraScript %}
 <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
-<script type="text/javascript" src="{% static "css/custom_ckeditor.js" %}"></script>
+<link href="{% static 'css/custom_ckeditor.css' %}" rel="stylesheet">
 {% endblock %}
 {% block title %}Crear un post{% endblock %}
 {% block content %}

@@ -1,43 +1,74 @@
 {% extends 'index.html' %}
 {% load static %}
-{% block title %}Categorias{% endblock %}
-
+{% block title %}Categoria{% endblock %}
 {% block content %}
-<div class="blog-area section-padding-0-80">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-lg-8">
-                <div class="blog-posts-area">
+<!-- Start top-post Area -->
+<section class="top-post-area pt-10">
+	<div class="container no-padding">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="hero-nav-area">
+					<h1 class="text-white">{{category.name}}</h1>
+					<p class="text-white link-nav"><a href="{% url 'index' %}">Home </a> <span
+							class="lnr lnr-arrow-right"></span><a href="category.html">Posts Category</a></p>
+				</div>
+			</div>
+			<div class="col-lg-12">
+				<div class="news-tracker-wrap">
+					<h6><span>Breaking News:</span> <a href="#">Astronomy Binoculars A Great Alternative</a></h6>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- End top-post Area -->
+<!-- Start latest-post Area -->
+<section class="latest-post-area pb-120">
+	<div class="container no-padding">
+		<div class="row">
+			<div class="col-lg-8 post-list">
+				<!-- Start latest-post Area -->
+				<div class="latest-post-wrap">
+					<h4 class="cat-title">Latest News</h4>
+					{% for object in object_list %}
+					<div class="single-latest-post row align-items-center">
+						<div class="col-lg-5 post-left">
+							<div class="feature-img relative">
+								<div class="overlay overlay-bg"></div>
+								{% if object.image_ref %}
+								<a href="{% url 'blog:blog' object.id object.name|slugify %}"><img class="img-fluid"
+										src="{{object.image_ref.url}}" alt=""></a>
+								{% else %}
+								<a href="{% url 'blog:blog' object.id object.name|slugify %}"><img class="img-fluid"
+										src="{% static './assets/img/image_placeholder.jpg'%}" alt=""></a>
+								{% endif %}
+							</div>
+							<ul class="tags">
+								{% for category in object.category.all %}
+								<li><a href="#">{{ category.name }}</a></li>
+								{% endfor %}
+							</ul>
+						</div>
+						<div class="col-lg-7 post-right">
+							<a href="{% url 'blog:blog' object.id object.name|slugify %}">
+								<h4>{{ object.name }}</h4>
+							</a>
+							<ul class="meta">
+								<li><a href="#"><span class="lnr lnr-user"></span>{{object.user.username}}</a></li>
+								<li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>
+							</ul>
+							<p class="excert">
+								{{object.description|striptags|safe|truncatechars:"300"}}
+							</p>
+						</div>
+					</div>
+					{% endfor %}
 
-                    <!-- Single Featured Post -->
-                    {% for object in object_list %}
-                    <div class="single-blog-post featured-post mb-30">
-                        <div class="post-thumb">
-                            {% if object.image_ref %}
-                            <a href="{% url 'blog:blog' object.id object.name|slugify %}"><img src="{{object.image_ref.url}}" width="500px" alt=""></a>
-                            {% else %}
-                            <a href="{% url 'blog:blog' object.id object.name|slugify %}"><img src="{% static './assets/img/image_placeholder.jpg'%}" width="500px" alt=""></a>
-                            {% endif %}
-                        </div>
-                        <div class="post-data">
-                            {% for category in object.category.all %}
-                            <a href="#" class="post-catagory">{{ category.name }}</a>
-                            {% endfor %}
-                            <a href="{% url 'blog:blog' object.id object.name|slugify %}" class="post-title">
-                                <h6>{{ object.name }}</h6>
-                            </a>
-                            <div class="post-meta">
-                                <p class="post-author">By {{object.user.username}}</p>
-                                <p class="post-excerp"> {{object.description|striptags|safe|truncatechars:"300"}} </p>
-                                <!-- Post Like & Post Comment -->                                
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}                    
-                </div>                
-            </div>
-            {% include "includes/lateral.html" %}
-        </div>
-    </div>
-    
-    {% endblock %}
+				</div>
+				<!-- End latest-post Area -->
+			</div>
+		</div>
+	</div>
+</section>
+<!-- End latest-post Area -->
+{% endblock %}
