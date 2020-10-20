@@ -1,46 +1,88 @@
-{% extends 'index.html' %} 
+{% extends 'index.html' %}
 {% load static %}
-{% block title %}Contáctenos{% endblock %}
-{% block content %} 
-<!-- ##### Contact Form Area Start ##### -->
-    <div class="contact-area section-padding-0-80">
-        <div class="container">
+{% block title %}Contáctanos{% endblock %}
+{% block content %}
+<div class="site-main-container">
+    <!-- Start top-post Area -->
+    <section class="top-post-area pt-10">
+        <div class="container no-padding">
             <div class="row">
-                <div class="col-12">
-                    <div class="contact-title">
-                        <h2>Contáctenos</h2>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-12 col-lg-8">
-                    <div class="contact-form-area">
-                        <form action="#" method="post">{% csrf_token %}
-                            <div class="row">
-                                <div class="col-12 col-lg-6">
-                                    {{ form.name }}
-                                </div>
-                                <div class="col-12 col-lg-6">
-                                    {{ form.lastname}}
-                                </div>
-                                <div class="col-12">
-                                    {{ form.email}}
-                                </div>
-                                <div class="col-12">
-                                    {{ form.issue}}
-                                </div>
-                                <div class="col-12">
-                                    {{ form.messaje}}
-                                </div>
-                                <div class="col-12 text-center">
-                                    <button class="btn newspaper-btn mt-30 w-100" type="submit">Send Message</button>
-                                </div>
-                            </div>
-                        </form>
+                <div class="col-lg-12">
+                    <div class="hero-nav-area">
+                        <h1 class="text-white">Contáctanos</h1>
+                        <p class="text-white link-nav"><a href="{% url 'index' %}">Inicio </a> <span
+                                class="lnr lnr-arrow-right"></span><a href="{% url 'contact_us' %}">Contáctanos</a></p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    {% endblock %}
+    </section>
+    <!-- End top-post Area -->
+    <!-- Start contact-page Area -->
+    <section class="contact-page-area pt-50 pb-120">
+        <div class="container">
+            <div class="row contact-wrap">
+                <div class="col-lg-3 d-flex flex-column address-wrap">
+                    <div class="single-contact-address d-flex flex-row">
+                        <div class="icon">
+                            <span class="lnr lnr-home"></span>
+                        </div>
+                        <div class="contact-details">
+                            <h5>Los Angeles, USA</h5>
+                            <p>
+                                56/8, Rocky beach road
+                            </p>
+                        </div>
+                    </div>
+                    <div class="single-contact-address d-flex flex-row">
+                        <div class="icon">
+                            <span class="lnr lnr-phone-handset"></span>
+                        </div>
+                        <div class="contact-details">
+                            <h5>00 (440) 9865 562</h5>
+                            <p>Mon to Fri 9am to 6 pm</p>
+                        </div>
+                    </div>
+                    <div class="single-contact-address d-flex flex-row">
+                        <div class="icon">
+                            <span class="lnr lnr-envelope"></span>
+                        </div>
+                        <div class="contact-details">
+                            <h5>support@colorlib.com</h5>
+                            <p>Send us your query</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <form action="#" method="post">{% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div style="padding: 15px;">
+                                    {{ form.name }}
+                                </div>
+                                <div style="padding: 15px;">
+                                    {{ form.lastname}}
+                                </div>
+                                <div style="padding: 15px;">
+                                    {{ form.email}}
+                                </div>
+                                <div style="padding: 15px;">
+                                    {{ form.issue}}
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                {{ form.messaje}}
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="alert-msg" style="text-align: left;"></div>
+                                <button class="primary-btn primary" style="float: right;">Enviar mensaje</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End contact-page Area -->
+</div>
+{% endblock %}

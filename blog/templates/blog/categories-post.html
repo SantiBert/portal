@@ -9,8 +9,8 @@
 			<div class="col-lg-12">
 				<div class="hero-nav-area">
 					<h1 class="text-white">{{category.name}}</h1>
-					<p class="text-white link-nav"><a href="{% url 'index' %}">Home </a> <span
-							class="lnr lnr-arrow-right"></span><a href="category.html">Posts Category</a></p>
+					<p class="text-white link-nav"><a href="{% url 'index' %}">Inicio </a> 
+					<span class="lnr lnr-arrow-right"></span><a href="{% url 'blog:categories' category.slug %}">{{category.name}}</a></p>
 				</div>
 			</div>
 			<div class="col-lg-12">
@@ -36,8 +36,8 @@
 							<div class="feature-img relative">
 								<div class="overlay overlay-bg"></div>
 								{% if object.image_ref %}
-								<a href="{% url 'blog:blog' object.id object.name|slugify %}"><img class="img-fluid"
-										src="{{object.image_ref.url}}" alt=""></a>
+								<a href="{% url 'blog:blog' object.id object.name|slugify %}"><img
+										src="{{object.image_ref.url}}" height="189px"></a>
 								{% else %}
 								<a href="{% url 'blog:blog' object.id object.name|slugify %}"><img class="img-fluid"
 										src="{% static './assets/img/image_placeholder.jpg'%}" alt=""></a>
@@ -45,7 +45,7 @@
 							</div>
 							<ul class="tags">
 								{% for category in object.category.all %}
-								<li><a href="#">{{ category.name }}</a></li>
+								<li><a href="{% url 'blog:categories' category.slug %}">{{ category.name }}</a></li>
 								{% endfor %}
 							</ul>
 						</div>
@@ -54,8 +54,8 @@
 								<h4>{{ object.name }}</h4>
 							</a>
 							<ul class="meta">
-								<li><a href="#"><span class="lnr lnr-user"></span>{{object.user.username}}</a></li>
-								<li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>
+								<li><a href="#"><span class="lnr lnr-user"></span>{{object.user.get_full_name}}</a></li>
+								<li><a href="#"><span class="lnr lnr-calendar-full"></span>{{ object.date.date }}</a></li>
 							</ul>
 							<p class="excert">
 								{{object.description|striptags|safe|truncatechars:"300"}}

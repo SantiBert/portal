@@ -16,7 +16,7 @@ from .forms import ProfileForm, EmailForm, NameUpdateForm
 class IndexView(View):
     def get(self, request, *args, **kwargs):
         try:
-            posts = BlogEntry.objects.all()
+            posts = BlogEntry.objects.filter(active=True)
             categories = BlogCategory.objects.filter(is_active=True)
             context = {
                 'posts': posts,

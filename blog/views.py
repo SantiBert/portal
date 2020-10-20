@@ -36,10 +36,15 @@ class BlogEntryCategoryList(ListView):
 
     def get(self, request, slug, *args, **kwargs):
         try:
+            posts = BlogEntry.objects.filter(active=True)
+            categories = BlogCategory.objects.filter(is_active=True)
             category = BlogCategory.objects.get(slug=slug)
             new_context = BlogEntry.objects.filter(category=category)
             context = {
-                'object_list': new_context
+                'object_list': new_context,
+                'posts': posts,
+                'categories': categories,
+                'category': category
             }
         except:
             context = {}

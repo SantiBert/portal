@@ -5,61 +5,43 @@
 
 {% block content %}
 
-<div class="tim-typo">
-  <h2> Lista de Blogs </h1>
-</div>
-<div class="row-responsive">
-  <form class="form-inline" method="get">
-    <div class="col-lg-3 col-sm-4">
-      <div class="form-group">
-      <input type="text" class="form-control" 
-      placeholder="Nombre blog" {{ filter.form.name }} </div>
-    </div>
-    <div >
-      <div class="form-group">
-      <input type="text" class="form-control" 
-      placeholder="Usuario" {{ filter.form.user__username }} </div>
-    </div>
-    <div >
-      <div class="form-group ">
-      <input type="text" class="form-control" 
-      placeholder="Nombre/s" {{ filter.form.user__first_name }} </div>
-    </div>
-    <div >
-      <div class="form-group ">
-      <input type="text" class="form-control" 
-      placeholder="Apellido/s" {{ filter.form.user__last_name }} </div>
-    </div>
-    <div >
-      <div class="form-group ">
-      <input type="text" class="form-control" 
-      placeholder="Categoria" {{ filter.form.category__name }} </div>
-    </div>
-    <div >
-      <div class="form-group has-default">
-      <input type="text" class="form-control" 
-      placeholder="Fecha" {{filter.form.date}} </div>
-    </div>
-    <div>
-      <div class="row">
-        <button class="btn btn-primary btn-round" type="submit">Buscar</button>
-        <div class="ripple-container"></div>
-        <button class="btn btn-primary btn-sm" type="reset">Limpiar</button>
-      </div>
-    </div>
-  </form>
-</div>
+<h2> Lista de Blogs </h1>
+
+  <div class="row-responsive" style="padding: 25px;">
+    <form class="form-inline" method="get">
+      <div class="col-lg-3 col-sm-4">
+        <div class="form-group p-2">
+          <input type="text" class="form-control" placeholder="Nombre blog" {{ filter.form.name }} </div>
+        </div>
+        <div>
+          <div class="form-group p-2">
+            <input type="text" class="form-control" placeholder="Categoria" {{ filter.form.category__name }} </div>
+          </div>
+          <div>
+            <div class="form-group has-default p-2">
+              <input type="text" class="form-control" placeholder="Fecha" {{filter.form.date}} </div>
+            </div>
+            <div>
+              <div class="row">
+                <div class="p-3">
+                  <button class="btn btn-primary btn-round" type="submit">Buscar</button>
+                </div>
+                <div class="p-3">
+                  <button class="btn btn-primary btn-round" type="reset">Limpiar</button>
+                </div>
+              </div>
+            </div>
+    </form>
+  </div>
 
 
-{% if blogs %}
-<hr size="2px" color="black" />
+  {% if blogs %}
+  <hr size="2px" color="black" />
   <table class="table">
     <thead>
       <tr>
         <th class="text-center">ID</th>
         <th>Nombre</th>
-        <th>Usuario</th>
-        <th>Creador</th>
         <th>Categoria</th>
         <th>Fecha</th>
         <th>Editar.</th>
@@ -71,29 +53,27 @@
         {% for blog in blogs %}
         <td class="text-center">{{ blog.id }}</td>
         <td>{{ blog.name }}</td>
-        <td>{{ blog.user.username }}</td>
-        <td>{{ blog.user.get_full_name }}</td>
         <td>
           {% for categ in blog.category.all %}
-            <p>{{ categ.name }}</p>
+          <p>{{ categ.name }}</p>
           {% endfor %}
         </td>
         <td>{{ blog.date }}</td>
 
         <td class="text-center">
-        <p >
-          {{object.description|striptags|safe|truncatechars:"300"}}
-          <a href="{% url 'blog:update' blog.id %}"> Editar </a>
-        </p>
-      </td>
+          <p>
+            {{object.description|striptags|safe|truncatechars:"300"}}
+            <a href="{% url 'blog:update' blog.id %}"> Editar </a>
+          </p>
+        </td>
 
         <td class="td-actions text-right">
           <div class="togglebutton">
             <label>
               {% if blog.active%}
-                <input type="checkbox" id="switch-{{blog.id}}" checked="" onclick="changeState({{blog.id}}, 'true')">
+              <input type="checkbox" id="switch-{{blog.id}}" checked="" onclick="changeState({{blog.id}}, 'true')">
               {%else%}
-                <input type="checkbox" id="switch-{{blog.id}}" onclick="changeState({{blog.id}}, 'false')">
+              <input type="checkbox" id="switch-{{blog.id}}" onclick="changeState({{blog.id}}, 'false')">
               {% endif %}
               <span class="toggle"></span>
             </label>
@@ -103,12 +83,12 @@
       {% endfor %}
     </tbody>
   </table>
-{% else %}
-<p>
-<h3 style="text-align: center;"> No hay blogs registrados &#128533; </h3>
-</p>
-{% endif %}
-      <!--
+  {% else %}
+  <p>
+  <h3 style="text-align: center;"> No hay blogs registrados &#128533; </h3>
+  </p>
+  {% endif %}
+  <!--
 <div class="col-md-6">
 {% comment %}
   {% if is_paginated %}
@@ -126,47 +106,47 @@
   {% endif %}
   {% endcomment %}
   -->
-</div> 
+  </div>
 
 
-{% endblock %}
+  {% endblock %}
 
 
-{% block ExtraScript %}
-<script>// Script para hacer la actualizacion dinamica del active de un blog
- 
-  function changeState(blog_id, blogstate) {
-    var url = "{% url 'blogAdmin:BlogChangeState' 0 %}";
-    url = url.replace(0, blog_id);
+  {% block ExtraScript %}
+  <script>// Script para hacer la actualizacion dinamica del active de un blog
 
-    $.ajax({
-      url: url,
-      method: "POST",
-      data: { "csrfmiddlewaretoken": '{{ csrf_token }}' },
-      success: function (data) {
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-        if (xhr.status == 404 || xhr.status == 500) {
-          var switch_name = "#switch-" + blog_id;
-          var switch_id = "switch-" + blog_id;
-          if (teacherState == "true") {
-            var new_button = "<input type='checkbox'  checked  id=switch_name onclick=\"changeState(blog_id, \'true\')\">".replace("switch_name", switch_id).replace("blog_id", blog_id);
-            $(switch_name).replaceWith(new_button);
+    function changeState(blog_id, blogstate) {
+      var url = "{% url 'blogAdmin:BlogChangeState' 0 %}";
+      url = url.replace(0, blog_id);
+
+      $.ajax({
+        url: url,
+        method: "POST",
+        data: { "csrfmiddlewaretoken": '{{ csrf_token }}' },
+        success: function (data) {
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+          if (xhr.status == 404 || xhr.status == 500) {
+            var switch_name = "#switch-" + blog_id;
+            var switch_id = "switch-" + blog_id;
+            if (teacherState == "true") {
+              var new_button = "<input type='checkbox'  checked  id=switch_name onclick=\"changeState(blog_id, \'true\')\">".replace("switch_name", switch_id).replace("blog_id", blog_id);
+              $(switch_name).replaceWith(new_button);
+            }
+            else {
+              var new_button = "<input type='checkbox'  id=switch_name onclick=\"changeState(blog_id, \'false\')\">".replace("switch_name", switch_id).replace("blog_id", blog_id);
+              $(switch_name).replaceWith(new_button);
+            }
+            if (xhr.status == 404) {
+              alert("No se encontro profesor (404)");
+            }
+            if (xhr.status == 500) {
+              alert("Error de conexion (500))");
+            }
           }
-          else {
-            var new_button = "<input type='checkbox'  id=switch_name onclick=\"changeState(blog_id, \'false\')\">".replace("switch_name", switch_id).replace("blog_id", blog_id);
-            $(switch_name).replaceWith(new_button);
-          }
-          if (xhr.status == 404) {
-            alert("No se encontro profesor (404)");
-          }
-          if (xhr.status == 500) {
-            alert("Error de conexion (500))");
-          }
-        }
-      },
-    });
-  }
+        },
+      });
+    }
 
-</script>
-{% endblock %}
+  </script>
+  {% endblock %}

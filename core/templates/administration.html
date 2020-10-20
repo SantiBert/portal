@@ -10,30 +10,31 @@
                 </div>
             </div>
         </div>
-        
-        
         <div class="row">
-            <div class="col-12 col-lg-8">
-                <div class="contact-form-area">
-                    <div class="col-12 text-center">
-                        <a class="btn newspaper-btn mt-30 w-100" href="{% url 'blog:create' %}">Crear Una nota</a>
-                    </div>
-                    <div class="col-12 text-center">
-                        <a class="btn newspaper-btn mt-30 w-100" href="{% url 'blog:category' %}">Crear Una Categoria</a>
-                    </div>
-                    <div class="col-12 text-center">
-                        <a class="btn newspaper-btn mt-30 w-100" href="{% url 'blogAdmin:blogAdminList' %}">Lista de notas</a>
-                    </div>
-                    <div class="col-12 text-center">
-                        <a class="btn newspaper-btn mt-30 w-100" href="{% url 'blog:categories' %}" >Lista de categorias</a>
-                    </div>
-                    <div class="col-12 text-center">
-                        <a class="btn newspaper-btn mt-30 w-100" href="{% url 'profile'%}" >Mi perfil</a>
-                    </div>
-                </div>
+            <div class="col-12 col-lg-6 text-center">
+                <a class="btn mt-30 w-100" href="{% url 'blog:create' %}">Crear Una nota</a>
             </div>
+            <div class="col-12 col-lg-6 text-center">
+                <a class="btn mt-30 w-100" href="{% url 'blog:category' %}">Crear Una Categoria</a>
+            </div>
+            <div class="col-12 col-lg-6 text-center">
+                <a class="btn mt-30 w-100" href="{% url 'blogAdmin:blogAdminList' %}">Lista de notas</a>
+            </div>
+            <div class="col-12 col-lg-6 text-center">
+                <a class="btn mt-30 w-100" href="{% url 'blog:categories' %}">Lista de categorias</a>
+            </div>
+            <div class="col-12 col-lg-6 text-center">
+                <a class="btn mt-30 w-100" href="{% url 'bookentry'%}">Ingresar libros</a>
+            </div>
+            <div class="col-12 col-lg-6 text-center">
+                <a class="btn mt-30 w-100" href="{% url 'adminbook'%}">Lista de libros</a>
+            </div>
+            <div class="col-12 col-lg-6 text-center">
+                <a class="btn mt-30 w-100" href="{% url 'profile'%}">Mi perfil</a>
+            </div>            
         </div>
-    </div>
-</div>
 
-{% endblock %}
+
+    </div>
+
+    {% endblock %}
