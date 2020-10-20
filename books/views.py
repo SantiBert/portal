@@ -4,9 +4,11 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.generic.list import View, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django_filters.views import FilterView
 
 from .models import BookEntry
 from .forms import BookEntryForms
+from .filter import BookdminListFilter
 
 # Create your views here.
 
@@ -29,17 +31,25 @@ class BookEntryCreateView(CreateView):
 class BookEntryUpdateView(UpdateView):
     model = BookEntry
     form_class = BookEntryForms
+    template_name = 'bookentry_update_form.html'
     template_name_suffix = '_update_form'
 
     def get_success_url(self):
-        return reverse_lazy('administration', args=[self.object.id]) + '?ok'
+        return reverse_lazy('bookupdate', args=[self.object.id]) + '?ok'
 
 
 @method_decorator(login_required, name='dispatch')
-class BookAdminListView(ListView):
+class BookAdminListView(FilterView):
     # Vista de la lista de posts para el administrador
     model = BookEntry
+    context_object_name = 'books'
     template_name = 'adminbook.html'
+    paginate_by = 30  # TODO obtener dato de un constants.py
+    filterset_class = BookdminListFilter
+    ordering = ["name"]
+
+    def get_queryset(self):
+        return BookEntry.objects.all()
 
 
 @method_decorator(login_required, name='dispatch')

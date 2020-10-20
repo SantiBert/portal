@@ -19,13 +19,13 @@
     </thead>
     <tbody>
       <tr>
-        {% for object in object_list %}
+        {% for object in books %}
         <td class="text-center">{{ object.id }}</td>
         <td>{{ object.name }}</td>
 
         <td class="text-center">
           <p>           
-            <a href="{% url 'books:update' object.id %}"> Editar </a>
+            <a href="{% url 'bookupdate' object.id %}"> Editar </a>
           </p>
         </td>
 

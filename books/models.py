@@ -11,7 +11,7 @@ def get_upload_blog_path(instance, filename):
 
 class BookEntry(models.Model):
     # Modelo para crear categoria
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=150, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to='books/images/', null=True, blank=True)

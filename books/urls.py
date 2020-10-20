@@ -6,8 +6,8 @@ from .views import BookEntryCreateView, BookListView, BookEntryDeleteView, BookE
 urlpatterns = [
     path('', BookListView.as_view(), name="mybooks"),
     path('bookcreate/', BookEntryCreateView.as_view(), name="bookentry"),
-    path('update/<int:pk>/', BookEntryUpdateView.as_view(), name='update'),
-    path('delete/<int:pk>/', BookEntryDeleteView.as_view(), name='delete'),
+    path('update/<int:pk>/', BookEntryUpdateView.as_view(), name='bookupdate'),
+    path('delete/<int:pk>/', BookEntryDeleteView.as_view(), name='bookdelete'),
     path('adminbook/', BookAdminListView.as_view(), name='adminbook')
 
 
