@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Administración de libros{% endblock %}
+
+
+{% block content %}
+
+<h2> Lista de mensajes </h1>
+  
+  <hr size="2px" color="black" />
+  <table class="table" style="padding: 25px;">
+    <thead>
+      <tr>        
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Asunto</th>}
+        <th>E-Mail</th>        
+        <th>Borrar</th>
+        <th>Ver</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        {% for object in object_list %}        
+        <td>{{ object.name }}</td>
+        <td>{{ object.lastname }}</td>
+        <td>{{ object.issue }}</td>
+        <td>{{ object.email }}</td>
+        <td> <button> Borrar </button> </td>
+        <td class="text-center">
+          <p>           
+            <a href="{% url 'admincontactdetail' object.id %}"> Ver </a>
+          </p>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+
+
+  {% endblock %}

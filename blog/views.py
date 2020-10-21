@@ -39,7 +39,7 @@ class BlogEntryCategoryList(ListView):
             posts = BlogEntry.objects.filter(active=True)
             categories = BlogCategory.objects.filter(is_active=True)
             category = BlogCategory.objects.get(slug=slug)
-            new_context = BlogEntry.objects.filter(category=category)
+            new_context = BlogEntry.objects.filter(category=category, active=True)
             context = {
                 'object_list': new_context,
                 'posts': posts,
