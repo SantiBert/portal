@@ -8,8 +8,8 @@
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="hero-nav-area">
-								<h1 class="text-white">Image Post</h1>
-								<p class="text-white link-nav"><a href="{% url 'index' %}">Inicio </a>  <span class="lnr lnr-arrow-right"></span><a href="#">Post Types </a></p>
+								<h1 class="text-white">{{object.name}}</h1>
+								<p class="text-white link-nav"><a href="{% url 'index' %}">Inicio </a>  <span class="lnr lnr-arrow-right"></span>{% for cat in object.category.all %}<a href="{% url 'blog:categories' cat.slug %}">{{ cat }} </a>{% endfor %}</p>
 							</div>
 						</div>
 						<div class="col-lg-12">
@@ -35,8 +35,11 @@
 								<div class="content-wrap">
 									<ul class="tags mt-10">
 										{% for cat in object.category.all %}
-										<li><a href="#">{{ cat }}</a></li>
+										<li><a href="{% url 'blog:categories' cat.slug %}">{{ cat }}</a></li>
 										{% endfor %}
+										{% if request.user.is_authenticated %}
+						 				<li><a href="{% url 'blog:update' object.id %}"> Editar </a></li>
+										{% endif %}
 									</ul>
 									<a href="#">
 										<h3>{{object.name}}</h3>

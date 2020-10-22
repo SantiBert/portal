@@ -9,6 +9,7 @@ from django_filters.views import FilterView
 from .models import BookEntry
 from .forms import BookEntryForms
 from .filter import BookdminListFilter
+from blog.models import BlogEntry, BlogCategory
 
 # Create your views here.
 
@@ -60,5 +61,21 @@ class BookEntryDeleteView(DeleteView):
 
 
 class BookListView(ListView):
+    def get(self, request, *args, **kwargs):
+        try:
+            posts = BlogEntry.objects.filter(active=True)
+            categories = BlogCategory.objects.filter(is_active=True)
+            new_context = BookEntry.objects.filter(is_active=True)
+            context = {
+                'object_list': new_context,
+                'posts': posts,
+                'categories': categories,
+            }
+        except:
+            context = {}
+        return render(request, 'bookentry_list.html', context)
+
+    """
     model = BookEntry
     template_name = 'bookentry_list.html'
+    """

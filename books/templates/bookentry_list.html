@@ -1,14 +1,24 @@
 {% extends 'index.html' %}
 {% load static %}
-{% block title %}Páginas{% endblock %}
+{% block title %}Mis libros{% endblock %}
 
 {% block content %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-10 ml-auto mr-auto p-2">
-            <h2 class="title text-xl-center">Mis Libros</h2>
-            <br>
+<div class="site-main-container">
+        <div class="top-post-area pt-10">
+            <div class="container no-padding">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="hero-nav-area">
+                        <h1 class="text-white">Mis libros</h1>
+                        <p class="text-white link-nav"><a href="{% url 'index' %}">Inicio </a> <span
+                                class="lnr lnr-arrow-right"></span><a href="{% url 'mybooks' %}">Mis libros</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
             {% for object in object_list %}
             {% if forloop.counter|divisibleby:2 %}
 
@@ -63,6 +73,7 @@
             </div>
             {% endif %}
             {% endfor %}
+            </div>
         </div>
     </div>
 </div>

@@ -30,7 +30,7 @@
                 <a class="btn mt-30 w-100" href="{% url 'adminbook'%}">Lista de libros</a>
             </div>
             <div class="col-12 col-lg-6 text-center">
-                <a class="btn mt-30 w-100" href="{% url 'admincontact'%}">Mensajes</a>
+                <a class="btn mt-30 w-100" href="{% url 'admincontact'%}">Mensajes{% if total %}<span class="badge badge-dark">{{total}}</span>{% endif %}</a>
             </div>
             <div class="col-12 col-lg-6 text-center">
                 <a class="btn mt-30 w-100" href="{% url 'profile'%}">Mi perfil</a>

@@ -7,14 +7,15 @@ class BlogEntryForm(forms.ModelForm):
 
     class Meta:
         model = BlogEntry
-        fields = ['name', 'description', 'category', 'image_ref']
+        fields = ['name', 'description', 'category', 'image_ref', 'date']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Título'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
-            'category': forms.CheckboxSelectMultiple(),
+            'category': forms.CheckboxSelectMultiple(attrs={'class': 'custom-control custom-radio custom-control-inline'}),
+            'date':forms.TimeInput(attrs={'type': 'date'}),
         }
         labels = {
-            'name': '', 'description': '', 'category': '', 'image_ref': '',
+            'name': '', 'description': '', 'category': '', 'image_ref': '','date':'',
         }
 
 

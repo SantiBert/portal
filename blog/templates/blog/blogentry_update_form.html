@@ -20,11 +20,12 @@
           {% endif %}
           <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
             <table>
-              <ul>{{ form.name }}</ul>
-              <ul>{{ form.description }}</ul>
-              <ul>{{ form.category }}</ul>
-              <ul>{{ form.image_ref}}</ul>
+              <ul style="padding: 15px;">{{ form.name }}</ul>
+              <ul style="padding: 15px;">{{ form.description }}</ul>             
             </table>
+              <p>{{ form.category }}</p>
+              <br>
+              <p style="padding: 15px;">{{ form.image_ref }} {{ form.date }}</p>
             <div class="text-center">
               <input type="submit" class="btn btn-primary btn-block" value="Actualizar Post" />
             </div>

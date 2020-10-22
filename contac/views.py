@@ -4,6 +4,7 @@ from django.views.generic.detail import DetailView
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import HttpResponse, get_object_or_404
 
 from .forms import ContactForm
 from .models import Contact
@@ -52,3 +53,17 @@ class ContacAdminList(ListView):
 @method_decorator(login_required, name='dispatch')
 class ConctacAdminDetailView(DetailView):
     model = Contact
+    template_name = 'contact_detail.html'
+
+@method_decorator(login_required, name='dispatch')
+class ContactChangeStateView(View):    
+    def post(self, request, contact_id, *args, **kwargs):
+        try:
+            contact = Contact.objects.get(id=contact_id)
+            contact.state = not contact.state
+            contact.save()
+            return HttpResponse("ok", status=200)
+        except Contact.DoesNotExist:
+            return HttpResponse("Category not found", status=404)
+        except:
+            return HttpResponse("error code", status=500)

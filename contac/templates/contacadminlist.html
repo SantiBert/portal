@@ -20,13 +20,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        {% for object in object_list %}        
+      {% for object in object_list %} 
+      <tr id="switch-{{object.id}}">    
         <td>{{ object.name }}</td>
         <td>{{ object.lastname }}</td>
         <td>{{ object.issue }}</td>
         <td>{{ object.email }}</td>
-        <td> <button> Borrar </button> </td>
+        <td> <button onclick="changeState({{object.id}}, 'false')"> Borrar </button> </td>
         <td class="text-center">
           <p>           
             <a href="{% url 'admincontactdetail' object.id %}"> Ver </a>
@@ -39,4 +39,36 @@
   </div>
 
 
+  {% endblock %}
+{% block ExtraScript %}
+  <script>// Script para hacer la actualizacion dinamica del active de un blog
+
+    function changeState(blog_id, blogstate) {
+      var url = "{% url 'contactchangestate' 0 %}";
+      url = url.replace(0, blog_id);
+
+      $.ajax({
+        url: url,
+        method: "POST",
+        data: { "csrfmiddlewaretoken": '{{ csrf_token }}' },
+        success: function (data) {
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+          if (xhr.status == 404 || xhr.status == 500) {
+            var switch_id = "switch-" + contact_id;
+            if (teacherState == "false") {
+              $(switch_id ).remove();
+              }
+            if (xhr.status == 404) {
+              alert("No se encontro profesor (404)");
+            }
+            if (xhr.status == 500) {
+              alert("Error de conexion (500))");
+            }
+          }
+        },
+      });
+    }
+
+  </script>
   {% endblock %}

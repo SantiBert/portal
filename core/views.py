@@ -9,6 +9,7 @@ from django.urls import reverse_lazy
 from django import forms
 
 from blog.models import BlogEntry, BlogCategory
+from contac.models import Contact
 from .models import Profile
 from .forms import ProfileForm, EmailForm, NameUpdateForm
 
@@ -29,8 +30,12 @@ class IndexView(View):
 
 @method_decorator(login_required, name='dispatch')
 class AdministrationView(View):
-    def get(self, request):
-        return render(request, "administration.html")
+    def get(self, request, *args, **kwargs):
+        total = len(list(Contact.objects.filter(state=True)))
+        context = {
+            'total':total
+        }
+        return render(request, "administration.html", context)
 
 
 @method_decorator(login_required, name='dispatch')

@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Administración de libros{% endblock %}
+
+
+{% block content %}
+<div class="container" style="padding: 25px;">
+    <h2 class="text-center">Mensaje de {{ object.name }} {{ object.lastname }}</h1>
+            <h4>{{ object.issue }}</h4>
+            <br>
+            <h5>{{ object.email }}</h5>
+            <br>
+            <p>{{ object.messaje }}</p>
+
+</div>
+          
+        
+  {% endblock %}
