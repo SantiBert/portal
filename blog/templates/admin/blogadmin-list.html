@@ -4,8 +4,9 @@
 
 
 {% block content %}
+<div class="container">
 
-<h2> Lista de Blogs </h1>
+<h2 class="text-center"> Lista de Notas </h1>
 
   <div class="row-responsive" style="padding: 25px;">
     <form class="form-inline" method="get">
@@ -27,7 +28,7 @@
                   <button class="btn btn-primary btn-round" type="submit">Buscar</button>
                 </div>
                 <div class="p-3">
-                  <button class="btn btn-primary btn-round" type="reset">Limpiar</button>
+                  <button class="btn btn-primary btn-round" onclick="clear()" value="Reset form" >Limpiar</button>
                 </div>
               </div>
             </div>
@@ -107,7 +108,6 @@
   -->
   </div>
 
-
   {% endblock %}
 
 
@@ -147,5 +147,10 @@
       });
     }
 
+  </script>
+  <script>
+  function clear() {
+    document.getElementById("FORM-ID").reset();
+  }
   </script>
   {% endblock %}

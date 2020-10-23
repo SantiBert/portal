@@ -8,9 +8,9 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="hero-nav-area">
-					<h1 class="text-white">{{category.name}}</h1>
+					<h1 class="text-white">Resultado</h1>
 					<p class="text-white link-nav"><a href="{% url 'index' %}">Inicio </a> 
-					<span class="lnr lnr-arrow-right"></span><a href="{% url 'blog:categories' category.slug %}">{{category.name}}</a></p>
+					<span class="lnr lnr-arrow-right"></span><a href="#">Resultado</a></p>
 				</div>
 			</div>
 			<div class="col-lg-12">
@@ -29,7 +29,7 @@
 			<div class="col-lg-8 post-list">
 				<!-- Start latest-post Area -->
 				<div class="latest-post-wrap">
-					<h4 class="cat-title">{{category.name}}</h4>
+					<h4 class="cat-title">Latest News</h4>
 					{% for object in object_list %}
 					<div class="single-latest-post row align-items-center">
 						<div class="col-lg-5 post-left">

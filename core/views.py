@@ -5,6 +5,7 @@ from django.views.generic import CreateView, ListView
 from django.views.generic.edit import UpdateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django import forms
 
@@ -26,6 +27,18 @@ class IndexView(View):
         except:
             context = {}
         return render(request, 'index.html', context)
+
+class SearchView(View):
+    def post(self, request, *args, **kwargs):
+        queryset = request.POST.get("buscar")
+        if queryset:
+            posts = BlogEntry.objects.filter(
+                Q(name__icontains=queryset) |
+                Q(description__icontains=queryset),
+                active=True
+            ).distinct()
+
+        return render(request, 'results.html', {'object_list': posts})
 
 
 @method_decorator(login_required, name='dispatch')

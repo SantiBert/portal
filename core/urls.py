@@ -6,6 +6,7 @@ from .views import (ProfileUpdate,
                     NameUpdate,
                     IndexView,
                     AdministrationView,
+                    SearchView,
                     )
 
 urlpatterns = [
@@ -14,5 +15,6 @@ urlpatterns = [
     path('profile/', ProfileUpdate.as_view(), name="profile"),
     path('profile/email/', EmailUpdate.as_view(), name="profile_email"),
     path('profile/name/', NameUpdate.as_view(), name="profile_name"),
+    path('resultados/', SearchView.as_view(), name='search'),
 
 ]

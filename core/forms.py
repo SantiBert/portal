@@ -5,15 +5,15 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 
+
 class ProfileForm(forms.ModelForm):  # Formulario para editar perfil
 
     class Meta:
         model = Profile
-        fields = ['image', 'phone', 'description'
-                  ]
+        fields = ['image','description']
         widgets = {
             'image': forms.ClearableFileInput(),
-            'phone': forms.Textarea(attrs={'class': 'form-control mt-3', 'rows': 3, 'placeholder': 'Numero de telefono'}),
+            #'phone': forms.Textarea(attrs={'class': 'form-control mt-3', 'rows': 3, 'placeholder': 'Numero de telefono'}),
             'description': forms.Textarea(attrs={'class': 'form-control mt-3', 'placeholder': 'Descripción'})
         }
 
