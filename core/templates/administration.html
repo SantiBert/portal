@@ -4,37 +4,55 @@
 <div class="contact-area section-padding-0-80">
     <div class="container">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 p-3">
                 <div class="contact-title">
-                    <h2>Adminitración</h2>
+                    <h2 class="text-center">Administración</h2>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-12 col-lg-6 text-center">
-                <a class="btn mt-30 w-100" href="{% url 'blog:create' %}">Crear Una nota</a>
+                <div class="dropdown p-3">
+                    <button type="button" class="btn btn-primary dropdown-toggle btn-block" data-toggle="dropdown">
+                        Notas
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'blog:create' %}">Crear Una nota</a>
+                        <a class="dropdown-item" href="{% url 'blogAdmin:blogAdminList' %}">Lista de notas</a>
+                    </div>
+                </div>
             </div>
             <div class="col-12 col-lg-6 text-center">
-                <a class="btn mt-30 w-100" href="{% url 'blog:category' %}">Crear Una Categoria</a>
+                <div class="dropdown p-3">
+                    <button type="button" class="btn btn-primary dropdown-toggle btn-block" data-toggle="dropdown">
+                        Categorias
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'blog:category' %}">Crear Una Categoria</a>
+                        <a class="dropdown-item" href="{% url 'blog:categories' %}">Lista de categorias</a>
+                    </div>
+                </div>
             </div>
             <div class="col-12 col-lg-6 text-center">
-                <a class="btn mt-30 w-100" href="{% url 'blogAdmin:blogAdminList' %}">Lista de notas</a>
+                <div class="dropdown p-3">
+                    <button type="button" class="btn btn-primary dropdown-toggle btn-block" data-toggle="dropdown">
+                        Libros
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'bookentry'%}">Ingresar un libro</a>
+                        <a class="dropdown-item" href="{% url 'adminbook'%}">Lista de libros</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6 text-center">
+                <a class="btn btn-outline-primary mt-30 w-100 btn-block"
+                    href="{% url 'admincontact'%}">Mensajes{% if total %}<span
+                        class="badge badge-dark">{{total}}</span>{% endif %}</a>
             </div>
             <div class="col-12 col-lg-6 text-center">
-                <a class="btn mt-30 w-100" href="{% url 'blog:categories' %}">Lista de categorias</a>
+                <a class="btn btn-outline-primary mt-30 w-100 btn-block" href="{% url 'profile'%}">Mi perfil</a>
             </div>
-            <div class="col-12 col-lg-6 text-center">
-                <a class="btn mt-30 w-100" href="{% url 'bookentry'%}">Ingresar libros</a>
-            </div>
-            <div class="col-12 col-lg-6 text-center">
-                <a class="btn mt-30 w-100" href="{% url 'adminbook'%}">Lista de libros</a>
-            </div>
-            <div class="col-12 col-lg-6 text-center">
-                <a class="btn mt-30 w-100" href="{% url 'admincontact'%}">Mensajes{% if total %}<span class="badge badge-dark">{{total}}</span>{% endif %}</a>
-            </div>
-            <div class="col-12 col-lg-6 text-center">
-                <a class="btn mt-30 w-100" href="{% url 'profile'%}">Mi perfil</a>
-            </div>            
         </div>
 
 

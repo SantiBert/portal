@@ -2,8 +2,7 @@ import uuid
 
 from django.urls import path
 
-from .views import (BlogEntryListView,
-                    BlogEntryDetailView,
+from .views import (BlogEntryDetailView,
                     BlogEntryUpdateView,
                     BlogEntryCreateView,
                     BlogEntryDeleteView,
@@ -18,7 +17,6 @@ from .views import (BlogEntryListView,
 
 
 blog_patterns = ([
-    path('', BlogEntryListView.as_view(), name='blogs'),
     path('<int:pk>/<slug:slug>/', BlogEntryDetailView.as_view(), name='blog'),
     path('create/', BlogEntryCreateView.as_view(), name='create'),
     path('update/<int:pk>/', BlogEntryUpdateView.as_view(), name='update'),

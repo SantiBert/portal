@@ -16,13 +16,15 @@ from .forms import ProfileForm, EmailForm, NameUpdateForm
 
 
 class IndexView(View):
-    def get(self, request, *args, **kwargs):
+    def get(self, request,*args, **kwargs):
         try:
             posts = BlogEntry.objects.filter(active=True)
             categories = BlogCategory.objects.filter(is_active=True)
+            about = Profile.objects.all()
             context = {
                 'posts': posts,
                 'categories': categories,
+                'about':about
             }
         except:
             context = {}

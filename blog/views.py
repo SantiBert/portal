@@ -33,6 +33,7 @@ class BlogEntryDetailView(DetailView):
 
 
 class BlogEntryCategoryList(ListView):
+    paginate_by = 10
 
     def get(self, request, slug, *args, **kwargs):
         try:

@@ -9,13 +9,9 @@
 			<div class="col-lg-12">
 				<div class="hero-nav-area">
 					<h1 class="text-white">{{category.name}}</h1>
-					<p class="text-white link-nav"><a href="{% url 'index' %}">Inicio </a> 
-					<span class="lnr lnr-arrow-right"></span><a href="{% url 'blog:categories' category.slug %}">{{category.name}}</a></p>
-				</div>
-			</div>
-			<div class="col-lg-12">
-				<div class="news-tracker-wrap">
-					<h6><span>Breaking News:</span> <a href="#">Astronomy Binoculars A Great Alternative</a></h6>
+					<p class="text-white link-nav"><a href="{% url 'index' %}">Inicio </a>
+						<span class="lnr lnr-arrow-right"></span><a
+							href="{% url 'blog:categories' category.slug %}">{{category.name}}</a></p>
 				</div>
 			</div>
 		</div>
@@ -54,23 +50,40 @@
 								<h4>{{ object.name }}</h4>
 							</a>
 							<ul class="meta">
-								<li><a href="#"><span class="lnr lnr-user"></span>{{object.user.get_full_name}}</a></li>
-								<li><a href="#"><span class="lnr lnr-calendar-full"></span>{{ object.date.date }}</a></li>
+								<li><a><span class="lnr lnr-user"></span>{{object.user.get_full_name}}</a></li>
+								<li><a><span class="lnr lnr-calendar-full"></span>{{ object.date.date }}</a></li>
 							</ul>
 							<p class="excert">
 								{{object.description|striptags|safe|truncatechars:"300"}}
 							</p>
 							{% if request.user.is_authenticated %}
-						 <p>
-            				<a href="{% url 'blog:update' object.id %}"> Editar </a>
-          				</p>
-						{% endif %}
+							<p>
+								<a href="{% url 'blog:update' object.id %}"> Editar </a>
+							</p>
+							{% endif %}
 						</div>
 					</div>
 					{% endfor %}
 
 				</div>
 				<!-- End latest-post Area -->
+				<div class="pagination">
+					<span class="step-links">
+						{% if page_obj.has_previous %}
+						<a href="?page=1">&laquo; first</a>
+						<a href="?page={{ page_obj.previous_page_number }}">previous</a>
+						{% endif %}
+
+						<span class="current">
+							Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+						</span>
+
+						{% if page_obj.has_next %}
+						<a href="?page={{ page_obj.next_page_number }}">next</a>
+						<a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+						{% endif %}
+					</span>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -1,71 +1,72 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block title %}{{object.name}}{% endblock %}
-			{% block content %}
-			<!-- Start top-post Area -->
-			<section class="top-post-area pt-10">
-				<div class="container no-padding">
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="hero-nav-area">
-								<h1 class="text-white">{{object.name}}</h1>
-								<p class="text-white link-nav"><a href="{% url 'index' %}">Inicio </a>  <span class="lnr lnr-arrow-right"></span>{% for cat in object.category.all %}<a href="{% url 'blog:categories' cat.slug %}">{{ cat }} </a>{% endfor %}</p>
-							</div>
-						</div>
-						<div class="col-lg-12">
-							<div class="news-tracker-wrap">
-								<h6><span>Breaking News:</span>   <a href="#">Astronomy Binoculars A Great Alternative</a></h6>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-			<!-- End top-post Area -->
-			<!-- Start latest-post Area -->
-			<section class="latest-post-area pb-120">
-				<div class="container no-padding">
-					<div class="row">
-						<div class="col-lg-8 post-list">
-							<!-- Start single-post Area -->
-							<div class="single-post-wrap">
-								<div class="feature-img-thumb relative">
-									<div class="overlay overlay-bg"></div>
-									<img class="img-fluid" src="{{object.image_ref.url}}" alt="">
-								</div>
-								<div class="content-wrap">
-									<ul class="tags mt-10">
-										{% for cat in object.category.all %}
-										<li><a href="{% url 'blog:categories' cat.slug %}">{{ cat }}</a></li>
-										{% endfor %}
-										{% if request.user.is_authenticated %}
-						 				<li><a href="{% url 'blog:update' object.id %}"> Editar </a></li>
-										{% endif %}
-									</ul>
-									<a href="#">
-										<h3>{{object.name}}</h3>
-									</a>
-									<ul class="meta pb-20">
-										<li><a href="#"><span class="lnr lnr-user"></span>{{object.user.get_full_name}}</a></li>
-										<li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>										
-									</ul>
-									{{object.description|safe}}
-								
-									<div class="blog-post-author d-flex">
-										<div class="author-thumbnail">
-											<img src="{{object.user.Profile.image.url}}" width="70px" >
-										</div>
-										<div class="author-info">
-											<a class="author-name"> {{object.user.get_full_name}}</a>
-											<p>{{object.user.Profile.description}}</p>
-										</div>
-									</div>
-							</div>
-						</div>
-						<!-- End single-post Area -->
-					</div>
+{% block content %}
+<!-- Start top-post Area -->
+<section class="top-post-area pt-10">
+	<div class="container no-padding">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="hero-nav-area">
+					<h1 class="text-white">{{object.name}}</h1>
+					<p class="text-white link-nav"><a href="{% url 'index' %}">Inicio </a> <span
+							class="lnr lnr-arrow-right"></span>{% for cat in object.category.all %}<a
+							href="{% url 'blog:categories' cat.slug %}">{{ cat }} </a>{% endfor %}</p>
 				</div>
 			</div>
-		</section>
-		<!-- End latest-post Area -->
-		{% endblock %}
-	
+			<div class="col-lg-12">
+				<div class="news-tracker-wrap">
+					<h6><span>Breaking News:</span> <a href="#">Astronomy Binoculars A Great Alternative</a></h6>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- End top-post Area -->
+<!-- Start latest-post Area -->
+<section class="latest-post-area pb-120">
+	<div class="container no-padding">
+		<div class="row">
+			<div class="col-lg-8 post-list">
+				<!-- Start single-post Area -->
+				<div class="single-post-wrap">
+					<div class="feature-img-thumb relative">
+						<div class="overlay overlay-bg"></div>
+						<img class="img-fluid" src="{{object.image_ref.url}}" alt="">
+					</div>
+					<div class="content-wrap">
+						<ul class="tags mt-10">
+							{% for cat in object.category.all %}
+							<li><a href="{% url 'blog:categories' cat.slug %}">{{ cat }}</a></li>
+							{% endfor %}
+							{% if request.user.is_authenticated %}
+							<li><a href="{% url 'blog:update' object.id %}"> Editar </a></li>
+							{% endif %}
+						</ul>
+						<a href="#">
+							<h3>{{object.name}}</h3>
+						</a>
+						<ul class="meta pb-20">
+							<li><a><span class="lnr lnr-user"></span>{{object.user.get_full_name}}</a></li>
+							<li><a><span class="lnr lnr-calendar-full"></span>{{ object.date.date }}</a></li>
+						</ul>
+						{{object.description|safe}}
+
+						<div class="blog-post-author d-flex">
+							<div class="author-thumbnail">
+								<img src="{{object.user.Profile.image.url}}" width="70px">
+							</div>
+							<div class="author-info">
+								<a class="author-name"> {{object.user.get_full_name}}</a>
+								<p>{{object.user.Profile.description}}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End single-post Area -->
+			</div>
+		</div>
+	</div>
+</section>
+<!-- End latest-post Area -->
+{% endblock %}
