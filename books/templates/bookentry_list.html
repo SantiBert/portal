@@ -5,8 +5,8 @@
 {% block content %}
 
 <div class="site-main-container">
-        <div class="top-post-area pt-10">
-            <div class="container no-padding">
+    <div class="top-post-area pt-10">
+        <div class="container no-padding">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="hero-nav-area">
@@ -19,60 +19,62 @@
         </div>
         <div class="container">
             <div class="row">
-            {% for object in object_list %}
-            {% if forloop.counter|divisibleby:2 %}
+                {% for object in object_list %}
+                {% if forloop.counter|divisibleby:2 %}
 
-            <div class="card">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="feature-img relative p-2">
-                            {% if object.image %}
-                            <img class="img" src="{{object.image.url}}" height="189px">
-                            {% else %}
-                            <img class="img" src="{% static './assets/img/image_placeholder.jpg'%}">
-                            {% endif %}
+                <div class="card">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="feature-img relative p-2">
+                                {% if object.image %}
+                                <img class="img" src="{{object.image.url}}" height="189px">
+                                {% else %}
+                                <img class="img" src="{% static './assets/img/image_placeholder.jpg'%}">
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-7">
-                        <h3 class="title" style="padding: 10px;">
-                            {{object.name}}
-                        </h3>
-                        <p class="card-description" style="padding: 10px;">
-                            {{object.description|striptags|safe}}
-                            <br>
-                        <p style="padding: 10px;">Puedes descargarlo aquí</p>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            {% else %}
-
-            <div class="card">
-                <div class="row">
-                    <div class="col-md-7">
-                        <h3 class="title" style="padding: 10px;">
-                            {{object.name}}
-                        </h3>
-                        <p class="description" style="padding: 10px;">
-                            {{object.description|striptags|safe}}
-                            <br>
-                        <p style="padding: 10px;">Puedes descargarlo <a href="/media/{{ object.link }}" download>aqui</a></p>
-                        </p>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="feature-img relative p-2">
-                            {% if object.image %}
-                            <img class="img" src="{{object.image.url}}" height="189px">
-                            {% else %}
-                            <img class="img" src="{% static './assets/img/image_placeholder.jpg'%}">
-                            {% endif %}
+                        <div class="col-md-7">
+                            <h3 class="title" style="padding: 10px;">
+                                {{object.name}}
+                            </h3>
+                            <p class="card-description" style="padding: 10px;">
+                                {{object.description|striptags|safe}}
+                                <br>
+                            <p style="padding: 10px;">Puedes descargarlo <a href="/media/{{ object.link }}"
+                                    download>aqui</a></p>
+                            </p>
                         </div>
                     </div>
                 </div>
-            </div>
-            {% endif %}
-            {% endfor %}
+
+                {% else %}
+
+                <div class="card">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h3 class="title" style="padding: 10px;">
+                                {{object.name}}
+                            </h3>
+                            <p class="description" style="padding: 10px;">
+                                {{object.description|striptags|safe}}
+                                <br>
+                            <p style="padding: 10px;">Puedes descargarlo <a href="/media/{{ object.link }}"
+                                    download>aqui</a></p>
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature-img relative p-2">
+                                {% if object.image %}
+                                <img class="img" src="{{object.image.url}}" height="189px">
+                                {% else %}
+                                <img class="img" src="{% static './assets/img/image_placeholder.jpg'%}">
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
     </div>

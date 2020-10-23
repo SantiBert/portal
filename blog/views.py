@@ -103,9 +103,7 @@ class BlogCategoryUpdateView(UpdateView):
     model = BlogCategory
     form_class = BlogCategoryEntryForm
     template_name_suffix = '_update_form'
-
-    def get_success_url(self):
-        return reverse_lazy('blog:categories', args=[self.object.id]) + '?ok'
+    success_url = reverse_lazy('blog:listcategories')
 
 
 @method_decorator(login_required, name='dispatch')

@@ -22,7 +22,7 @@ blog_patterns = ([
     path('update/<int:pk>/', BlogEntryUpdateView.as_view(), name='update'),
     path('delete/<int:pk>/',  BlogEntryDeleteView.as_view(), name='delete'),
     path('category/',  BlogCategoryCreate.as_view(), name='category'),
-    path('categories/', BlogCategoryListView.as_view(), name='categories'),
+    path('categories/', BlogCategoryListView.as_view(), name='listcategories'),
     path('category/update/<str:slug>/',
          BlogCategoryUpdateView.as_view(), name='categoryUpdate'),
     path('categories/delete/<str:category_id>/',

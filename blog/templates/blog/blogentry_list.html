@@ -6,86 +6,86 @@
 
 <a href="{% url 'blog:create' %}"><button type="button"> Crear blog</button></a>
 <div class="blogs-1" id="blogs-1">
-        <div class="container">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 ml-auto mr-auto">
+        <h2 class="title">Notas mas recientes</h2>
+
+        <br>
+        {% for object in object_list %}
+        {% if forloop.counter|divisibleby:2 %}
+
+        <div class="card card-plain card-blog">
           <div class="row">
-            <div class="col-md-10 ml-auto mr-auto">
-              <h2 class="title">Latest Blogposts</h2>
-              
-              <br>
-              {% for object in object_list %}
-              {% if forloop.counter|divisibleby:2 %}
-
-              <div class="card card-plain card-blog">
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="card-header card-header-image">
-                      {% if object.image_ref %}                         
-                        <img class="img" src="{{object.image_ref.url}}">
-                      {% else %}
-                        <img class="img" src="{% static './assets/img/image_placeholder.jpg'%}">
-                      {% endif %}
-                    </div>
-                  </div>
-                  <div class="col-md-7">
-                    {% for category in object.category.all %}
-                    <h6 class="card-category text-info">{{ category }}</h6>
-                    {% endfor %}
-                    <h3 class="card-title">
-                      <a href="asdf2">{{object.name}}</a>
-                    </h3>
-                    <p class="card-description">
-                      {{object.description|striptags|safe|truncatechars:"300"}}
-                      <a href="{% url 'blog:blog' object.id object.name|slugify %}"> Leer más </a>
-                    </p>
-                    <p class="author">
-                      by
-                      <a href="asdf3">
-                      <a >
-                        <b>{{object.user.username}}</b>
-                      </a>
-                    </p>
-                  </div>
-                </div>
+            <div class="col-md-4">
+              <div class="card-header card-header-image">
+                {% if object.image_ref %}
+                <img class="img" src="{{object.image_ref.url}}">
+                {% else %}
+                <img class="img" src="{% static './assets/img/image_placeholder.jpg'%}">
+                {% endif %}
               </div>
-
-              {% else %}
-
-              <div class="card card-plain card-blog">
-                <div class="row">
-                  <div class="col-md-7">
-                    {% for category in object.category.all %}
-                    <h6 class="card-category text-info">{{ category }}</h6>
-                    {% endfor %}
-                    <h3 class="card-title">
-                      <a href="asdf4">{{object.name}}</a>
-                    </h3>
-                    <p class="card-description">
-                      {{object.description|striptags|safe|truncatechars:"300"}}
-                      <a href="{% url 'blog:blog' object.id object.name|slugify %}"> Leer más </a>
-                    </p>
-                    <p class="author">
-                      by
-                      <a href="asdf5">
-                        <b>{{object.user.username}}</b>
-                      </a>, 2 days ago
-                    </p>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="card-header card-header-image">
-                          {% if object.image_ref %}                         
-                        <img class="img" src="{{object.image_ref.url}}">
-                      {% else %}
-                        <img class="img" src="{% static './assets/img/image_placeholder.jpg'%}">
-                      {% endif %}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {% endif %}
+            </div>
+            <div class="col-md-7">
+              {% for category in object.category.all %}
+              <h6 class="card-category text-info">{{ category }}</h6>
               {% endfor %}
+              <h3 class="card-title">
+                <a href="asdf2">{{object.name}}</a>
+              </h3>
+              <p class="card-description">
+                {{object.description|striptags|safe|truncatechars:"300"}}
+                <a href="{% url 'blog:blog' object.id object.name|slugify %}"> Leer más </a>
+              </p>
+              <p class="author">
+                by
+                <a href="asdf3">
+                  <a>
+                    <b>{{object.user.username}}</b>
+                  </a>
+              </p>
             </div>
           </div>
         </div>
+
+        {% else %}
+
+        <div class="card card-plain card-blog">
+          <div class="row">
+            <div class="col-md-7">
+              {% for category in object.category.all %}
+              <h6 class="card-category text-info">{{ category }}</h6>
+              {% endfor %}
+              <h3 class="card-title">
+                <a href="asdf4">{{object.name}}</a>
+              </h3>
+              <p class="card-description">
+                {{object.description|striptags|safe|truncatechars:"300"}}
+                <a href="{% url 'blog:blog' object.id object.name|slugify %}"> Leer más </a>
+              </p>
+              <p class="author">
+                by
+                <a href="asdf5">
+                  <b>{{object.user.username}}</b>
+                </a>, 2 days ago
+              </p>
+            </div>
+            <div class="col-md-4">
+              <div class="card-header card-header-image">
+                {% if object.image_ref %}
+                <img class="img" src="{{object.image_ref.url}}">
+                {% else %}
+                <img class="img" src="{% static './assets/img/image_placeholder.jpg'%}">
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
       </div>
-      {% endblock %}
-      <!--     *********    END BLOGS 1      *********      -->
+    </div>
+  </div>
+</div>
+{% endblock %}
+<!--     *********    END BLOGS 1      *********      -->
