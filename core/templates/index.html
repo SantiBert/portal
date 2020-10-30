@@ -35,23 +35,18 @@
 <body>
 	<header>
 
-		<div class="header-top">
+		<div class="header-top" style="background-color: #0B3182;">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-6 col-md-6 col-sm-6 col-6 header-top-left no-padding">
-						<ul>
-							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#"><i class="fa fa-instragram"></i></a></li>
-						</ul>
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-6 header-top-right no-padding">
 						<ul>
 							{% if not request.user.is_authenticated %}
-							<a href="{% url 'login'%}" style="padding: 15px;">Iniciar secion</a>
+							<a href="{% url 'login'%}" style="padding: 15px; color: white;">Iniciar secion</a>
 							{% elif  request.user.is_authenticated %}
-							<a href="{% url 'logout'%}" style="padding: 15px;">Cerrar secion</a>
-							<a href="{% url 'administration'%}" style="padding: 15px;">Aministrador</a>
+							<a href="{% url 'logout'%}" style="padding: 15px; color: white;">Cerrar secion</a>
+							<a href="{% url 'administration'%}" style="padding: 15px; color: white;">Aministrador</a>
 							{% endif %}
 						</ul>
 					</div>
@@ -63,12 +58,12 @@
 				<div class="row justify-content-between align-items-center">
 					<div class="col-lg-4 col-md-4 col-sm-12 logo-left no-padding">
 						<a href="{% url 'index' %}">
-							<img class="img-fluid" src="{% static 'img/DELMA 1.png'%}" alt="">
+							<img class="img-fluid" src="{% static 'img/DELMA 2.png'%}" alt="">
 						</a>
 					</div>
 					<div class="col-lg-8 col-md-8">
 						<h1 style="font-style: italic; padding: 5px;">Oscar J. Delmastro Ingaramo</h1>
-						<h4 style="font-style: italic; padding: 5px;">La Comunicación nos hermana</h3>
+						<h4 style="font-style: italic; padding: 5px;">LA COMUNICACIÓN NOS HERMANA</h3>
 							<blockquote class="blockquote">
 								<p class="mb-0" style="font-size:15px;">"No estoy de acuerdo con lo que dices, pero
 									defenderé
@@ -80,39 +75,15 @@
 				</div>
 			</div>
 		</div>
-		<div class="container main-menu" id="main-menu">
-			<div class="row align-items-center justify-content-between">
-				<nav id="nav-menu-container">
-					<ul class="nav-menu">
-						<li class="menu-active"><a href="{% url 'index' %}">Inicio</a></li>
-						{% for category in categories %}
-						<li><a href="{% url 'blog:categories' category.slug %}">{{ category.name }}</a></li>
-						{% endfor %}
-						<li><a href="{% url 'mybooks' %}">Mis libros</a></li>
-						<li><a href="{% url 'contact_us' %}">Contáctenos</a></li>
-					</ul>
-				</nav><!-- #nav-menu-container -->
-				<div class="navbar-right">
-					<div class="col-lg-8 col-md-8 col-sm-12">
-						<form method="POST" action="{%url 'search'%}">
-							<div class="form-group d-flex">
-								{% csrf_token %}
-								<input type="text" class="form-control" name="buscar">
-								<button type="submit" class="btn btn-danger text-white"><span
-										class="lnr lnr-magnifier"></span></button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
+		{% include 'includes/navbar.html'%}
 	</header>
 
 	<div class="site-main-container">
-		{% block content %}
+
 		<!-- Start top-post Area -->
 		<section class="top-post-area pt-10">
 			<div class="container no-padding">
+				{% block content %}
 				<div class="row small-gutters">
 					<div class="col-lg-8 top-post-left">
 						<div class="feature-image-thumb relative">
@@ -184,7 +155,7 @@
 					<div class="col-lg-8 post-list">
 						<!-- Start latest-post Area -->
 						<div class="latest-post-wrap">
-							<h4 class="cat-title">Latest News</h4>
+							<h4 class="cat-title" style="background-color: #0B3182;">Latest News</h4>
 							<div class="single-latest-post row align-items-center">
 								<div class="col-lg-5 post-left">
 									<div class="feature-img relative">
@@ -301,7 +272,7 @@
 						<!-- End popular-post Area -->
 						<!-- Start relavent-story-post Area -->
 						<div class="relavent-story-post-wrap mt-30">
-							<h4 class="title">Relavent Stories</h4>
+							<h4 class="title" style="background-color: #0B3182;">Relavent Stories</h4>
 							<div class="relavent-story-list-wrap">
 								<div class="single-relavent-post row align-items-center">
 									<div class="col-lg-5 post-left">
@@ -388,126 +359,25 @@
 						</div>
 						<!-- End relavent-story-post Area -->
 					</div>
-					<div class="col-lg-4">
-						<div class="sidebars-area">
-							<div class="single-sidebar-widget most-popular-widget">
-								<h6 class="title">Most Popular</h6>
-								<div class="single-list flex-row d-flex">
-									<div class="thumb">
-										<img src="{% static 'img/m1.jpg'%}" alt="">
-									</div>
-									<div class="details">
-										<a href="image-post.html">
-											<h6>Help Finding Information
-												Online is so easy</h6>
-										</a>
-										<ul class="meta">
-											<li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April,
-													2018</a></li>
-											<li><a href="#"><span class="lnr lnr-bubble"></span>06</a></li>
-										</ul>
-									</div>
-								</div>
-								<div class="single-list flex-row d-flex">
-									<div class="thumb">
-										<img src="{% static 'img/m2.jpg'%}" alt="">
-									</div>
-									<div class="details">
-										<a href="image-post.html">
-											<h6>Compatible Inkjet Cartr
-												world famous</h6>
-										</a>
-										<ul class="meta">
-											<li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April,
-													2018</a></li>
-											<li><a href="#"><span class="lnr lnr-bubble"></span>06</a></li>
-										</ul>
-									</div>
-								</div>
-								<div class="single-list flex-row d-flex">
-									<div class="thumb">
-										<img src="{% static 'img/m3.jpg'%}" alt="">
-									</div>
-									<div class="details">
-										<a href="image-post.html">
-											<h6>5 Tips For Offshore Soft
-												Development </h6>
-										</a>
-										<ul class="meta">
-											<li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April,
-													2018</a></li>
-											<li><a href="#"><span class="lnr lnr-bubble"></span>06</a></li>
-										</ul>
-									</div>
-								</div>
-								<div class="single-list flex-row d-flex">
-									<div class="thumb">
-										<img src="img/m4.jpg" alt="">
-									</div>
-									<div class="details">
-										<a href="image-post.html">
-											<h6>5 Tips For Offshore Soft
-												Development </h6>
-										</a>
-										<ul class="meta">
-											<li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April,
-													2018</a></li>
-											<li><a href="#"><span class="lnr lnr-bubble"></span>06</a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="single-sidebar-widget social-network-widget">
-								<h6 class="title">Social Networks</h6>
-								<ul class="social-list">
-									<li class="d-flex justify-content-between align-items-center fb">
-										<div class="icons d-flex flex-row align-items-center">
-											<i class="fa fa-facebook" aria-hidden="true"></i>
-											<p>983 Likes</p>
-										</div>
-										<a href="#">Like our page</a>
-									</li>
-									<li class="d-flex justify-content-between align-items-center tw">
-										<div class="icons d-flex flex-row align-items-center">
-											<i class="fa fa-twitter" aria-hidden="true"></i>
-											<p>983 Followers</p>
-										</div>
-										<a href="#">Follow Us</a>
-									</li>
-									<li class="d-flex justify-content-between align-items-center yt">
-										<div class="icons d-flex flex-row align-items-center">
-											<i class="fa fa-youtube-play" aria-hidden="true"></i>
-											<p>983 Subscriber</p>
-										</div>
-										<a href="#">Subscribe</a>
-									</li>
-									<li class="d-flex justify-content-between align-items-center rs">
-										<div class="icons d-flex flex-row align-items-center">
-											<i class="fa fa-rss" aria-hidden="true"></i>
-											<p>983 Subscribe</p>
-										</div>
-										<a href="#">Subscribe</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
+					{% include 'includes/lateral.html'%}
+					{% endblock content %}
 				</div>
 			</div>
 		</section>
 		<!-- End latest-post Area -->
 	</div>
-	{% endblock content %}
+
+
 	<!-- start footer Area -->
-	<footer class="footer-area section-gap">
+	<footer class="footer-area section-gap" style="background-color: #0B3182;">
 		<div class="container">
 			<div class="row mb-5">
 				<div class="col-md-4">
-					<h3 class="footer-heading mb-4 text-danger">Nosotros</h3>
+					<h3 class="footer-heading mb-4 text-white">Nosotros</h3>
 					<p>{{post.user.Profile.description}}</p>
 				</div>
 				<div class="col-lg-2 col-md-6 single-footer-widget">
-					<h3 class="footer-heading mb-4 text-danger">Menú Rápido</h3>
+					<h3 class="footer-heading mb-4 text-white">Menú Rápido</h3>
 					<ul class="list-unstyled float-left ">
 						{% for category in categories %}
 						<li><a href="{% url 'blog:categories' category.slug %}"

@@ -1,0 +1,27 @@
+{% load static %}
+<div class="container main-menu" id="main-menu" style="background-color: #0B3182;">
+    <div class="row align-items-center justify-content-between">
+        <nav id="nav-menu-container">
+            <ul class="nav-menu">
+                <li class="menu-active"><a href="{% url 'index' %}">Inicio</a></li>
+                {% for category in categories %}
+                <li><a href="{% url 'blog:categories' category.slug %}">{{ category.name }}</a></li>
+                {% endfor %}
+                <li><a href="{% url 'mybooks' %}">Mis libros</a></li>
+                <li><a href="{% url 'contact_us' %}">Contáctenos</a></li>
+            </ul>
+        </nav><!-- #nav-menu-container -->
+        <div class="navbar-right">
+            <div class="col-lg-8 col-md-8 col-sm-12">
+                <form method="POST" action="{%url 'search'%}">
+                    <div class="form-group d-flex">
+                        {% csrf_token %}
+                        <input type="text" class="form-control" name="buscar">
+                        <button type="submit" class="btn btn-danger text-white"><span
+                                class="lnr lnr-magnifier"></span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

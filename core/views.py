@@ -16,19 +16,50 @@ from .forms import ProfileForm, EmailForm, NameUpdateForm
 
 
 class IndexView(View):
-    def get(self, request,*args, **kwargs):
+    def get(self, request, *args, **kwargs):
         try:
-            posts = BlogEntry.objects.filter(active=True)
+            posts = BlogEntry.objects.filter(active=True).order_by('-date')
             categories = BlogCategory.objects.filter(is_active=True)
-            about = Profile.objects.all()
+            featured = BlogEntry.objects.filter(
+                active=True, featured=True).order_by('-date')
+            recientes = BlogEntry.objects.filter(
+                active=True).order_by('-date')[:3]
+
             context = {
                 'posts': posts,
                 'categories': categories,
-                'about':about
+                'featured': featured,
+                'recientes': recientes,
             }
         except:
             context = {}
         return render(request, 'index.html', context)
+
+
+class LateralView(ListView):
+    def get(self, request, *args, **kwargs):
+        try:
+            featured = BlogEntry.objects.filter(
+                active=True, featured=True).order_by('-date')
+            context = {
+                'featured': featured
+            }
+        except:
+            context = {}
+        return render(request, 'includes/lateral.html', context)
+
+
+class NavbarView(View):
+    def get(self, request, *args, **kwargs):
+        try:
+            categories = BlogCategory.objects.filter(is_active=True)
+            context = {
+                'categories': categories,
+            }
+        except:
+            context = {}
+        return render(request, 'templates/includes/navbar.html', context)
+
 
 class SearchView(View):
     def post(self, request, *args, **kwargs):
@@ -48,7 +79,7 @@ class AdministrationView(View):
     def get(self, request, *args, **kwargs):
         total = len(list(Contact.objects.filter(state=True)))
         context = {
-            'total':total
+            'total': total
         }
         return render(request, "administration.html", context)
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic.list import View, ListView
-from django.views.generic.detail import DetailView
+from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
@@ -30,6 +30,17 @@ class BlogEntryListView(ListView):
 class BlogEntryDetailView(DetailView):
     # Vista del contendido de cada post
     model = BlogEntry
+    template_name = 'blog/blogentry_detail.html'
+    slug_field = 'pk'
+
+    def get_context_data(self, **kwargs):
+        context = super(BlogEntryDetailView, self).get_context_data(**kwargs)
+        context['categories'] = BlogCategory.objects.filter(is_active=True)
+        context['featured'] = BlogEntry.objects.filter(
+            active=True, featured=True).order_by('-date')
+
+        # other code
+        return context
 
 
 class BlogEntryCategoryList(ListView):
@@ -40,12 +51,16 @@ class BlogEntryCategoryList(ListView):
             posts = BlogEntry.objects.filter(active=True)
             categories = BlogCategory.objects.filter(is_active=True)
             category = BlogCategory.objects.get(slug=slug)
-            new_context = BlogEntry.objects.filter(category=category, active=True)
+            featured = BlogEntry.objects.filter(
+                active=True, featured=True).order_by('-date')
+            new_context = BlogEntry.objects.filter(
+                category=category, active=True).order_by('-date')
             context = {
                 'object_list': new_context,
                 'posts': posts,
                 'categories': categories,
-                'category': category
+                'category': category,
+                'featured': featured,
             }
         except:
             context = {}
@@ -150,6 +165,27 @@ class BlogChangeStateView(View):
                 audit_description = f"Se activa el Blog :{blog_id}"
             else:
                 audit_description = f"Se desactiva el Blog :{blog_id}"
+            Audits.audit_action(request.user, "", audit_description, "DELETE")
+            return HttpResponse("ok", status=200)
+        except BlogEntry.DoesNotExist:
+            return HttpResponse("Blog not found", status=404)
+        except Exception as e:
+            print(e)
+            return HttpResponse("error code", status=500)
+
+
+@method_decorator(login_required, name='dispatch')
+class BlogChangeFeaturedView(View):
+    # Cambia el estado de un blog, usado en el jquerry de blogadmin-list.html
+    def post(self, request, blog_id, *args, **kwargs):
+        try:
+            blog = BlogEntry.objects.get(id=blog_id)
+            blog.featured = not blog.featured
+            blog.save()
+            if blog.featured:
+                audit_description = f"El blog esta en destacados :{blog_id}"
+            else:
+                audit_description = f"El blog no esta en destacados :{blog_id}"
             Audits.audit_action(request.user, "", audit_description, "DELETE")
             return HttpResponse("ok", status=200)
         except BlogEntry.DoesNotExist:
