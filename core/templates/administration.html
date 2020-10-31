@@ -1,8 +1,8 @@
-{% extends 'index.html' %}
+{% extends 'baseregistration.html' %}
 {% block title %}Adminitración{% endblock %}
 {% block content %}
 <div class="contact-area section-padding-0-80">
-    <div class="container">
+    <div class="container p-3" style="background-color: oldlace;">
         <div class="row">
             <div class="col-12 p-3">
                 <div class="contact-title">
@@ -49,6 +49,11 @@
                 <a class="btn btn-outline-primary mt-30 w-100 btn-block"
                     href="{% url 'admincontact'%}">Mensajes{% if total %}<span
                         class="badge badge-dark">{{total}}</span>{% endif %}</a>
+            </div>
+            <div class="col-12 col-lg-6 text-center">
+                <a class="btn btn-outline-primary mt-30 w-100 btn-block" href="#">Actualizar
+                    sobre
+                    nosotros</a>
             </div>
             <div class="col-12 col-lg-6 text-center">
                 <a class="btn btn-outline-primary mt-30 w-100 btn-block" href="{% url 'profile'%}">Mi perfil</a>

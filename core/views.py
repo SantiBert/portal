@@ -11,23 +11,25 @@ from django import forms
 
 from blog.models import BlogEntry, BlogCategory
 from contac.models import Contact
-from .models import Profile
-from .forms import ProfileForm, EmailForm, NameUpdateForm
+from .models import Profile, Description
+from .forms import ProfileForm, EmailForm, NameUpdateForm, DescriptionForm
 
 
 class IndexView(View):
     def get(self, request, *args, **kwargs):
         try:
-            posts = BlogEntry.objects.filter(active=True).order_by('-date')
+            posts = BlogEntry.objects.filter(active=True).order_by('-date')[:6]
             categories = BlogCategory.objects.filter(is_active=True)
+            #category = BlogCategory.objects.get(slug=slug)
             featured = BlogEntry.objects.filter(
                 active=True, featured=True).order_by('-date')
             recientes = BlogEntry.objects.filter(
-                active=True).order_by('-date')[:3]
+                active=True).order_by('-date')
 
             context = {
                 'posts': posts,
                 'categories': categories,
+                # 'category': category,
                 'featured': featured,
                 'recientes': recientes,
             }
@@ -62,6 +64,14 @@ class NavbarView(View):
 
 
 class SearchView(View):
+    def get(self, request, *args, **kwargs):
+        queryset = request.POST.get("buscar")
+        featured = BlogEntry.objects.filter(
+            active=True, featured=True).order_by('-date')
+        categories = BlogCategory.objects.filter(is_active=True)
+
+        return render(request, 'results.html', {'categories': categories, 'featured': featured, })
+
     def post(self, request, *args, **kwargs):
         queryset = request.POST.get("buscar")
         if queryset:
@@ -112,6 +122,14 @@ class EmailUpdate(UpdateView):  # Permite editar el e-mail de un usuario
         form.fields['email'].widget = forms.EmailInput(
             attrs={'class': 'form-control mb-2', 'placeholder': 'Email'})
         return form
+
+
+@method_decorator(login_required, name='dispatch')
+class AboutUsFormView(UpdateView):
+    model = Description
+    form_class = DescriptionForm
+    success_url = reverse_lazy('administration')
+    template_name = 'registration/about_us_form.html'
 
 
 @method_decorator(login_required, name='dispatch')

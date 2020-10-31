@@ -17,7 +17,7 @@
 	<meta charset="UTF-8">
 	<!-- Site Title -->
 	<title>{% block title %}Inicio{% endblock title %}</title>
-	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 	<!--
 		CSS
 		============================================= -->
@@ -58,18 +58,18 @@
 				<div class="row justify-content-between align-items-center">
 					<div class="col-lg-4 col-md-4 col-sm-12 logo-left no-padding">
 						<a href="{% url 'index' %}">
-							<img class="img-fluid" src="{% static 'img/DELMA 2.png'%}" alt="">
+							<img class="img-fluid" src="{% static 'img/DELMA.jpg'%}" alt="">
 						</a>
 					</div>
 					<div class="col-lg-8 col-md-8">
-						<h1 style="font-style: italic; padding: 5px;">Oscar J. Delmastro Ingaramo</h1>
+						<h1 style="font-family: 'Pacifico', cursive; padding: 5px; color: #0B3182;">Oscar J. Delmastro
+							Ingaramo</h1>
 						<h4 style="font-style: italic; padding: 5px;">LA COMUNICACIÓN NOS HERMANA</h3>
 							<blockquote class="blockquote">
 								<p class="mb-0" style="font-size:15px;">"No estoy de acuerdo con lo que dices, pero
-									defenderé
-									con mi vida tu derecho
-									a expresarlo".</p>
-								<footer class="blockquote-footer">Voltaire</footer>
+									defenderé con mi vida tu derecho a expresarlo".</p>
+								<footer class="blockquote-footer" style="font-weight: bold; color:black">Voltaire
+								</footer>
 							</blockquote>
 					</div>
 				</div>
@@ -88,19 +88,22 @@
 					<div class="col-lg-8 top-post-left">
 						<div class="feature-image-thumb relative">
 							<div class="overlay overlay-bg"></div>
-							<img class="img-fluid" src="{% static 'img/top-post1.jpg'%}" alt="">
+							<img width="755px" height="443px" src="{{recientes.0.image_ref.url}}" alt="">
 						</div>
 						<div class="top-post-details">
 							<ul class="tags">
-								<li><a href="#">Food Habit</a></li>
+								{% for cat in recientes.0.categories.all %}
+								<li><a href="#">{{cat.name}}</a></li>
+								{% endfor %}
 							</ul>
-							<a href="image-post.html">
-								<h3>A Discount Toner Cartridge Is Better Than Ever.</h3>
+							<a href="{% url 'blog:blog' recientes.0.id recientes.0.name|slugify %}">
+								<h3>{{recientes.0.name}}</h3>
 							</a>
 							<ul class="meta">
-								<li><a href="#"><span class="lnr lnr-user"></span>Mark wiens</a></li>
-								<li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>
-								<li><a href="#"><span class="lnr lnr-bubble"></span>06 Comments</a></li>
+								<li><a></a><span class="lnr lnr-user"></span>{{recientes.0.user.get_full_name}}</a>
+								</li>
+								<li><a><span class="lnr lnr-calendar-full"></span>{{recientes.0.date.date}}</a>
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -108,38 +111,29 @@
 						<div class="single-top-post">
 							<div class="feature-image-thumb relative">
 								<div class="overlay overlay-bg"></div>
-								<img class="img-fluid" src="{% static 'img/top-post2.jpg'%}" alt="">
+								<img width="375px" height="215" src="{% static 'img/bordo.jpg'%}" alt="">
 							</div>
 							<div class="top-post-details">
-								<ul class="tags">
-									<li><a href="#">Food Habit</a></li>
-								</ul>
-								<a href="image-post.html">
-									<h4>A Discount Toner Cartridge Is Better Than Ever.</h4>
-								</a>
-								<ul class="meta">
-									<li><a href="#"><span class="lnr lnr-user"></span>Mark wiens</a></li>
-									<li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>
-									<li><a href="#"><span class="lnr lnr-bubble"></span>06 Comments</a></li>
-								</ul>
+								<blockquote class="blockquote">
+									<p class="mb-0 p-2 text-white" style="font-size:100%;">"No estoy de acuerdo con lo
+										que dices,
+										pero
+										defenderé con mi vida tu derecho a expresarlo".</p>
+									<footer class="blockquote-footer" style="font-weight: bold; color:black">Voltaire
+									</footer>
+								</blockquote>
 							</div>
 						</div>
 						<div class="single-top-post mt-10">
 							<div class="feature-image-thumb relative">
 								<div class="overlay overlay-bg"></div>
-								<img class="img-fluid" src="{% static 'img/top-post3.jpg'%}" alt="">
+								<img width="375px" height="215" src="{% static 'img/bordo.jpg'%}" alt="">
 							</div>
 							<div class="top-post-details">
+								<h3 class="mb-0 p-2 text-white">¡DEFIENDE TUS DERECHOS!</h3>
+								<h3 class="mb-0 p-2 text-white">¡CONOCE LA CONSTITUCIÓN NACIONAL!</h3>
 								<ul class="tags">
-									<li><a href="#">Food Habit</a></li>
-								</ul>
-								<a href="image-post.html">
-									<h4>A Discount Toner Cartridge Is Better</h4>
-								</a>
-								<ul class="meta">
-									<li><a href="#"><span class="lnr lnr-user"></span>Mark wiens</a></li>
-									<li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>
-									<li><a href="#"><span class="lnr lnr-bubble"></span>06 Comments</a></li>
+									<li style="background-color: #0B3182;"><a href="#">Descargala aquí</a></li>
 								</ul>
 							</div>
 						</div>
@@ -156,114 +150,46 @@
 						<!-- Start latest-post Area -->
 						<div class="latest-post-wrap">
 							<h4 class="cat-title" style="background-color: #0B3182;">Latest News</h4>
+							{% for post in posts%}
 							<div class="single-latest-post row align-items-center">
 								<div class="col-lg-5 post-left">
 									<div class="feature-img relative">
 										<div class="overlay overlay-bg"></div>
-										<img class="img-fluid" src="{% static 'img/l1.jpg'%}" alt="">
+										{% if post.image_ref %}
+										<img src="{{post.image_ref.url}}" width="182px" height="189px">
+										{% else %}
+										<img class="img-fluid" src="{% static './assets/img/image_placeholder.jpg'%}"
+											alt="">
+										{% endif %}
 									</div>
 									<ul class="tags">
-										<li><a href="#">Lifestyle</a></li>
+										{% for category in post.category.all %}
+										<li><a href="{% url 'blog:categories' category.slug %}">{{ category.name }}</a>
+										</li>
+										{% endfor %}
 									</ul>
 								</div>
 								<div class="col-lg-7 post-right">
-									<a href="image-post.html">
-										<h4>A Discount Toner Cartridge Is
-											Better Than Ever.</h4>
+									<a href="{% url 'blog:blog' post.id post.name|slugify %}">
+										<h4>{{ post.name }}</h4>
 									</a>
 									<ul class="meta">
-										<li><a href="#"><span class="lnr lnr-user"></span>Mark wiens</a></li>
-										<li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a>
+										<li><a><span class="lnr lnr-user"></span>{{post.user.get_full_name}}</a></li>
+										<li><a><span class="lnr lnr-calendar-full"></span>{{ post.date.date }}</a>
 										</li>
-										<li><a href="#"><span class="lnr lnr-bubble"></span>06 Comments</a></li>
+										</li>
 									</ul>
 									<p class="excert">
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-										incididunt.
+										{{post.description|striptags|safe|truncatechars:"300"}}
 									</p>
-								</div>
-							</div>
-							<div class="single-latest-post row align-items-center">
-								<div class="col-lg-5 post-left">
-									<div class="feature-img relative">
-										<div class="overlay overlay-bg"></div>
-										<img class="img-fluid" src="{% static 'img/l2.jpg'%}" alt="">
-									</div>
-									<ul class="tags">
-										<li><a href="#">Science</a></li>
-									</ul>
-								</div>
-								<div class="col-lg-7 post-right">
-									<a href="image-post.html">
-										<h4>A Discount Toner Cartridge Is
-											Better Than Ever.</h4>
-									</a>
-									<ul class="meta">
-										<li><a href="#"><span class="lnr lnr-user"></span>Mark wiens</a></li>
-										<li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a>
-										</li>
-										<li><a href="#"><span class="lnr lnr-bubble"></span>06 Comments</a></li>
-									</ul>
+									{% if request.user.is_authenticated %}
 									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-										incididunt.
+										<a href="{% url 'blog:update' post.id %}"> Editar </a>
 									</p>
+									{% endif %}
 								</div>
 							</div>
-							<div class="single-latest-post row align-items-center">
-								<div class="col-lg-5 post-left">
-									<div class="feature-img relative">
-										<div class="overlay overlay-bg"></div>
-										<img class="img-fluid" src="{% static 'img/l3.jpg'%}" alt="">
-									</div>
-									<ul class="tags">
-										<li><a href="#">Travel</a></li>
-									</ul>
-								</div>
-								<div class="col-lg-7 post-right">
-									<a href="image-post.html">
-										<h4>A Discount Toner Cartridge Is
-											Better Than Ever.</h4>
-									</a>
-									<ul class="meta">
-										<li><a href="#"><span class="lnr lnr-user"></span>Mark wiens</a></li>
-										<li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a>
-										</li>
-										<li><a href="#"><span class="lnr lnr-bubble"></span>06 Comments</a></li>
-									</ul>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-										incididunt.
-									</p>
-								</div>
-							</div>
-							<div class="single-latest-post row align-items-center">
-								<div class="col-lg-5 post-left">
-									<div class="feature-img relative">
-										<div class="overlay overlay-bg"></div>
-										<img class="img-fluid" src="{% static 'img/l4.jpg'%}" alt="">
-									</div>
-									<ul class="tags">
-										<li><a href="#">Fashion</a></li>
-									</ul>
-								</div>
-								<div class="col-lg-7 post-right">
-									<a href="image-post.html">
-										<h4>A Discount Toner Cartridge Is
-											Better Than Ever.</h4>
-									</a>
-									<ul class="meta">
-										<li><a href="#"><span class="lnr lnr-user"></span>Mark wiens</a></li>
-										<li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a>
-										</li>
-										<li><a href="#"><span class="lnr lnr-bubble"></span>06 Comments</a></li>
-									</ul>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-										incididunt.
-									</p>
-								</div>
-							</div>
+							{% endfor %}
 						</div>
 						<!-- End latest-post Area -->
 

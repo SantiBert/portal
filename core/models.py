@@ -25,3 +25,8 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class Description(models.Model):
+    id = models.AutoField(primary_key=True)
+    description = models.TextField("Descripción", null=True, blank=True)

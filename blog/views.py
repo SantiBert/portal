@@ -8,6 +8,7 @@ from django.shortcuts import HttpResponse, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django_filters.views import FilterView
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import BlogEntry, BlogCategory
 from .filters import BlogAdminListFilter
@@ -44,26 +45,38 @@ class BlogEntryDetailView(DetailView):
 
 
 class BlogEntryCategoryList(ListView):
-    paginate_by = 10
 
     def get(self, request, slug, *args, **kwargs):
         try:
             posts = BlogEntry.objects.filter(active=True)
-            categories = BlogCategory.objects.filter(is_active=True)
             category = BlogCategory.objects.get(slug=slug)
+            categories = BlogCategory.objects.filter(is_active=True)
             featured = BlogEntry.objects.filter(
                 active=True, featured=True).order_by('-date')
+            page = request.GET.get('page', 1)
             new_context = BlogEntry.objects.filter(
                 category=category, active=True).order_by('-date')
-            context = {
-                'object_list': new_context,
-                'posts': posts,
-                'categories': categories,
-                'category': category,
-                'featured': featured,
-            }
+            paginator = Paginator(new_context, 4)
+        except:
+            posts = None
+            category = None
+            categories = None
+            featured = None
+            page = request.GET.get('page', 1)
+            new_context = None
+            paginator = None
+        try:
+            new_context = paginator.page(page)
         except:
             context = {}
+
+        context = {
+            'object_list': new_context,
+            'posts': posts,
+            'categories': categories,
+            'category': category,
+            'featured': featured,
+        }
         return render(request, 'blog/categories-post.html', context)
 
 

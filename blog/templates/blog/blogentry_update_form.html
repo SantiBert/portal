@@ -1,4 +1,4 @@
-{% extends 'index.html' %}
+{% extends 'baseregistration.html' %}
 {% load static %}
 {% block title %}Editar una nota{% endblock %}
 {% block ExtraScript %}
@@ -8,9 +8,10 @@
 {% endblock %}
 {% block content %}
 <main role="main">
-  <div class="container">
+  <div class="container p-3" style="background-color: oldlace;">
     <div class="row mt-3">
       <div class="col-md-9 mx-auto">
+        <h2> Editar {{object.name}}</h2>
         <div>
           {% if 'ok' in request.GET %}
           <p style="color: green;">
@@ -25,7 +26,7 @@
             </table>
             <p>{{ form.category }}</p>
             <br>
-            <p style="padding: 15px;">{{ form.image_ref }} {{ form.date }}</p>
+            <p style="padding: 15px;">{{ form.image_ref }} {{ form.date }} Destacados {{form.featured}}</p>
             <div class="text-center">
               <input type="submit" class="btn btn-primary btn-block" value="Actualizar Nota" />
             </div>

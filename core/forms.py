@@ -2,18 +2,17 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import Profile
-
+from .models import Profile, Description
 
 
 class ProfileForm(forms.ModelForm):  # Formulario para editar perfil
 
     class Meta:
         model = Profile
-        fields = ['image','description']
+        fields = ['image', 'description']
         widgets = {
             'image': forms.ClearableFileInput(),
-            #'phone': forms.Textarea(attrs={'class': 'form-control mt-3', 'rows': 3, 'placeholder': 'Numero de telefono'}),
+            # 'phone': forms.Textarea(attrs={'class': 'form-control mt-3', 'rows': 3, 'placeholder': 'Numero de telefono'}),
             'description': forms.Textarea(attrs={'class': 'form-control mt-3', 'placeholder': 'Descripción'})
         }
 
@@ -40,3 +39,13 @@ class NameUpdateForm(forms.ModelForm):  # Formulario para editar nombre y apelli
     class Meta:
         model = User
         fields = ['first_name', 'last_name']
+
+
+class DescriptionForm(forms.ModelForm):
+
+    class Meta:
+        model = Description
+        fields = ['description']
+        widgets = {
+            'description': forms.Textarea(attrs={'class': 'form-control mt-3', 'placeholder': 'Quienes somos'})
+        }

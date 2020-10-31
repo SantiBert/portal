@@ -1,4 +1,4 @@
-{% extends 'index.html' %}
+{% extends 'baseregistration.html' %}
 {% load static %}
 {% block ExtraScript %}
 <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
@@ -9,23 +9,23 @@
 {% block content %}
 
 <main role="main">
-  <div class="container">
+  <div class="container p-3" style="background-color: oldlace;">
     <div class="row mt-3 mb-5">
       <div class="col-md-9 mx-auto">
-        <div>
-          <form action="" method="post" enctype='multipart/form-data'>{% csrf_token %}
-            <table>
-              <ul style="padding: 15px;">{{ form.name }}</ul>
-              <ul style="padding: 15px;">{{ form.description }}</ul>
-            </table>
-            <p>{{ form.category }}</p>
-            <br>
-            <p style="padding: 15px;">{{ form.image_ref }} {{ form.date }} Destacados {{form.featured}}</p>
-            <div class="text-center">
-              <input type="submit" class="btn btn-primary btn-block" value="Crear Post" enctype='multipart/form-data' />
-            </div>
-          </form>
-        </div>
+        <h2> Crear una nota</h2>
+        <form action="" method="post" enctype='multipart/form-data'>{% csrf_token %}
+          <table>
+            <ul style="padding: 15px;">{{ form.name }}</ul>
+            <ul style="padding: 15px;">{{ form.description }}</ul>
+          </table>
+          <p>{{ form.category }}</p>
+          <br>
+          <p style="padding: 15px;">{{ form.image_ref }} {{ form.date }} Destacados {{form.featured}}</p>
+          <div class="text-center">
+            <input type="submit" class="btn btn-primary btn-block" value="Crear Post" enctype='multipart/form-data' />
+          </div>
+        </form>
+
       </div>
     </div>
   </div>

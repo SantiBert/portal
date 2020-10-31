@@ -1,64 +1,62 @@
-{% extends 'index.html' %}
+{% extends 'baseregistration.html' %}
 {% load static %}
 {% block title %}Páginas{% endblock %}
 {% block content %}
 
 <main role="main">
-  <div class="container mb-4">
+  <div class="container mb-4 p-3" style="background-color: oldlace;">
     {% for object in object_list %}
-      <div class="row mt-3">
-        <div class="col-md-9 mx-auto">
-          <h2 class="mb-4">{{object.name}}</h2>
-          <div>
-            <p>{{post.content|striptags|safe|truncatechars:"200"}}</p>
-                <a href="{% url 'blog:categoryUpdate' object.slug %}">Editar</a>
-                <div class="togglebutton">
-                  <label>
-                    {% if object.is_active%}
-                    <input type="checkbox" id="switch-{{object.id}}" checked="" onclick="changeState('{{object.id}}', 'true')">
-                    {%else%}
-                    <input type="checkbox" id="switch-{{object.id}}" onclick="changeState('{{object.id}}', 'false')" >
-                    {% endif %}
-                    <span class="toggle"></span>
-                  </label>
-                </div>
-          </div>
+    <div class="row mt-3">
+      <div class="col-md-6 mx-auto">
+        <h2 class="mb-4">{{object.name}}</h2>
+        <p>{{post.content|striptags|safe|truncatechars:"200"}}</p>
+        <a href="{% url 'blog:categoryUpdate' object.slug %}">Editar</a>
+        <div class="togglebutton">
+          <label>
+            {% if object.is_active%}
+            <input type="checkbox" id="switch-{{object.id}}" checked="" onclick="changeState('{{object.id}}', 'true')">
+            {%else%}
+            <input type="checkbox" id="switch-{{object.id}}" onclick="changeState('{{object.id}}', 'false')">
+            {% endif %}
+            <span class="toggle"></span>
+          </label>
         </div>
       </div>
+    </div>
     {% endfor %}
   </div>
 </main>{% block ExtraScript %}
 <script>// Script para hacer la actualizacion dinamica del is_active de un Teacher
 
-  function changeState(category_id, categoryState){
+  function changeState(category_id, categoryState) {
     var url = "{% url 'blog:categoriesChangeState' 0 %}";
-    url = url.replace(0,category_id);
+    url = url.replace(0, category_id);
     $.ajax({
       url: url,
       method: "POST",
-      data:{"csrfmiddlewaretoken":'{{ csrf_token }}'},
+      data: { "csrfmiddlewaretoken": '{{ csrf_token }}' },
       success: function (data) {
         console.log(data);
       },
-      error:function (xhr, ajaxOptions, thrownError){
-        if(xhr.status==404 || xhr.status==500) {
+      error: function (xhr, ajaxOptions, thrownError) {
+        if (xhr.status == 404 || xhr.status == 500) {
           var switch_name = "#switch-" + category_id;
           var switch_id = "switch-" + category_id;
-          if (categoryState=="true"){
+          if (categoryState == "true") {
             var new_button = "<input type='checkbox'  checked  id=switch_name onclick=\"changeState(category_id, \'true\')\">".replace("switch_name", switch_id).replace("category_id", category_id);
             $(switch_name).replaceWith(new_button);
           }
-          else{
+          else {
             var new_button = "<input type='checkbox'  id=switch_name onclick=\"changeState(category_id, \'false\')\">".replace("switch_name", switch_id).replace("category_id", category_id);
             $(switch_name).replaceWith(new_button);
           }
-          if(xhr.status==404) {
-          alert("No se encontró la categoría (404)");
+          if (xhr.status == 404) {
+            alert("No se encontró la categoría (404)");
           }
-          if(xhr.status==500) {
-          alert("Error de conexión (500))");
+          if (xhr.status == 500) {
+            alert("Error de conexión (500))");
           }
-          }
+        }
       },
     });
   }
