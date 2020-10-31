@@ -5,10 +5,12 @@ from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponse, get_object_or_404
+from django.contrib.auth.models import User
 
 from .forms import ContactForm
 from .models import Contact
 from blog.models import BlogEntry, BlogCategory
+from core.models import Profile
 # Create your views here.
 
 
@@ -17,10 +19,12 @@ class ContactFormView(View):
         posts = BlogEntry.objects.filter(active=True)
         categories = BlogCategory.objects.filter(is_active=True)
         form = ContactForm()
+        person = User.objects.all()
         context = {
             'form': form,
             'posts': posts,
             'categories': categories,
+            'person': person
         }
         return render(request, 'contact.html', context)
 
@@ -38,11 +42,12 @@ class ContactFormView(View):
             context = {}
         return render(request, 'contact.html', context)
 
+
 @method_decorator(login_required, name='dispatch')
 class ContacAdminList(ListView):
     def get(self, request, *args, **kwargs):
         try:
-            menssges = Contact.objects.filter(state= True)
+            menssges = Contact.objects.filter(state=True)
             context = {
                 'object_list': menssges
             }
@@ -50,13 +55,15 @@ class ContacAdminList(ListView):
             context = {}
         return render(request, 'contacadminlist.html', context)
 
+
 @method_decorator(login_required, name='dispatch')
 class ConctacAdminDetailView(DetailView):
     model = Contact
     template_name = 'contact_detail.html'
 
+
 @method_decorator(login_required, name='dispatch')
-class ContactChangeStateView(View):    
+class ContactChangeStateView(View):
     def post(self, request, contact_id, *args, **kwargs):
         try:
             contact = Contact.objects.get(id=contact_id)
