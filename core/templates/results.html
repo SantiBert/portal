@@ -1,6 +1,6 @@
 {% extends 'index.html' %}
 {% load static %}
-{% block title %}{{category.name}}{% endblock %}
+{% block title %}Búsqueda{% endblock %}
 {% block content %}
 <!-- Start top-post Area -->
 <section class="top-post-area pt-10">
@@ -29,7 +29,7 @@
 			<div class="col-lg-8 post-list">
 				<!-- Start latest-post Area -->
 				<div class="latest-post-wrap">
-					<h4 class="cat-title">Latest News</h4>
+					<h4 class="cat-title" style="background-color: #0B3182;">Resultado</h4>
 					{% for object in object_list %}
 					<div class="single-latest-post row align-items-center">
 						<div class="col-lg-5 post-left">

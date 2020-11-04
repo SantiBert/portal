@@ -10,6 +10,7 @@ from .models import BookEntry
 from .forms import BookEntryForms
 from .filter import BookdminListFilter
 from blog.models import BlogEntry, BlogCategory
+from core.models import Description
 
 # Create your views here.
 
@@ -66,10 +67,12 @@ class BookListView(ListView):
             posts = BlogEntry.objects.filter(active=True)
             categories = BlogCategory.objects.filter(is_active=True)
             new_context = BookEntry.objects.filter(is_active=True)
+            web = Description.objects.filter(is_active=True)
             context = {
                 'object_list': new_context,
                 'posts': posts,
                 'categories': categories,
+                'web': web,
             }
         except:
             context = {}

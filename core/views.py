@@ -69,22 +69,39 @@ class NavbarView(View):
 class SearchView(View):
     def get(self, request, *args, **kwargs):
         queryset = request.POST.get("buscar")
-        featured = BlogEntry.objects.filter(
-            active=True, featured=True).order_by('-date')
         categories = BlogCategory.objects.filter(is_active=True)
+        web = Description.objects.filter(is_active=True)
+        featured = BlogEntry.objects.filter(
+            active=True, featured=True).order_by('-created_date')
+        context = {
+            'categories': categories,
+            'featured': featured,
+            'web': web,
+        }
 
-        return render(request, 'results.html', {'categories': categories, 'featured': featured, })
+        return render(request, 'results.html', context)
 
     def post(self, request, *args, **kwargs):
         queryset = request.POST.get("buscar")
+        categories = BlogCategory.objects.filter(is_active=True)
+        web = Description.objects.filter(is_active=True)
+        featured = BlogEntry.objects.filter(
+            active=True, featured=True).order_by('-created_date')
         if queryset:
             posts = BlogEntry.objects.filter(
                 Q(name__icontains=queryset) |
                 Q(description__icontains=queryset),
                 active=True
-            ).distinct()
+            ).distinct().order_by('-created_date')
 
-        return render(request, 'results.html', {'object_list': posts})
+        context = {
+            'categories': categories,
+            'featured': featured,
+            'web': web,
+            'object_list': posts,
+        }
+
+        return render(request, 'results.html', context)
 
 
 @method_decorator(login_required, name='dispatch')

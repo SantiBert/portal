@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from .forms import ContactForm
 from .models import Contact
 from blog.models import BlogEntry, BlogCategory
-from core.models import Profile
+from core.models import Profile, Description
 # Create your views here.
 
 
@@ -18,13 +18,15 @@ class ContactFormView(View):
     def get(self, request, *args, **kwargs):
         posts = BlogEntry.objects.filter(active=True)
         categories = BlogCategory.objects.filter(is_active=True)
+        web = Description.objects.filter(is_active=True)
         form = ContactForm()
         person = User.objects.all()
         context = {
             'form': form,
             'posts': posts,
             'categories': categories,
-            'person': person
+            'person': person,
+            'web': web,
         }
         return render(request, 'contact.html', context)
 

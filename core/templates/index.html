@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx" class="no-js">
+<html lang="es">
 
 <head>
 	{% load static %}
@@ -62,7 +62,8 @@
 						</a>
 					</div>
 					<div class="col-lg-8 col-md-8">
-						<h1 style="font-family: 'Pacifico', cursive; padding: 5px; color: #0B3182;">Oscar J. Delmastro
+						<h1 class="text-center" style="font-family: 'Pacifico', cursive; padding: 5px; color: #0B3182;">
+							Oscar J. Delmastro
 							Ingaramo</h1>
 						<h4 class="text-center" style="font-style: italic; padding: 5px;">LA COMUNICACIÓN NOS HERMANA
 						</h4>
@@ -84,38 +85,60 @@
 						<div class="feature-image-thumb relative">
 							<div class="overlay overlay-bg"></div>
 							<img width="755px" height="443px" src="{{recientes.0.image_ref.url}}" alt="">
-						</div>
-						<div class="top-post-details">
-							<ul class="tags">
-								{% for cat in recientes.0.categories.all %}
-								<li><a href="#">{{cat.name}}</a></li>
-								{% endfor %}
-							</ul>
-							<a href="{% url 'blog:blog' recientes.0.id recientes.0.name|slugify %}">
-								<h3>{{recientes.0.name}}</h3>
-							</a>
-							<ul class="meta">
-								<li><a></a><span class="lnr lnr-user"></span>{{recientes.0.user.get_full_name}}</a>
-								</li>
-								<li><a><span class="lnr lnr-calendar-full"></span>{{recientes.0.created_date.date}}</a>
-								</li>
-							</ul>
+
+							<div class="top-post-details">
+								<ul class="tags">
+									{% for cat in recientes.0.categories.all %}
+									<li><a href="#">{{cat.name}}</a></li>
+									{% endfor %}
+								</ul>
+								<a href="{% url 'blog:blog' recientes.0.id recientes.0.name|slugify %}">
+									<h3>{{recientes.0.name}}</h3>
+								</a>
+								<ul class="meta">
+									<li><a></a><span class="lnr lnr-user"></span>{{recientes.0.user.get_full_name}}</a>
+									</li>
+									<li><a><span
+												class="lnr lnr-calendar-full"></span>{{recientes.0.created_date.date}}</a>
+									</li>
+								</ul>
+							</div>
 						</div>
 					</div>
 					<div class="col-lg-4 top-post-right">
 						<div class="hero-nav-area" style="background-color: #C5262B;">
 							<div class="feature-image-thumb relative hero-text">
-								<h4 class="mb-0 p-2 text-white" style="line-height: 80%; ">"No estoy de acuerdo con lo
-									que dices,
-									pero
-									defenderé con mi vida<br> tu derecho a expresarlo".</h4>
-								<footer class="blockquote-footer"
+								<h4 class="p-1 text-white" style="line-height: 80%;">"No estoy de acuerdo con lo
+									que dices,</h4>
+								<h4 class="p-1 text-white" style="line-height: 80%;">pero defenderé con mi vida
+								</h4>
+								<h4 class="p-1 text-white" style="line-height: 80%;">tu derecho a expresarlo".</h4>
+								<footer class="blockquote-footer p-1"
 									style="font-weight: bold; color:black; font-size:large">Voltaire
 								</footer>
 							</div>
 						</div>
-						<div class="single-top-post mt-10">
-							<div class="feature-image-thumb relative">
+						<div class="mt-10">
+							<div class="hero-nav-area" style="background-color: #C5262B;">
+								<div class="feature-image-thumb relative hero-text">
+									<h4 class="p-2 text-white" style="font-size: larger;">¡DEFIENDE TUS DERECHOS!
+									</h4>
+									<h4 class="p-2 text-white" style="font-size: larger;">¡CONOCE LA CONSTITUCIÓN
+										NACIONAL!</h4>
+									<br>
+									<ul class=" tags">
+										<li class="p-2 float-left">
+											<a type="button" href="/media/{{ web.0.link }}" download
+												class="btn btn-sm text-white"
+												style="background-color: #0B3182;">Descargala
+												aquí</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!--div class="single-top-post mt-10">
+							<div class="feature-image-thumb relative ">
 								<div class="overlay overlay-bg"></div>
 								<img width="375px" height="215" src="{% static 'img/bordo.jpg'%}" alt="">
 							</div>
@@ -128,7 +151,7 @@
 											download>Descargala aquí</a></li>
 								</ul>
 							</div>
-						</div>
+						</div-->
 					</div>
 				</div>
 			</div>
@@ -293,7 +316,7 @@
 			<div class="row mb-5">
 				<div class="col-md-4">
 					<h3 class="footer-heading mb-4 text-white">Nosotros</h3>
-					<p class="text-white">{{web.0.description|striptags|safe|truncatechars:"400"}}</p>
+					<p class="text-white">{{web.0.description|striptags|safe}}</p>
 				</div>
 				<div class="col-lg-2 col-md-6 single-footer-widget">
 					<h3 class="footer-heading mb-4 text-white">Menú Rápido</h3>
