@@ -3,6 +3,7 @@ import uuid
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
+from django.utils import timezone
 
 from ckeditor.fields import RichTextField
 
@@ -29,6 +30,7 @@ class BlogEntry(models.Model):
     name = models.CharField(max_length=128, null=True, blank=True)
     category = models.ManyToManyField(BlogCategory, related_name="categories")
     date = models.DateTimeField(null=True, blank=True)
+    created_date = models.DateTimeField(default=timezone.now)
     description = RichTextField(null=True, blank=True)
     active = models.BooleanField(default=True)
     featured = models.BooleanField(default=False)

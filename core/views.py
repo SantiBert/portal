@@ -18,13 +18,15 @@ from .forms import ProfileForm, EmailForm, NameUpdateForm, DescriptionForm
 class IndexView(View):
     def get(self, request, *args, **kwargs):
         try:
-            posts = BlogEntry.objects.filter(active=True).order_by('-date')[:6]
+            posts = BlogEntry.objects.filter(
+                active=True).order_by('-created_date')[:6]
             categories = BlogCategory.objects.filter(is_active=True)
+            web = Description.objects.filter(is_active=True)
             #category = BlogCategory.objects.get(slug=slug)
             featured = BlogEntry.objects.filter(
-                active=True, featured=True).order_by('-date')
+                active=True, featured=True).order_by('-created_date')
             recientes = BlogEntry.objects.filter(
-                active=True).order_by('-date')
+                active=True).order_by('-created_date')
 
             context = {
                 'posts': posts,
@@ -32,6 +34,7 @@ class IndexView(View):
                 # 'category': category,
                 'featured': featured,
                 'recientes': recientes,
+                'web': web,
             }
         except:
             context = {}
@@ -42,7 +45,7 @@ class LateralView(ListView):
     def get(self, request, *args, **kwargs):
         try:
             featured = BlogEntry.objects.filter(
-                active=True, featured=True).order_by('-date')
+                active=True, featured=True).order_by('-created_date')
             context = {
                 'featured': featured
             }

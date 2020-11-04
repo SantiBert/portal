@@ -38,7 +38,7 @@ class BlogEntryDetailView(DetailView):
         context = super(BlogEntryDetailView, self).get_context_data(**kwargs)
         context['categories'] = BlogCategory.objects.filter(is_active=True)
         context['featured'] = BlogEntry.objects.filter(
-            active=True, featured=True).order_by('-date')
+            active=True, featured=True).order_by('-created_date')
 
         # other code
         return context
@@ -52,10 +52,10 @@ class BlogEntryCategoryList(ListView):
             category = BlogCategory.objects.get(slug=slug)
             categories = BlogCategory.objects.filter(is_active=True)
             featured = BlogEntry.objects.filter(
-                active=True, featured=True).order_by('-date')
+                active=True, featured=True).order_by('-created_date')
             page = request.GET.get('page', 1)
             new_context = BlogEntry.objects.filter(
-                category=category, active=True).order_by('-date')
+                category=category, active=True).order_by('-created_date')
             paginator = Paginator(new_context, 4)
         except:
             posts = None

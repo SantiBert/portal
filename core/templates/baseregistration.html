@@ -45,9 +45,9 @@
         <li class="menu-active"><a href="{% url 'index' %}" style="padding: 15px; color: white;">Inicio</a></li>
         <li>
             {% if not request.user.is_authenticated %}
-            <a href="{% url 'login'%}" style="padding: 15px; color: white;">Iniciar secion</a>
+            <a href="{% url 'login'%}" style="padding: 15px; color: white;">Iniciar sesión</a>
             {% elif  request.user.is_authenticated %}
-            <a href="{% url 'logout'%}" style="padding: 15px; color: white;">Cerrar secion</a>
+            <a href="{% url 'logout'%}" style="padding: 15px; color: white;">Cerrar sesión</a>
             <a href="{% url 'administration'%}" style="padding: 15px; color: white;">Aministrador</a>
             {% endif %}
         </li>

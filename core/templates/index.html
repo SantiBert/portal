@@ -43,9 +43,9 @@
 					<div class="col-lg-6 col-md-6 col-sm-6 col-6 header-top-right no-padding">
 						<ul>
 							{% if not request.user.is_authenticated %}
-							<a href="{% url 'login'%}" style="padding: 15px; color: white;">Iniciar secion</a>
+							<a href="{% url 'login'%}" style="padding: 15px; color: white;">Iniciar sesión</a>
 							{% elif  request.user.is_authenticated %}
-							<a href="{% url 'logout'%}" style="padding: 15px; color: white;">Cerrar secion</a>
+							<a href="{% url 'logout'%}" style="padding: 15px; color: white;">Cerrar sesión</a>
 							<a href="{% url 'administration'%}" style="padding: 15px; color: white;">Aministrador</a>
 							{% endif %}
 						</ul>
@@ -64,13 +64,8 @@
 					<div class="col-lg-8 col-md-8">
 						<h1 style="font-family: 'Pacifico', cursive; padding: 5px; color: #0B3182;">Oscar J. Delmastro
 							Ingaramo</h1>
-						<h4 style="font-style: italic; padding: 5px;">LA COMUNICACIÓN NOS HERMANA</h3>
-							<blockquote class="blockquote">
-								<p class="mb-0" style="font-size:15px;">"No estoy de acuerdo con lo que dices, pero
-									defenderé con mi vida tu derecho a expresarlo".</p>
-								<footer class="blockquote-footer" style="font-weight: bold; color:black">Voltaire
-								</footer>
-							</blockquote>
+						<h4 class="text-center" style="font-style: italic; padding: 5px;">LA COMUNICACIÓN NOS HERMANA
+						</h4>
 					</div>
 				</div>
 			</div>
@@ -102,26 +97,21 @@
 							<ul class="meta">
 								<li><a></a><span class="lnr lnr-user"></span>{{recientes.0.user.get_full_name}}</a>
 								</li>
-								<li><a><span class="lnr lnr-calendar-full"></span>{{recientes.0.date.date}}</a>
+								<li><a><span class="lnr lnr-calendar-full"></span>{{recientes.0.created_date.date}}</a>
 								</li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-lg-4 top-post-right">
-						<div class="single-top-post">
-							<div class="feature-image-thumb relative">
-								<div class="overlay overlay-bg"></div>
-								<img width="375px" height="215" src="{% static 'img/bordo.jpg'%}" alt="">
-							</div>
-							<div class="top-post-details">
-								<blockquote class="blockquote">
-									<p class="mb-0 p-2 text-white" style="font-size:100%;">"No estoy de acuerdo con lo
-										que dices,
-										pero
-										defenderé con mi vida tu derecho a expresarlo".</p>
-									<footer class="blockquote-footer" style="font-weight: bold; color:black">Voltaire
-									</footer>
-								</blockquote>
+						<div class="hero-nav-area" style="background-color: #C5262B;">
+							<div class="feature-image-thumb relative hero-text">
+								<h4 class="mb-0 p-2 text-white" style="line-height: 80%; ">"No estoy de acuerdo con lo
+									que dices,
+									pero
+									defenderé con mi vida<br> tu derecho a expresarlo".</h4>
+								<footer class="blockquote-footer"
+									style="font-weight: bold; color:black; font-size:large">Voltaire
+								</footer>
 							</div>
 						</div>
 						<div class="single-top-post mt-10">
@@ -130,10 +120,12 @@
 								<img width="375px" height="215" src="{% static 'img/bordo.jpg'%}" alt="">
 							</div>
 							<div class="top-post-details">
-								<h3 class="mb-0 p-2 text-white">¡DEFIENDE TUS DERECHOS!</h3>
-								<h3 class="mb-0 p-2 text-white">¡CONOCE LA CONSTITUCIÓN NACIONAL!</h3>
+								<h3 class="mb-0 p-2 text-white" style="line-height: 20%; ">¡DEFIENDE TUS DERECHOS!</h3>
+								<h3 class="mb-0 p-2 text-white" style="line-height: 20%; ">¡CONOCE LA CONSTITUCIÓN
+									NACIONAL!</h3>
 								<ul class="tags">
-									<li style="background-color: #0B3182;"><a href="#">Descargala aquí</a></li>
+									<li style="background-color: #0B3182;"><a href="/media/{{ web.0.link }}"
+											download>Descargala aquí</a></li>
 								</ul>
 							</div>
 						</div>
@@ -175,7 +167,8 @@
 									</a>
 									<ul class="meta">
 										<li><a><span class="lnr lnr-user"></span>{{post.user.get_full_name}}</a></li>
-										<li><a><span class="lnr lnr-calendar-full"></span>{{ post.date.date }}</a>
+										<li><a><span
+													class="lnr lnr-calendar-full"></span>{{ post.created_date.date }}</a>
 										</li>
 										</li>
 									</ul>
@@ -196,7 +189,7 @@
 						<!-- End banner-ads Area -->
 						<!-- Start popular-post Area -->
 						<!-- End popular-post Area -->
-						<!-- Start relavent-story-post Area -->
+						<!-- Start relavent-story-post Area 
 						<div class="relavent-story-post-wrap mt-30">
 							<h4 class="title" style="background-color: #0B3182;">Relavent Stories</h4>
 							<div class="relavent-story-list-wrap">
@@ -282,7 +275,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>-->
 						<!-- End relavent-story-post Area -->
 					</div>
 					{% include 'includes/lateral.html'%}
@@ -295,16 +288,16 @@
 
 
 	<!-- start footer Area -->
-	<footer class="footer-area section-gap" style="background-color: #0B3182;">
+	<footer class="footer-area p-4" style="background-color: #0B3182;">
 		<div class="container">
 			<div class="row mb-5">
 				<div class="col-md-4">
 					<h3 class="footer-heading mb-4 text-white">Nosotros</h3>
-					<p>{{post.user.Profile.description}}</p>
+					<p class="text-white">{{web.0.description|striptags|safe|truncatechars:"400"}}</p>
 				</div>
 				<div class="col-lg-2 col-md-6 single-footer-widget">
 					<h3 class="footer-heading mb-4 text-white">Menú Rápido</h3>
-					<ul class="list-unstyled float-left ">
+					<ul class="list-unstyled float-center ">
 						{% for category in categories %}
 						<li><a href="{% url 'blog:categories' category.slug %}"
 								class="text-white">{{ category.name }}</a></li>

@@ -29,4 +29,7 @@ class Profile(models.Model):
 
 class Description(models.Model):
     id = models.AutoField(primary_key=True)
+    title = models.CharField('titulo', null=True, blank=True, max_length=20)
     description = models.TextField("Descripción", null=True, blank=True)
+    link = models.FileField(upload_to='web/files/', null=True, blank=True)
+    is_active = models.BooleanField(default=True)
