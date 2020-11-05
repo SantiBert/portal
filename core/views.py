@@ -8,11 +8,13 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.urls import reverse_lazy
 from django import forms
+from django_filters.views import FilterView
 
 from blog.models import BlogEntry, BlogCategory
 from contac.models import Contact
-from .models import Profile, Description
-from .forms import ProfileForm, EmailForm, NameUpdateForm, DescriptionForm
+from .models import Profile, Description, OtherSites
+from .forms import ProfileForm, EmailForm, NameUpdateForm, DescriptionForm, OtherSitesForm
+from .filters import OtherSitesListFilter
 
 
 class IndexView(View):
@@ -27,12 +29,15 @@ class IndexView(View):
                 active=True, featured=True).order_by('-created_date')
             recientes = BlogEntry.objects.filter(
                 active=True).order_by('-created_date')
+            sites = OtherSites.objects.filter(
+                is_active=True)
 
             context = {
                 'posts': posts,
                 'categories': categories,
                 # 'category': category,
                 'featured': featured,
+                'sites': sites,
                 'recientes': recientes,
                 'web': web,
             }
@@ -46,7 +51,10 @@ class LateralView(ListView):
         try:
             featured = BlogEntry.objects.filter(
                 active=True, featured=True).order_by('-created_date')
+            sites = OtherSites.objects.filter(
+                is_active=True)
             context = {
+                'sites': sites,
                 'featured': featured
             }
         except:
@@ -73,9 +81,12 @@ class SearchView(View):
         web = Description.objects.filter(is_active=True)
         featured = BlogEntry.objects.filter(
             active=True, featured=True).order_by('-created_date')
+        sites = OtherSites.objects.filter(
+            is_active=True)
         context = {
             'categories': categories,
             'featured': featured,
+            'sites': sites,
             'web': web,
         }
 
@@ -87,6 +98,8 @@ class SearchView(View):
         web = Description.objects.filter(is_active=True)
         featured = BlogEntry.objects.filter(
             active=True, featured=True).order_by('-created_date')
+        sites = OtherSites.objects.filter(
+            is_active=True)
         if queryset:
             posts = BlogEntry.objects.filter(
                 Q(name__icontains=queryset) |
@@ -98,6 +111,7 @@ class SearchView(View):
             'categories': categories,
             'featured': featured,
             'web': web,
+            'sites': sites,
             'object_list': posts,
         }
 
@@ -169,3 +183,42 @@ class NameUpdate(UpdateView):  # Permite editar el e-mail de un usuario
         form.fields['last_name'].widget = forms.TextInput(
             attrs={'class': 'form-control mb-2', 'placeholder': 'Apellido'})
         return form
+
+
+@method_decorator(login_required, name='dispatch')
+class OtherSitesCreateView(CreateView):
+    # Vista para crear los post con un de decorador para que solo los administardores puedan acceder
+    model = OtherSites
+    form_class = OtherSitesForm
+    success_url = reverse_lazy('administration')
+    template_name = 'othersides/othersites_form.html'
+
+    # Devuelve al usuario actualmente logueado para el campo de User del Blog creado
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(OtherSitesCreateView, self).form_valid(form)
+
+
+@method_decorator(login_required, name='dispatch')
+class OtherSitesAdminListView(FilterView):
+    # Vista de la lista de posts para el administrador
+    model = OtherSites
+    context_object_name = 'sites'
+    template_name = 'othersides/adminothersites.html'
+    paginate_by = 30  # TODO obtener dato de un constants.py
+    filterset_class = OtherSitesListFilter
+    ordering = ["name"]
+
+    def get_queryset(self):
+        return OtherSites.objects.all()
+
+
+@method_decorator(login_required, name='dispatch')
+class OtherSitesUpdateView(UpdateView):
+    model = OtherSites
+    form_class = OtherSitesForm
+    template_name = 'othersides/othersites_update_form.html'
+    template_name_suffix = '_update_form'
+
+    def get_success_url(self):
+        return reverse_lazy('sitesupdate', args=[self.object.id]) + '?ok'

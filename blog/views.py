@@ -16,7 +16,7 @@ from .forms import BlogEntryForm, BlogCategoryEntryForm
 
 from audit.signals import Audits
 from unicodedata import category, category
-from core.models import Description
+from core.models import Description, OtherSites
 
 
 class BlogEntryListView(ListView):
@@ -41,6 +41,8 @@ class BlogEntryDetailView(DetailView):
         context['web'] = Description.objects.filter(is_active=True)
         context['featured'] = BlogEntry.objects.filter(
             active=True, featured=True).order_by('-created_date')
+        context['sites'] = OtherSites.objects.filter(
+            is_active=True)
 
         # other code
         return context
@@ -60,6 +62,8 @@ class BlogEntryCategoryList(ListView):
                 category=category, active=True).order_by('-created_date')
             paginator = Paginator(new_context, 4)
             web = Description.objects.filter(is_active=True)
+            sites = OtherSites.objects.filter(
+                is_active=True)
         except:
             posts = None
             category = None
@@ -78,6 +82,7 @@ class BlogEntryCategoryList(ListView):
             'posts': posts,
             'categories': categories,
             'category': category,
+            'sites': sites,
             'featured': featured,
             'web': web,
         }

@@ -1,18 +1,19 @@
-{% extends 'index.html' %}
+{% extends 'baseregistration.html' %}
 {% load static %}
 {% block title %}Editar un libro{% endblock %}
 {% block content %}
 
 <main role="main">
-  <div class="container">
+  <div class="container p-3" style="background-color: oldlace;">
     <div class="row mt-3 mb-5">
       <div class="col-md-9 mx-auto">
         {% if 'ok' in request.GET %}
-          <p style="color: green;">
-            Libro editado correctamente
-            <a href="{% url 'mybooks' %}">Haz click aqui para ir al libro editado</a>
-          </p>
-          {% endif %}
+        <p style="color: green;">
+          Libro editado correctamente
+          <a href="{% url 'mybooks' %}">Haz click aqui para ir al libro editado</a>
+        </p>
+        {% endif %}
+        <h1>Editar un sitio</h1>
         <form action="" method="post" enctype='multipart/form-data'>
           {% csrf_token %}
           {{form.as_p }}

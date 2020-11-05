@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import Profile, Description
+from .models import Profile, Description, OtherSites, Quote
 
 
 class ProfileForm(forms.ModelForm):  # Formulario para editar perfil
@@ -48,4 +48,15 @@ class DescriptionForm(forms.ModelForm):
         fields = ['description']
         widgets = {
             'description': forms.Textarea(attrs={'class': 'form-control mt-3', 'placeholder': 'Quienes somos'})
+        }
+
+
+class OtherSitesForm(forms.ModelForm):
+    class Meta:
+        model = OtherSites
+        fields = '__all__'
+        exclude = ('is_active',)
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
+            'link': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'URL'}),
         }

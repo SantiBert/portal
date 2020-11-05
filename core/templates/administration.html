@@ -36,6 +36,17 @@
             <div class="col-12 col-lg-6 text-center">
                 <div class="dropdown p-3">
                     <button type="button" class="btn btn-primary dropdown-toggle btn-block" data-toggle="dropdown">
+                        Sitios amigos
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'otherSitesCreate' %}">Crear Un enlase</a>
+                        <a class="dropdown-item" href="{% url 'otherSitesList' %}">Lista de enlases</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 text-center">
+                <div class="dropdown p-3">
+                    <button type="button" class="btn btn-primary dropdown-toggle btn-block" data-toggle="dropdown">
                         Libros
                     </button>
                     <div class="dropdown-menu">

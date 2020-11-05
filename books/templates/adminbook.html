@@ -1,52 +1,53 @@
-{% extends 'index.html' %}
+{% extends 'baseregistration.html' %}
 {% load static %}
 {% block title %}Administración de libros{% endblock %}
 
 
 {% block content %}
+<div class="container p-3" style="background-color: oldlace;">
+  <h2> Lista de Libros </h1>
 
-<h2> Lista de Libros </h1>
-  
-  <hr size="2px" color="black" />
-  <table class="table">
-    <thead>
-      <tr>
-        <th class="text-center">ID</th>
-        <th>Nombre</th>
-        <th>Editar.</th>
-        <th class="text-right">Activo</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        {% for object in books %}
-        <td class="text-center">{{ object.id }}</td>
-        <td>{{ object.name }}</td>
+    <hr size="2px" color="black" />
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="text-center">ID</th>
+          <th>Nombre</th>
+          <th>Editar.</th>
+          <th class="text-right">Activo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          {% for object in books %}
+          <td class="text-center">{{ object.id }}</td>
+          <td>{{ object.name }}</td>
 
-        <td class="text-center">
-          <p>           
-            <a href="{% url 'bookupdate' object.id %}"> Editar </a>
-          </p>
-        </td>
+          <td class="text-center">
+            <p>
+              <a href="{% url 'bookupdate' object.id %}"> Editar </a>
+            </p>
+          </td>
 
-        <td class="td-actions text-right">
-          <div class="togglebutton">
-            <label>
-              {% if object.active%}
-              <input type="checkbox" id="switch-{{object.id}}" checked="" onclick="changeState({{object.id}}, 'true')">
-              {%else%}
-              <input type="checkbox" id="switch-{{object.id}}" onclick="changeState({{object.id}}, 'false')">
-              {% endif %}
-              <span class="toggle"></span>
-            </label>
-          </div>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  
-  <!--
+          <td class="td-actions text-right">
+            <div class="togglebutton">
+              <label>
+                {% if object.active%}
+                <input type="checkbox" id="switch-{{object.id}}" checked=""
+                  onclick="changeState({{object.id}}, 'true')">
+                {%else%}
+                <input type="checkbox" id="switch-{{object.id}}" onclick="changeState({{object.id}}, 'false')">
+                {% endif %}
+                <span class="toggle"></span>
+              </label>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!--
 <div class="col-md-6">
 {% comment %}
   {% if is_paginated %}
@@ -64,10 +65,7 @@
   {% endif %}
   {% endcomment %}
   -->
-  </div>
+</div>
 
 
-  {% endblock %}
-
-
-  
+{% endblock %}
