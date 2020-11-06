@@ -23,7 +23,7 @@ class IndexView(View):
     def get(self, request, *args, **kwargs):
         try:
             posts = BlogEntry.objects.filter(
-                active=True).order_by('-created_date')[:8]
+                active=True).order_by('-created_date')[:10]
             categories = BlogCategory.objects.filter(is_active=True)
             web = Description.objects.filter(is_active=True)
             #category = BlogCategory.objects.get(slug=slug)
