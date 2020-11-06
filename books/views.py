@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import HttpResponse
 from django.views.generic.list import View, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django_filters.views import FilterView
@@ -11,6 +12,7 @@ from .forms import BookEntryForms
 from .filter import BookdminListFilter
 from blog.models import BlogEntry, BlogCategory
 from core.models import Description
+from audit.signals import Audits
 
 # Create your views here.
 
@@ -82,3 +84,24 @@ class BookListView(ListView):
     model = BookEntry
     template_name = 'bookentry_list.html'
     """
+
+
+@method_decorator(login_required, name='dispatch')
+class BookChageStateView(View):
+    # Cambia el estado de un blog, usado en el jquerry de blogadmin-list.html
+    def post(self, request, book_id, *args, **kwargs):
+        try:
+            book = BookEntry.objects.get(id=book_id)
+            book.is_active = not book.is_active
+            book.save()
+            if book.is_active:
+                audit_description = f"Se activa el Sitio :{book_id}"
+            else:
+                audit_description = f"Se desactiva el Sitio :{book_id}"
+            Audits.audit_action(request.user, "", audit_description, "DELETE")
+            return HttpResponse("ok", status=200)
+        except BookEntry.DoesNotExist:
+            return HttpResponse("Sitio not found", status=404)
+        except Exception as e:
+            print(e)
+            return HttpResponse("error code", status=500)

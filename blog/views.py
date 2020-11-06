@@ -42,7 +42,7 @@ class BlogEntryDetailView(DetailView):
         context['featured'] = BlogEntry.objects.filter(
             active=True, featured=True).order_by('-created_date')
         context['sites'] = OtherSites.objects.filter(
-            is_active=True)
+            active=True).order_by('name')
 
         # other code
         return context
@@ -63,7 +63,7 @@ class BlogEntryCategoryList(ListView):
             paginator = Paginator(new_context, 4)
             web = Description.objects.filter(is_active=True)
             sites = OtherSites.objects.filter(
-                is_active=True)
+                active=True).order_by('name')
         except:
             posts = None
             category = None

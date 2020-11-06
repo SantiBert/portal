@@ -57,6 +57,18 @@
             </div>
 
             <div class="col-12 col-lg-6 text-center">
+                <div class="dropdown p-3">
+                    <button type="button" class="btn btn-primary dropdown-toggle btn-block" data-toggle="dropdown">
+                        Citas
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'quoteCreate'%}">Ingresar una cita</a>
+                        <a class="dropdown-item" href="{% url 'quoteAdminList'%}">Lista de citas</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6 text-center">
                 <a class="btn btn-outline-primary mt-30 w-100 btn-block"
                     href="{% url 'admincontact'%}">Mensajes{% if total %}<span
                         class="badge badge-dark">{{total}}</span>{% endif %}</a>

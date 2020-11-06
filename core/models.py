@@ -46,7 +46,7 @@ class OtherSites(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField('titulo', null=True, blank=True, max_length=50)
     link = models.URLField(max_length=255, null=True, blank=True)
-    is_active = models.BooleanField(default=True)
+    active = models.BooleanField(default=True)
     color = models.CharField(
         max_length=100, choices=color_choices, null=False, blank=False, default="AZUL")
 
@@ -56,4 +56,4 @@ class Quote(models.Model):
     autor = models.CharField('titulo', null=True, blank=True, max_length=50)
     text = models.TextField()
     book = models.CharField('titulo', null=True, blank=True, max_length=70)
-    is_active = models.BooleanField(default=True)
+    active = models.BooleanField(default=True)

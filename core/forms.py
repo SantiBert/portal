@@ -55,8 +55,20 @@ class OtherSitesForm(forms.ModelForm):
     class Meta:
         model = OtherSites
         fields = '__all__'
-        exclude = ('is_active',)
+        exclude = ('active',)
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
             'link': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'URL'}),
+        }
+
+
+class QuoteForm(forms.ModelForm):
+    class Meta:
+        model = Quote
+        fields = '__all__'
+        exclude = ('active',)
+        widgets = {
+            'autor': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Autor'}),
+            'book': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Libro'}),
+            'text': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Cita'}),
         }

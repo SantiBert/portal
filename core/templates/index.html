@@ -21,15 +21,20 @@
 	<!--
 		CSS
 		============================================= -->
-	<link rel="stylesheet" href="{% static 'css/linearicons.css'%}">
-	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css'%}">
-	<link rel="stylesheet" href="{% static 'css/bootstrap.css'%}">
-	<link rel="stylesheet" href="{% static 'css/magnific-popup.css'%}">
-	<link rel="stylesheet" href="{% static 'css/nice-select.css'%}">
-	<link rel="stylesheet" href="{% static 'css/animate.min.css'%}">
-	<link rel="stylesheet" href="{% static 'css/owl.carousel.css'%}">
-	<link rel="stylesheet" href="{% static 'css/jquery-ui.css'%}">
-	<link rel="stylesheet" href="{% static 'css/main.css'%}">
+	<link rel="stylesheet" href="{% static './assets/css/linearicons.css'%}">
+	<link rel="stylesheet" href="{% static './assets/css/font-awesome.min.css'%}">
+	<link rel="stylesheet" href="{% static './assets/css/bootstrap.css'%}">
+	<link rel="stylesheet" href="{% static './assets/css/magnific-popup.css'%}">
+	<link rel="stylesheet" href="{% static './assets/css/nice-select.css'%}">
+	<link rel="stylesheet" href="{% static './assets/css/animate.min.css'%}">
+	<link rel="stylesheet" href="{% static './assets/css/owl.carousel.css'%}">
+	<link rel="stylesheet" href="{% static './assets/css/jquery-ui.css'%}">
+	<link rel="stylesheet" href="{% static './assets/css/main.css'%}">
+	<style>
+		.justify {
+			text-align: justify !important;
+		}
+	</style>
 </head>
 
 <body>
@@ -74,70 +79,68 @@
 		{% include 'includes/navbar.html'%}
 	</header>
 
-	<div class="site-main-container">
 
-		<!-- Start top-post Area -->
-		<section class="top-post-area pt-10">
-			<div class="container no-padding">
-				{% block content %}
-				<div class="row small-gutters">
-					<div class="col-lg-8 top-post-left">
-						<div class="feature-image-thumb relative">
-							<div class="overlay overlay-bg"></div>
-							<img width="755px" height="443px" src="{{recientes.0.image_ref.url}}" alt="">
+	<!-- Start top-post Area -->
+	<section class="top-post-area pt-10">
+		<div class="container no-padding">
+			{% block content %}
+			<div class="row small-gutters">
+				<div class="col-lg-8 top-post-left">
+					<div class="feature-image-thumb relative">
+						<div class="overlay overlay-bg"></div>
+						<img width="755px" height="443px" src="{{recientes.0.image_ref.url}}" alt="">
 
-							<div class="top-post-details">
-								<ul class="tags">
-									{% for cat in recientes.0.categories.all %}
-									<li><a href="#">{{cat.name}}</a></li>
-									{% endfor %}
-								</ul>
-								<a href="{% url 'blog:blog' recientes.0.id recientes.0.name|slugify %}">
-									<h3>{{recientes.0.name}}</h3>
-								</a>
-								<ul class="meta">
-									<li><a></a><span class="lnr lnr-user"></span>{{recientes.0.user.get_full_name}}</a>
-									</li>
-									<li><a><span
-												class="lnr lnr-calendar-full"></span>{{recientes.0.created_date.date}}</a>
+						<div class="top-post-details">
+							<ul class="tags">
+								{% for cat in recientes.0.categories.all %}
+								<li><a href="#">{{cat.name}}</a></li>
+								{% endfor %}
+							</ul>
+							<a href="{% url 'blog:blog' recientes.0.id recientes.0.name|slugify %}">
+								<h3>{{recientes.0.name}}</h3>
+							</a>
+							<ul class="meta">
+								<li><a></a><span class="lnr lnr-user"></span>{{recientes.0.user.get_full_name}}</a>
+								</li>
+								<li><a><span class="lnr lnr-calendar-full"></span>{{recientes.0.created_date.date}}</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-4 top-post-right">
+					<div class="hero-nav-area" style="background-color: #C5262B;">
+						<div class="feature-image-thumb relative hero-text">
+							<h4 class="p-1 text-white" style="line-height: 80%;">"No estoy de acuerdo con lo
+								que dices,</h4>
+							<h4 class="p-1 text-white" style="line-height: 80%;">pero defenderé con mi vida
+							</h4>
+							<h4 class="p-1 text-white" style="line-height: 80%;">tu derecho a expresarlo".</h4>
+							<footer class="blockquote-footer p-1"
+								style="font-weight: bold; color:black; font-size:large">Voltaire
+							</footer>
+						</div>
+					</div>
+					<div class="mt-10">
+						<div class="hero-nav-area" style="background-color: #C5262B;">
+							<div class="feature-image-thumb relative hero-text">
+								<h4 class="p-2 text-white" style="font-size: larger;">¡DEFIENDE TUS DERECHOS!
+								</h4>
+								<h4 class="p-2 text-white" style="font-size: larger;">¡CONOCE LA CONSTITUCIÓN
+									NACIONAL!</h4>
+								<br>
+								<ul class=" tags">
+									<li class="p-2 float-left">
+										<a type="button" href="/media/{{ web.0.link }}" download
+											class="btn btn-sm text-white" style="background-color: #0B3182;">Descargala
+											aquí</a>
 									</li>
 								</ul>
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-4 top-post-right">
-						<div class="hero-nav-area" style="background-color: #C5262B;">
-							<div class="feature-image-thumb relative hero-text">
-								<h4 class="p-1 text-white" style="line-height: 80%;">"No estoy de acuerdo con lo
-									que dices,</h4>
-								<h4 class="p-1 text-white" style="line-height: 80%;">pero defenderé con mi vida
-								</h4>
-								<h4 class="p-1 text-white" style="line-height: 80%;">tu derecho a expresarlo".</h4>
-								<footer class="blockquote-footer p-1"
-									style="font-weight: bold; color:black; font-size:large">Voltaire
-								</footer>
-							</div>
-						</div>
-						<div class="mt-10">
-							<div class="hero-nav-area" style="background-color: #C5262B;">
-								<div class="feature-image-thumb relative hero-text">
-									<h4 class="p-2 text-white" style="font-size: larger;">¡DEFIENDE TUS DERECHOS!
-									</h4>
-									<h4 class="p-2 text-white" style="font-size: larger;">¡CONOCE LA CONSTITUCIÓN
-										NACIONAL!</h4>
-									<br>
-									<ul class=" tags">
-										<li class="p-2 float-left">
-											<a type="button" href="/media/{{ web.0.link }}" download
-												class="btn btn-sm text-white"
-												style="background-color: #0B3182;">Descargala
-												aquí</a>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<!--div class="single-top-post mt-10">
+					<!--div class="single-top-post mt-10">
 							<div class="feature-image-thumb relative ">
 								<div class="overlay overlay-bg"></div>
 								<img width="375px" height="215" src="{% static 'img/bordo.jpg'%}" alt="">
@@ -152,67 +155,66 @@
 								</ul>
 							</div>
 						</div-->
-					</div>
 				</div>
 			</div>
-		</section>
-		<!-- End top-post Area -->
-		<!-- Start latest-post Area -->
-		<section class="latest-post-area pb-120">
-			<div class="container no-padding">
-				<div class="row">
-					<div class="col-lg-8 post-list">
-						<!-- Start latest-post Area -->
-						<div class="latest-post-wrap">
-							<h4 class="cat-title" style="background-color: #0B3182;">Ultimos artículos</h4>
-							{% for post in posts%}
-							<div class="single-latest-post row align-items-center">
-								<div class="col-lg-5 post-left">
-									<div class="feature-img relative">
-										<div class="overlay overlay-bg"></div>
-										{% if post.image_ref %}
-										<img src="{{post.image_ref.url}}" width="182px" height="189px">
-										{% else %}
-										<img class="img-fluid" src="{% static './assets/img/image_placeholder.jpg'%}"
-											alt="">
-										{% endif %}
-									</div>
-									<ul class="tags">
-										{% for category in post.category.all %}
-										<li><a href="{% url 'blog:categories' category.slug %}">{{ category.name }}</a>
-										</li>
-										{% endfor %}
-									</ul>
-								</div>
-								<div class="col-lg-7 post-right">
-									<a href="{% url 'blog:blog' post.id post.name|slugify %}">
-										<h4>{{ post.name }}</h4>
-									</a>
-									<ul class="meta">
-										<li><a><span class="lnr lnr-user"></span>{{post.user.get_full_name}}</a></li>
-										<li><a><span
-													class="lnr lnr-calendar-full"></span>{{ post.created_date.date }}</a>
-										</li>
-										</li>
-									</ul>
-									<p class="excert">
-										{{post.description|striptags|safe|truncatechars:"300"}}
-									</p>
-									{% if request.user.is_authenticated %}
-									<p>
-										<a href="{% url 'blog:update' post.id %}"> Editar </a>
-									</p>
+		</div>
+	</section>
+	<!-- End top-post Area -->
+	<!-- Start latest-post Area -->
+	<section class="latest-post-area pb-120">
+		<div class="container no-padding">
+			<div class="row">
+				<div class="col-lg-8 post-list">
+					<!-- Start latest-post Area -->
+					<div class="latest-post-wrap">
+						<h4 class="cat-title" style="background-color: #0B3182;">Ultimos artículos</h4>
+						{% for post in posts%}
+						<div class="single-latest-post row align-items-center">
+							<div class="col-lg-5 post-left">
+								<div class="feature-img relative">
+									<div class="overlay overlay-bg"></div>
+									{% if post.image_ref %}
+									<img src="{{post.image_ref.url}}" width="182px" height="189px">
+									{% else %}
+									<img class="img-fluid" src="{% static './assets/img/image_placeholder.jpg'%}"
+										alt="">
 									{% endif %}
 								</div>
+								<ul class="tags">
+									{% for category in post.category.all %}
+									<li><a href="{% url 'blog:categories' category.slug %}">{{ category.name }}</a>
+									</li>
+									{% endfor %}
+								</ul>
 							</div>
-							{% endfor %}
+							<div class="col-lg-7 post-right">
+								<a href="{% url 'blog:blog' post.id post.name|slugify %}">
+									<h4>{{ post.name }}</h4>
+								</a>
+								<ul class="meta">
+									<li><a><span class="lnr lnr-user"></span>{{post.user.get_full_name}}</a></li>
+									<li><a><span class="lnr lnr-calendar-full"></span>{{ post.created_date.date }}</a>
+									</li>
+									</li>
+								</ul>
+								<p class="excert">
+									{{post.description|striptags|safe|truncatechars:"300"}}
+								</p>
+								{% if request.user.is_authenticated %}
+								<p>
+									<a href="{% url 'blog:update' post.id %}"> Editar </a>
+								</p>
+								{% endif %}
+							</div>
 						</div>
-						<!-- End latest-post Area -->
+						{% endfor %}
+					</div>
+					<!-- End latest-post Area -->
 
-						<!-- End banner-ads Area -->
-						<!-- Start popular-post Area -->
-						<!-- End popular-post Area -->
-						<!-- Start relavent-story-post Area 
+					<!-- End banner-ads Area -->
+					<!-- Start popular-post Area -->
+					<!-- End popular-post Area -->
+					<!-- Start relavent-story-post Area 
 						<div class="relavent-story-post-wrap mt-30">
 							<h4 class="title" style="background-color: #0B3182;">Relavent Stories</h4>
 							<div class="relavent-story-list-wrap">
@@ -299,14 +301,14 @@
 								</div>
 							</div>
 						</div>-->
-						<!-- End relavent-story-post Area -->
-					</div>
-					{% include 'includes/lateral.html'%}
-					{% endblock content %}
+					<!-- End relavent-story-post Area -->
 				</div>
+				{% include 'includes/lateral.html'%}
+				{% endblock content %}
 			</div>
-		</section>
-		<!-- End latest-post Area -->
+		</div>
+	</section>
+	<!-- End latest-post Area -->
 	</div>
 
 
@@ -314,17 +316,10 @@
 	<footer class="footer-area p-4" style="background-color: #0B3182;">
 		<div class="container">
 			<div class="row mb-5">
-				<div class="col-md-4">
-					<h3 class="footer-heading mb-4 text-white">Nosotros</h3>
-					<p class="excert text-white">{{web.0.description|striptags|safe}}</p>
+				<div class="col-lg-4">
+					<h3 class="footer-heading mb-4 text-white">Nosotros:</h3>
+					<p class="excert text-white justify">{{web.0.description|striptags|safe}}</p>
 				</div>
-				<!--div class="col-lg-4 col-md-8 single-footer-widget">
-					<blockquote class="wp-block-quote">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-							labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-							laboris nisi ut aliquip ex ea commodo consequat. </p><cite>Tim Heiler</cite>
-					</blockquote>
-				</div-->
 				<div class="col-lg-2 col-md-6 single-footer-widget">
 					<h3 class="footer-heading mb-4 text-white">Menú Rápido</h3>
 					<ul class="list-unstyled float-center ">
@@ -336,6 +331,24 @@
 						<li><a href="{% url 'contact_us' %}" class="text-white">Contáctenos</a></li>
 					</ul>
 				</div>
+				<div class="col-lg-6 col-md-8 single-footer-widget">
+					<div class="container" style="background-color: #F6214B;">
+						<h3 class="footer-heading mb-4 text-white">Grandes citas:</h3>
+						<div class="feature-image-thumb relative hero-text">
+							<div class="owl-carousel owl-theme">
+								{% for quote in quotes  %}
+								<div class="item">
+									<blockquote class="wp-block-quote justify p-2">
+										<p class="text-white">{{ quote.text }}</p><cite
+											class="text-white">{{ quote.autor }}</cite>
+									</blockquote>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</div>
 			<div class="row">
 				<div class="col-12 text-center">
@@ -360,23 +373,31 @@
 	<!-- End footer Area -->
 	{% block ExtraScript %}
 	{% endblock ExtraScript %}
-	<script src="{% static 'js/vendor/jquery-2.2.4.min.js'%}"></script>
+	<script src="{% static './assets/js/vendor/jquery-2.2.4.min.js'%}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 		crossorigin="anonymous"></script>
-	<script src="{% static 'js/vendor/bootstrap.min.js'%}"></script>
+	<script src="{% static './assets/js/vendor/bootstrap.min.js'%}"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-	<script src="{% static 'js/easing.min.js'%}"></script>
-	<script src="{% static 'js/hoverIntent.js'%}"></script>
-	<script src="{% static 'js/superfish.min.js'%}"></script>
-	<script src="{% static 'js/jquery.ajaxchimp.min.js'%}"></script>
-	<script src="{% static 'js/jquery.magnific-popup.min.js'%}"></script>
-	<script src="{% static 'js/mn-accordion.js'%}"></script>
-	<script src="{% static 'js/jquery-ui.js'%}"></script>
-	<script src="{% static 'js/jquery.nice-select.min.js'%}"></script>
-	<script src="{% static 'js/owl.carousel.min.js'%}"></script>
-	<script src="{% static 'js/mail-script.js'%}"></script>
-	<script src="{% static 'js/main.js'%}"></script>
+	<script src="{% static './assets/js/easing.min.js'%}"></script>
+	<script src="{% static './assets/js/hoverIntent.js'%}"></script>
+	<script src="{% static './assets/js/superfish.min.js'%}"></script>
+	<script src="{% static './assets/js/jquery.ajaxchimp.min.js'%}"></script>
+	<script src="{% static './assets/js/jquery.magnific-popup.min.js'%}"></script>
+	<script src="{% static './assets/js/mn-accordion.js'%}"></script>
+	<script src="{% static './assets/js/jquery-ui.js'%}"></script>
+	<script src="{% static './assets/js/jquery.nice-select.min.js'%}"></script>
+	<script src="{% static './assets/js/owl.carousel.min.js'%}"></script>
+	<script src="{% static './assets/js/mail-script.js'%}"></script>
+	<script src="{% static './assets/js/main.js'%}"></script>
+	<script>
+		$.simpleTicker($("#Quotations"), {
+			speed: 1000,
+			delay: 3000,
+			easing: 'swing',
+			effectType: 'roll'
+		});
+	</script>
 </body>
 
 </html>

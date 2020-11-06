@@ -32,7 +32,7 @@
           <td class="td-actions text-right">
             <div class="togglebutton">
               <label>
-                {% if object.active%}
+                {% if object.is_active%}
                 <input type="checkbox" id="switch-{{object.id}}" checked=""
                   onclick="changeState({{object.id}}, 'true')">
                 {%else%}
@@ -67,5 +67,39 @@
   -->
 </div>
 
+<script>
+  function changeState(book_id, blogstate) {
+    var url = "{% url 'bookdelete' 0 %}";
+    url = url.replace(0, book_id);
+
+    $.ajax({
+      url: url,
+      method: "POST",
+      data: { "csrfmiddlewaretoken": '{{ csrf_token }}' },
+      success: function (data) {
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        if (xhr.status == 404 || xhr.status == 500) {
+          var switch_name = "#switch-" + book_id;
+          var switch_id = "switch-" + book_id;
+          if (teacherState == "true") {
+            var new_button = "<input type='checkbox'  checked  id=switch_name onclick=\"changeState(book_id, \'true\')\">".replace("switch_name", switch_id).replace("book_id", book_id);
+            $(switch_name).replaceWith(new_button);
+          }
+          else {
+            var new_button = "<input type='checkbox'  id=switch_name onclick=\"changeState(book_id, \'false\')\">".replace("switch_name", switch_id).replace("book_id", book_id);
+            $(switch_name).replaceWith(new_button);
+          }
+          if (xhr.status == 404) {
+            alert("No se encontro profesor (404)");
+          }
+          if (xhr.status == 500) {
+            alert("Error de conexion (500))");
+          }
+        }
+      },
+    });
+  }
+</script>
 
 {% endblock %}

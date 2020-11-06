@@ -6,22 +6,24 @@ from django.views.generic.edit import UpdateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.shortcuts import HttpResponse
 from django.urls import reverse_lazy
 from django import forms
 from django_filters.views import FilterView
 
 from blog.models import BlogEntry, BlogCategory
 from contac.models import Contact
-from .models import Profile, Description, OtherSites
-from .forms import ProfileForm, EmailForm, NameUpdateForm, DescriptionForm, OtherSitesForm
-from .filters import OtherSitesListFilter
+from audit.signals import Audits
+from .models import Profile, Description, OtherSites, Quote
+from .forms import ProfileForm, EmailForm, NameUpdateForm, DescriptionForm, OtherSitesForm, QuoteForm
+from .filters import OtherSitesListFilter, QuoteListFilter
 
 
 class IndexView(View):
     def get(self, request, *args, **kwargs):
         try:
             posts = BlogEntry.objects.filter(
-                active=True).order_by('-created_date')[:6]
+                active=True).order_by('-created_date')[:8]
             categories = BlogCategory.objects.filter(is_active=True)
             web = Description.objects.filter(is_active=True)
             #category = BlogCategory.objects.get(slug=slug)
@@ -30,13 +32,15 @@ class IndexView(View):
             recientes = BlogEntry.objects.filter(
                 active=True).order_by('-created_date')
             sites = OtherSites.objects.filter(
-                is_active=True)
+                active=True).order_by('name')
+            quotes = Quote.objects.filter(active=True)
 
             context = {
                 'posts': posts,
                 'categories': categories,
                 # 'category': category,
                 'featured': featured,
+                'quotes': quotes,
                 'sites': sites,
                 'recientes': recientes,
                 'web': web,
@@ -52,7 +56,7 @@ class LateralView(ListView):
             featured = BlogEntry.objects.filter(
                 active=True, featured=True).order_by('-created_date')
             sites = OtherSites.objects.filter(
-                is_active=True)
+                active=True).order_by('name')
             context = {
                 'sites': sites,
                 'featured': featured
@@ -82,7 +86,7 @@ class SearchView(View):
         featured = BlogEntry.objects.filter(
             active=True, featured=True).order_by('-created_date')
         sites = OtherSites.objects.filter(
-            is_active=True)
+            active=True).order_by('name')
         context = {
             'categories': categories,
             'featured': featured,
@@ -99,7 +103,7 @@ class SearchView(View):
         featured = BlogEntry.objects.filter(
             active=True, featured=True).order_by('-created_date')
         sites = OtherSites.objects.filter(
-            is_active=True)
+            is_active=True).order_by('name')
         if queryset:
             posts = BlogEntry.objects.filter(
                 Q(name__icontains=queryset) |
@@ -222,3 +226,84 @@ class OtherSitesUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('sitesupdate', args=[self.object.id]) + '?ok'
+
+
+@method_decorator(login_required, name='dispatch')
+class OtherSitesChageStateView(View):
+    # Cambia el estado de un blog, usado en el jquerry de blogadmin-list.html
+    def post(self, request, site_id, *args, **kwargs):
+        try:
+            site = OtherSites.objects.get(id=site_id)
+            site.active = not site.active
+            site.save()
+            if site.active:
+                audit_description = f"Se activa el Sitio :{site_id}"
+            else:
+                audit_description = f"Se desactiva el Sitio :{site_id}"
+            Audits.audit_action(request.user, "", audit_description, "DELETE")
+            return HttpResponse("ok", status=200)
+        except OtherSites.DoesNotExist:
+            return HttpResponse("Sitio not found", status=404)
+        except Exception as e:
+            print(e)
+            return HttpResponse("error code", status=500)
+
+
+@method_decorator(login_required, name='dispatch')
+class QuoteCreateView(CreateView):
+    # Vista para crear los post con un de decorador para que solo los administardores puedan acceder
+    model = Quote
+    form_class = QuoteForm
+    success_url = reverse_lazy('administration')
+    template_name = 'quotes/quotes_form.html'
+
+    # Devuelve al usuario actualmente logueado para el campo de User del Blog creado
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(QuoteCreateView, self).form_valid(form)
+
+
+@method_decorator(login_required, name='dispatch')
+class QuoteAdminListView(FilterView):
+    # Vista de la lista de posts para el administrador
+    model = Quote
+    context_object_name = 'quotes'
+    template_name = 'quotes/adminquotes.html'
+    paginate_by = 30  # TODO obtener dato de un constants.py
+    filterset_class = QuoteListFilter
+    ordering = ["autor"]
+
+    def get_queryset(self):
+        return Quote.objects.all()
+
+
+@method_decorator(login_required, name='dispatch')
+class QuoteUpdateView(UpdateView):
+    model = Quote
+    form_class = QuoteForm
+    template_name = 'quotes/quotes_update_form.html'
+    template_name_suffix = '_update_form'
+
+    def get_success_url(self):
+        return reverse_lazy('quoteUpdate', args=[self.object.id]) + '?ok'
+
+
+@method_decorator(login_required, name='dispatch')
+class QuoteChageStateView(View):
+    # Cambia el estado de un blog, usado en el jquerry de blogadmin-list.html
+    def post(self, request, quote_id, *args, **kwargs):
+        try:
+            quote = Quote.objects.get(id=quote_id)
+            quote.active = not quote.active
+            quote.save()
+            if quote.active:
+                audit_description = f"Se activa el Sitio :{quote_id}"
+            else:
+                audit_description = f"Se desactiva el Sitio :{quote_id}"
+            Audits.audit_action(request.user, "", audit_description, "DELETE")
+            return HttpResponse("ok", status=200)
+        except Quote.DoesNotExist:
+            return HttpResponse("Cita not found", status=404)
+        except Exception as e:
+            print(e)
+            return HttpResponse("error code", status=500)
