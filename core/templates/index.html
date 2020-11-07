@@ -334,22 +334,20 @@
 				<div class="col-lg-6 col-md-8 single-footer-widget">
 					<div class="container" style="background-color: #F6214B;">
 						<h3 class="footer-heading mb-4 text-white">Grandes citas:</h3>
-						<div class="feature-image-thumb relative hero-text">
+						<div class="feature-image-thumb relative hero-text">							
 							<div class="owl-carousel owl-theme">
 								{% for quote in quotes  %}
-								<div class="item">
-									<blockquote class="wp-block-quote justify p-2">
-										<p class="text-white">{{ quote.text }}</p><cite
-											class="text-white">{{ quote.autor }}</cite>
-									</blockquote>
-								</div>
+								<div class="item" style="width:250px">								
+										<h4>{{ quote.text }}</h4>
+										<h4>{{ quote.autor }}</h4>
+										</div>
 								{% endfor %}
-							</div>
+							</div>	
 						</div>
 					</div>
 				</div>
 
-			</div>
+			
 			<div class="row">
 				<div class="col-12 text-center">
 					<p>
@@ -390,7 +388,15 @@
 	<script src="{% static 'js/owl.carousel.min.js'%}"></script>
 	<script src="{% static 'js/mail-script.js'%}"></script>
 	<script src="{% static 'js/main.js'%}"></script>
+	
+	
 	<script>
+$('.owl-carousel').owlCarousel({
+    margin:10,
+    loop:true,
+    autoWidth:true,
+    items:4
+})
 		$.simpleTicker($("#Quotations"), {
 			speed: 1000,
 			delay: 3000,
