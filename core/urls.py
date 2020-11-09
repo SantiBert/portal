@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import handler404
 
 from .views import (ProfileUpdate,
                     EmailUpdate,
@@ -43,5 +44,6 @@ urlpatterns = [
     path('profile/email/', EmailUpdate.as_view(), name="profile_email"),
     path('profile/name/', NameUpdate.as_view(), name="profile_name"),
     path('resultados/', SearchView.as_view(), name='search'),
+
 
 ]

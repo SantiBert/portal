@@ -11,6 +11,7 @@ from django.shortcuts import HttpResponse
 from django.urls import reverse_lazy
 from django import forms
 from django_filters.views import FilterView
+from django.views.defaults import page_not_found
 
 from blog.models import BlogEntry, BlogCategory
 from contac.models import Contact
@@ -49,6 +50,10 @@ class IndexView(View):
         except:
             context = {}
         return render(request, 'index.html', context)
+
+
+def handler404(request, exception):
+    return render(request, '404.html')
 
 
 class LateralView(ListView):
