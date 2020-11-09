@@ -52,10 +52,6 @@ class IndexView(View):
         return render(request, 'index.html', context)
 
 
-def handler404(request, exception):
-    return render(request, '404.html')
-
-
 class LateralView(ListView):
     def get(self, request, *args, **kwargs):
         try:
