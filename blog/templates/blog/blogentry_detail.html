@@ -49,7 +49,8 @@
 
 						<div class="blog-post-author d-flex">
 							<div class="author-thumbnail">
-								<img src="{{object.user.Profile.image.url}}" width="70px">
+								<div class="overlay overlay-bg"></div>
+								<img class="img-fluid" src="{{object.user.Profile.image.url}}" width="70px">
 							</div>
 							<div class="author-info">
 								<a class="author-name"> {{object.user.get_full_name}}</a>
