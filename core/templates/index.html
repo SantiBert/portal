@@ -35,12 +35,20 @@
 			text-align: justify !important;
 		}
 	</style>
+	<style>
+		#bandera {
+			background-image: url("{% static 'img/bandera_argentina.jpeg'%}");
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-size: cover;
+		}
+	</style>
 </head>
 
-<body style="background-color: #69C9FF;">
+<body id="bandera">
 	<header>
 
-		<div class="header-top" style="background-color: #0B3182;">
+		<div class="header-top">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-6 col-md-6 col-sm-6 col-6 header-top-left no-padding">
@@ -81,7 +89,7 @@
 
 
 	<!-- Start top-post Area -->
-	<section class="top-post-area pt-10" style="background-color: #69C9FF;">
+	<section class="top-post-area pt-10">
 		<div class="container no-padding">
 			{% block content %}
 			<div class="row small-gutters">
@@ -160,7 +168,7 @@
 	</section>
 	<!-- End top-post Area -->
 	<!-- Start latest-post Area -->
-	<section class="latest-post-area pb-120" style="background-color: #69C9FF;">
+	<section class="latest-post-area pb-120">
 		<div class="container no-padding">
 			<div class="row">
 				<div class="col-lg-8 post-list">
