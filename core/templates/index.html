@@ -334,39 +334,37 @@
 				<div class="col-lg-6 col-md-8 single-footer-widget">
 					<div class="container" style="background-color: #F6214B;">
 						<h3 class="footer-heading mb-4 text-white">Grandes citas:</h3>
-						<div class="feature-image-thumb relative hero-text">							
-							<div class="owl-carousel owl-theme">
-								{% for quote in quotes  %}
-								<div class="item" style="width:250px">								
-										<h4>{{ quote.text }}</h4>
-										<h4>{{ quote.autor }}</h4>
-										</div>
-								{% endfor %}
-							</div>	
+						<div class="feature-image-thumb relative hero-text">
+							<blockquote class="blockquote">
+								<p class="mb-0 text-white justify">{{ quote.text }}</p>
+								<br>
+								<footer class="blockquote-footer text-white">{{ quote.autor }} {% if quote.book %}in
+									<cite title="Source Title text-white">{{ quote.book }}</cite>{% endif %}</footer>
+							</blockquote>
 						</div>
 					</div>
 				</div>
 
-			
-			<div class="row">
-				<div class="col-12 text-center">
-					<p>
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-					</p>
+				<div class="row">
+					<div class="col-12 text-center">
+						<p>
+							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+
+							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						</p>
+					</div>
+				</div>
+
+				<div class="footer-bottom row align-items-left">
+					<div class="copyright float-right">
+						&copy;
+						<script>
+							document.write(new Date().getFullYear())
+						</script>,<a class="text-danger"> Usaurios-Dev</a>
+					</div>
 				</div>
 			</div>
-
-			<div class="footer-bottom row align-items-left">
-				<div class="copyright float-right">
-					&copy;
-					<script>
-						document.write(new Date().getFullYear())
-					</script>,<a class="text-danger"> Usaurios-Dev</a>
-				</div>
-			</div>
-		</div>
 	</footer>
 	<!-- End footer Area -->
 	{% block ExtraScript %}
@@ -388,15 +386,15 @@
 	<script src="{% static 'js/owl.carousel.min.js'%}"></script>
 	<script src="{% static 'js/mail-script.js'%}"></script>
 	<script src="{% static 'js/main.js'%}"></script>
-	
-	
+
+
 	<script>
-$('.owl-carousel').owlCarousel({
-    margin:10,
-    loop:true,
-    autoWidth:true,
-    items:4
-})
+		$('.owl-carousel').owlCarousel({
+			margin: 10,
+			loop: true,
+			autoWidth: true,
+			items: 4
+		})
 		$.simpleTicker($("#Quotations"), {
 			speed: 1000,
 			delay: 3000,

@@ -1,3 +1,4 @@
+import random
 from django.shortcuts import render
 from django.views import View
 from django.contrib.auth.forms import UserCreationForm
@@ -40,7 +41,7 @@ class IndexView(View):
                 'categories': categories,
                 # 'category': category,
                 'featured': featured,
-                'quotes': quotes,
+                'quote': random.choice(quotes),
                 'sites': sites,
                 'recientes': recientes,
                 'web': web,
