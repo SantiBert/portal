@@ -6,7 +6,7 @@
 	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Favicon-->
-	<link rel="shortcut icon" href="{% static 'img/DELMA 1.png'%}">
+	<link rel="shortcut icon" href="{% static 'img/DELMA 0.ico'%}">
 	<!-- Author Meta -->
 	<meta name="author" content="colorlib">
 	<!-- Meta Description -->
@@ -37,7 +37,7 @@
 	</style>
 </head>
 
-<body>
+<body style="background-color: #69C9FF;">
 	<header>
 
 		<div class="header-top" style="background-color: #0B3182;">
@@ -81,7 +81,7 @@
 
 
 	<!-- Start top-post Area -->
-	<section class="top-post-area pt-10">
+	<section class="top-post-area pt-10" style="background-color: #69C9FF;">
 		<div class="container no-padding">
 			{% block content %}
 			<div class="row small-gutters">
@@ -108,7 +108,6 @@
 						</div>
 					</div>
 				</div>
-
 				<div class="col-lg-4 top-post-right">
 					<div class="hero-nav-area" style="background-color: #C5262B;">
 						<div class="feature-image-thumb relative hero-text">
@@ -161,7 +160,7 @@
 	</section>
 	<!-- End top-post Area -->
 	<!-- Start latest-post Area -->
-	<section class="latest-post-area pb-120">
+	<section class="latest-post-area pb-120" style="background-color: #69C9FF;">
 		<div class="container no-padding">
 			<div class="row">
 				<div class="col-lg-8 post-list">
@@ -338,8 +337,10 @@
 							<blockquote class="blockquote">
 								<p class="mb-0 text-white justify">{{ quote.text }}</p>
 								<br>
+								{% if quote.autor %}
 								<footer class="blockquote-footer text-white">{{ quote.autor }} {% if quote.book %}in
 									<cite title="Source Title text-white">{{ quote.book }}</cite>{% endif %}</footer>
+								{% endif %}
 							</blockquote>
 						</div>
 					</div>

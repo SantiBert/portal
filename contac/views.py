@@ -1,3 +1,4 @@
+import random
 from django.shortcuts import render
 from django.views.generic.list import View, ListView
 from django.views.generic.detail import DetailView
@@ -10,7 +11,7 @@ from django.contrib.auth.models import User
 from .forms import ContactForm
 from .models import Contact
 from blog.models import BlogEntry, BlogCategory
-from core.models import Profile, Description
+from core.models import Profile, Description, Quote
 # Create your views here.
 
 
@@ -20,10 +21,12 @@ class ContactFormView(View):
         categories = BlogCategory.objects.filter(is_active=True)
         web = Description.objects.filter(is_active=True)
         form = ContactForm()
-        person = User.objects.all()
+        person = User.objects.all(),
+        quotes = Quote.objects.filter(active=True)
         context = {
             'form': form,
             'posts': posts,
+            'quote': random.choice(quotes),
             'categories': categories,
             'person': person,
             'web': web,

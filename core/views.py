@@ -104,7 +104,8 @@ class SearchView(View):
         featured = BlogEntry.objects.filter(
             active=True, featured=True).order_by('-created_date')
         sites = OtherSites.objects.filter(
-            is_active=True).order_by('name')
+            active=True).order_by('name')
+        quotes = Quote.objects.filter(active=True)
         if queryset:
             posts = BlogEntry.objects.filter(
                 Q(name__icontains=queryset) |
@@ -115,6 +116,7 @@ class SearchView(View):
         context = {
             'categories': categories,
             'featured': featured,
+            'quote': random.choice(quotes),
             'web': web,
             'sites': sites,
             'object_list': posts,

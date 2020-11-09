@@ -1,3 +1,4 @@
+import random
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
@@ -11,7 +12,7 @@ from .models import BookEntry
 from .forms import BookEntryForms
 from .filter import BookdminListFilter
 from blog.models import BlogEntry, BlogCategory
-from core.models import Description
+from core.models import Description, Quote
 from audit.signals import Audits
 
 # Create your views here.
@@ -70,9 +71,11 @@ class BookListView(ListView):
             categories = BlogCategory.objects.filter(is_active=True)
             new_context = BookEntry.objects.filter(is_active=True)
             web = Description.objects.filter(is_active=True)
+            quotes = Quote.objects.filter(active=True)
             context = {
                 'object_list': new_context,
                 'posts': posts,
+                'quote': random.choice(quotes),
                 'categories': categories,
                 'web': web,
             }

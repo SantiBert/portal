@@ -1,3 +1,4 @@
+import random
 from django.shortcuts import render
 from django.views.generic.list import View, ListView
 from django.views.generic import DetailView
@@ -16,7 +17,7 @@ from .forms import BlogEntryForm, BlogCategoryEntryForm
 
 from audit.signals import Audits
 from unicodedata import category, category
-from core.models import Description, OtherSites
+from core.models import Description, OtherSites, Quote
 
 
 class BlogEntryListView(ListView):
@@ -43,7 +44,7 @@ class BlogEntryDetailView(DetailView):
             active=True, featured=True).order_by('-created_date')
         context['sites'] = OtherSites.objects.filter(
             active=True).order_by('name')
-
+        context['quote'] = random.choice(Quote.objects.filter(active=True))
         # other code
         return context
 
@@ -64,7 +65,10 @@ class BlogEntryCategoryList(ListView):
             web = Description.objects.filter(is_active=True)
             sites = OtherSites.objects.filter(
                 active=True).order_by('name')
+            quotes = Quote.objects.filter(active=True)
+
         except:
+            quotes = None
             posts = None
             category = None
             categories = None
@@ -85,6 +89,7 @@ class BlogEntryCategoryList(ListView):
             'sites': sites,
             'featured': featured,
             'web': web,
+            'quote': random.choice(quotes),
         }
         return render(request, 'blog/categories-post.html', context)
 
