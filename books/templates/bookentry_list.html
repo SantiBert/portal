@@ -1,5 +1,6 @@
 {% extends 'index.html' %}
 {% load static %}
+
 {% block title %}Mis libros{% endblock %}
 
 {% block content %}
@@ -28,10 +29,10 @@
                             <div class="feature-img relative p-2">
                                 {% if object.image %}
                                 <div class="overlay overlay-bg"></div>
-                                <img class="img-fluid" src="{{object.image.url}}" height="500px">
+                                <img class="img" src="{{object.image.url}}" height="500px">
                                 {% else %}
                                 <div class="overlay overlay-bg"></div>
-                                <img class="img-fluid" src="{% static './assets/img/image_placeholder.jpg'%}">
+                                <img class="img" src="{% static './assets/img/image_placeholder.jpg'%}">
                                 {% endif %}
                             </div>
                         </div>
@@ -68,10 +69,10 @@
                             <div class="feature-img relative p-2">
                                 {% if object.image %}
                                 <div class="overlay overlay-bg"></div>
-                                <img class="img-fluid" src="{{object.image.url}}" height="500px">
+                                <img class="img" src="{{object.image.url}}" height="500px">
                                 {% else %}
                                 <div class="overlay overlay-bg"></div>
-                                <img class="img-fluid" src="{% static './assets/img/image_placeholder.jpg'%}">
+                                <img class="img" src="{% static './assets/img/image_placeholder.jpg'%}">
                                 {% endif %}
                             </div>
                         </div>
