@@ -6,6 +6,7 @@ from django.conf import settings
 from django.utils import timezone
 
 from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 def get_upload_blog_path(instance, filename):
@@ -31,7 +32,7 @@ class BlogEntry(models.Model):
     category = models.ManyToManyField(BlogCategory, related_name="categories")
     date = models.DateTimeField(null=True, blank=True)
     created_date = models.DateTimeField(default=timezone.now)
-    description = RichTextField(null=True, blank=True)
+    description = RichTextUploadingField(null=True, blank=True)
     active = models.BooleanField(default=True)
     featured = models.BooleanField(default=False)
     image_ref = models.ImageField(
