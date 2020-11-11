@@ -61,7 +61,7 @@ class BlogEntryCategoryList(ListView):
             page = request.GET.get('page', 1)
             new_context = BlogEntry.objects.filter(
                 category=category, active=True).order_by('-created_date')
-            paginator = Paginator(new_context, 4)
+            paginator = Paginator(new_context, 5)
             web = Description.objects.filter(is_active=True)
             sites = OtherSites.objects.filter(
                 active=True).order_by('name')
@@ -171,7 +171,7 @@ class BlogAdminListView(FilterView):
     model = BlogEntry
     context_object_name = 'blogs'
     template_name = 'admin/blogadmin-list.html'
-    paginate_by = 30  # TODO obtener dato de un constants.py
+    paginate_by = 12  # TODO obtener dato de un constants.py
     filterset_class = BlogAdminListFilter
     ordering = ["name", "user__username", "user__first_name",
                 "user__last_name", "category__name", "active", "date", "created_date"]
