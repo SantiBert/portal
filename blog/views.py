@@ -174,10 +174,10 @@ class BlogAdminListView(FilterView):
     paginate_by = 30  # TODO obtener dato de un constants.py
     filterset_class = BlogAdminListFilter
     ordering = ["name", "user__username", "user__first_name",
-                "user__last_name", "category__name", "active", "date"]
+                "user__last_name", "category__name", "active", "date", "created_date"]
 
     def get_queryset(self):
-        return BlogEntry.objects.all()
+        return BlogEntry.objects.all().order_by('-created_date')
 
 
 @method_decorator(login_required, name='dispatch')

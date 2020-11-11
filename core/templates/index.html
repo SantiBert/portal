@@ -59,7 +59,7 @@
 							<a href="{% url 'login'%}" style="padding: 15px; color: white;">Iniciar sesión</a>
 							{% elif  request.user.is_authenticated %}
 							<a href="{% url 'logout'%}" style="padding: 15px; color: white;">Cerrar sesión</a>
-							<a href="{% url 'administration'%}" style="padding: 15px; color: white;">Aministrador</a>
+							<a href="{% url 'administration'%}" style="padding: 15px; color: white;">Administrador</a>
 							{% endif %}
 						</ul>
 					</div>
