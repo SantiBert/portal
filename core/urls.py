@@ -17,6 +17,7 @@ from .views import (ProfileUpdate,
                     QuoteChageStateView,
                     QuoteCreateView,
                     QuoteUpdateView,
+                    SuscribeView,
                     )
 
 urlpatterns = [
@@ -44,6 +45,7 @@ urlpatterns = [
     path('profile/email/', EmailUpdate.as_view(), name="profile_email"),
     path('profile/name/', NameUpdate.as_view(), name="profile_name"),
     path('resultados/', SearchView.as_view(), name='search'),
+    path('subscribe/', SuscribeView.as_view(), name='suscribe'),
 
 
 ]

@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.utils import timezone
 from django.conf import settings
 
 
@@ -57,3 +58,13 @@ class Quote(models.Model):
     text = models.TextField()
     book = models.CharField('titulo', null=True, blank=True, max_length=70)
     active = models.BooleanField(default=True)
+
+
+class Suscriptor(models.Model):
+    id = models.AutoField(primary_key=True)
+    date = models.DateField(auto_now=False, auto_now_add=True)
+    active = models.BooleanField(default=True)
+    email = models.EmailField('E-mail', max_length=200)
+
+    def __str__(self):
+        return self.email

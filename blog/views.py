@@ -8,16 +8,19 @@ from django.utils.decorators import method_decorator
 from django.shortcuts import HttpResponse, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.core.mail import send_mail
 from django_filters.views import FilterView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.utils.text import slugify
 
 from .models import BlogEntry, BlogCategory
 from .filters import BlogAdminListFilter
 from .forms import BlogEntryForm, BlogCategoryEntryForm
+from newportal.settings.local_settings import EMAIL_HOST_USER, SITE_URL_DETAIL
 
 from audit.signals import Audits
 from unicodedata import category, category
-from core.models import Description, OtherSites, Quote
+from core.models import Description, OtherSites, Quote, Suscriptor
 
 
 class BlogEntryListView(ListView):
@@ -96,14 +99,26 @@ class BlogEntryCategoryList(ListView):
 
 @method_decorator(login_required, name='dispatch')
 class BlogEntryCreateView(CreateView):
-    # Vista para crear los post con un de decorador para que solo los administardores puedan acceder
+
     model = BlogEntry
     form_class = BlogEntryForm
     success_url = reverse_lazy('administration')
 
-    # Devuelve al usuario actualmente logueado para el campo de User del Blog creado
     def form_valid(self, form):
         form.instance.user = self.request.user
+        form.save()
+        qs = Suscriptor.objects.filter(active=True)
+        emails = [suscriptor.email for suscriptor in qs]
+        slug = slugify(form.instance.name, allow_unicode=True)
+        pk_url = form.instance.id
+        link = SITE_URL_DETAIL + str(pk_url) + '/' + str(slug)
+        asunto = form.instance.name
+        mensaje = 'He publicado un nuevo articulo, ' + \
+            form.instance.name + ' puedes leerlo aquí: ' + link
+        try:
+            send_mail(asunto, mensaje, EMAIL_HOST_USER, emails)
+        except:
+            pass
         return super(BlogEntryCreateView, self).form_valid(form)
 
 

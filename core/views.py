@@ -1,5 +1,6 @@
 import random
-from django.shortcuts import render
+import secrets
+from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView, ListView
@@ -9,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import HttpResponse
 from django.urls import reverse_lazy
+from django.core.mail import send_mail
 from django import forms
 from django_filters.views import FilterView
 from django.views.defaults import page_not_found
@@ -16,7 +18,9 @@ from django.views.defaults import page_not_found
 from blog.models import BlogEntry, BlogCategory
 from contac.models import Contact
 from audit.signals import Audits
-from .models import Profile, Description, OtherSites, Quote
+from newportal.settings.local_settings import EMAIL_HOST_USER
+#from newportal.settings.prod_settings import EMAIL_HOST_USER
+from .models import Profile, Description, OtherSites, Quote, Suscriptor
 from .forms import ProfileForm, EmailForm, NameUpdateForm, DescriptionForm, OtherSitesForm, QuoteForm
 from .filters import OtherSitesListFilter, QuoteListFilter
 
@@ -27,18 +31,24 @@ class IndexView(View):
             posts = BlogEntry.objects.filter(
                 active=True).order_by('-created_date')[:10]
             categories = BlogCategory.objects.filter(is_active=True)
+            secure_random = secrets.SystemRandom()
+            list_random = list(BlogEntry.objects.filter(
+                active=True))
+            num_to_select = 4
+            randoms = secure_random.sample(list_random, num_to_select)
             web = Description.objects.filter(is_active=True)
             #category = BlogCategory.objects.get(slug=slug)
             featured = BlogEntry.objects.filter(
                 active=True, featured=True).order_by('-created_date')
             recientes = BlogEntry.objects.filter(
-                active=True).order_by('-created_date')
+                active=True).order_by('-created_date')[0]
             sites = OtherSites.objects.filter(
                 active=True).order_by('name')
             quotes = Quote.objects.filter(active=True)
 
             context = {
                 'posts': posts,
+                'randoms': randoms,
                 'categories': categories,
                 # 'category': category,
                 'featured': featured,
@@ -311,3 +321,17 @@ class QuoteChageStateView(View):
         except Exception as e:
             print(e)
             return HttpResponse("error code", status=500)
+
+
+class SuscribeView(View):
+    def post(self, request, *args, **kwargs):
+        email = request.POST.get('email')
+        Suscriptor.objects.create(email=email)
+        asunto = 'Gracias por suscribirte'
+        mensaje = 'Te haz suscripto exitosamente. Muchas gracias'
+        # EMAIL_HOST_USER (cambiar en local)
+        try:
+            send_mail(asunto, mensaje, EMAIL_HOST_USER, [email])
+        except:
+            pass
+        return redirect('index')
