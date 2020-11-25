@@ -41,6 +41,8 @@
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="{% url 'otherSitesCreate' %}">Crear Un enlase</a>
                         <a class="dropdown-item" href="{% url 'otherSitesList' %}">Lista de enlases</a>
+                        <a class="dropdown-item" href="{% url 'friendSiteCreate' %}">Ingresar nueva nota de sitios</a>
+                        <a class="dropdown-item" href="{% url 'friendSiteList' %}">Lista de nueva nota de sitios</a>
                     </div>
                 </div>
             </div>
@@ -55,6 +57,7 @@
                     </div>
                 </div>
             </div>
+
 
             <div class="col-12 col-lg-6 text-center">
                 <div class="dropdown p-3">
@@ -74,7 +77,15 @@
                         class="badge badge-dark">{{total}}</span>{% endif %}</a>
             </div>
             <div class="col-12 col-lg-6 text-center">
+                <a class="btn btn-outline-primary mt-30 w-100 btn-block"
+                    href="{% url 'suscriptoradminlist'%}">Suscriptores</a>
+            </div>
+            <div class="col-12 col-lg-6 text-center">
                 <a class="btn btn-outline-primary mt-30 w-100 btn-block" href="{% url 'profile'%}">Mi perfil</a>
+            </div>
+            <div class="col-12 col-lg-6 text-center">
+                <a class="btn btn-outline-primary mt-30 w-100 btn-block" href="https://oscardelmastro.disqus.com/admin/"
+                    target="_blank">Comentarios</a>
             </div>
         </div>
 

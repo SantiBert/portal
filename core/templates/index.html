@@ -202,7 +202,6 @@
 									<li><a><span class="lnr lnr-user"></span>{{post.user.get_full_name}}</a></li>
 									<li><a><span class="lnr lnr-calendar-full"></span>{{ post.created_date.date }}</a>
 									</li>
-									</li>
 								</ul>
 								<p class="excert">
 									{{post.description|striptags|safe|truncatechars:"300"}}
@@ -219,9 +218,10 @@
 
 					<!-- End latest-post Area -->
 					<!-- Start ramdom-post Area -->
+					{% if friendsites %}
 					<div class="latest-post-wrap">
 						<h4 class="cat-title" style="background-color: #0B3182;">Tambien puede interesarte</h4>
-						{% for random in randoms %}
+						{% for random in friendsites %}
 						<div class="single-latest-post row align-items-center">
 							<div class="col-lg-5 post-left">
 								<div class="feature-img relative">
@@ -229,39 +229,37 @@
 									{% if random.image_ref %}
 									<img src="{{random.image_ref.url}}" width="182px" height="189px">
 									{% else %}
-									<img class="img-fluid" src="{% static './assets/img/image_placeholder.jpg'%}"
-										alt="">
+									<img class="img-fluid" src="{% static './img/default.jpg'%}" alt="">
 									{% endif %}
 								</div>
 								<ul class="tags">
-									{% for category in random.category.all %}
-									<li><a href="{% url 'blog:categories' category.slug %}">{{ category.name }}</a>
+									<li>
+										<a href="{{ random.link }}" target="_blank">{{ random.site_name }}</a>
 									</li>
-									{% endfor %}
 								</ul>
 							</div>
 							<div class="col-lg-7 post-right">
-								<a href="{% url 'blog:blog' random.id random.name|slugify %}">
-									<h4>{{ random.name }}</h4>
+								<a href="{{ random.link }}" target="_blank">
+									<h2>{{ random.name }}</h2>
 								</a>
 								<ul class="meta">
-									<li><a><span class="lnr lnr-user"></span>{{random.user.get_full_name}}</a></li>
-									<li><a><span class="lnr lnr-calendar-full"></span>{{ random.created_date.date }}</a>
-									</li>
+									<li><a><span class="lnr lnr-calendar-full"></span>{{ random.date }}</a>
 									</li>
 								</ul>
 								<p class="excert">
-									{{random.description|striptags|safe|truncatechars:"300"}}
+									El sitio {{ random.site_name }} ha publicado una nota muy interesante, puedes leerla
+									haciendo click <a href="{{ random.link }}" target="_blank">aqui</a>.
 								</p>
 								{% if request.user.is_authenticated %}
 								<p>
-									<a href="{% url 'blog:update' random.id %}"> Editar </a>
+									<a href="{% url 'friendSiteUpdate' random.id %}"> Editar </a>
 								</p>
 								{% endif %}
 							</div>
 						</div>
 						{% endfor %}
 					</div>
+					{% endif %}
 					<!-- End banner-ads Area -->
 					<!-- Start popular-post Area -->
 					<!-- End popular-post Area -->
@@ -422,6 +420,7 @@
 	<!-- End footer Area -->
 	{% block ExtraScript %}
 	{% endblock ExtraScript %}
+	<script id="dsq-count-scr" src="//oscardelmastro.disqus.com/count.js" async></script>
 	<script src="{% static 'js/vendor/jquery-2.2.4.min.js'%}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"

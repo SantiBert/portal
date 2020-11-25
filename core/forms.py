@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import Profile, Description, OtherSites, Quote
+from .models import Profile, Description, OtherSites, Quote, FriendSites
 
 
 class ProfileForm(forms.ModelForm):  # Formulario para editar perfil
@@ -71,4 +71,16 @@ class QuoteForm(forms.ModelForm):
             'autor': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Autor'}),
             'book': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Libro'}),
             'text': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Cita'}),
+        }
+
+
+class FriendSitesForm(forms.ModelForm):
+    class Meta:
+        model = FriendSites
+        fields = '__all__'
+        exclude = ('active',)
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
+            'site_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre del sitio'}),
+            'link': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'URL'}),
         }

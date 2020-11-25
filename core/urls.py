@@ -18,6 +18,12 @@ from .views import (ProfileUpdate,
                     QuoteCreateView,
                     QuoteUpdateView,
                     SuscribeView,
+                    SuscritorAdminView,
+                    SuscriptorChageStateView,
+                    FriendSitesCreateView,
+                    FriendSitesUpdateView,
+                    FriendSitesAdminView,
+                    FriendSitesChageStateView,
                     )
 
 urlpatterns = [
@@ -41,11 +47,27 @@ urlpatterns = [
          QuoteUpdateView.as_view(), name="quoteUpdate"),
     path('administration/quotedelete/<str:quote_id>/',
          QuoteChageStateView.as_view(), name="quoteDelete"),
+    path('administration/suscritorslist/',
+         SuscritorAdminView.as_view(), name='suscriptoradminlist'),
+    path('administration/suscriptorstate/<str:subcritor_id>/',
+         SuscriptorChageStateView.as_view(), name='suscriptorChangeState'),
+    path('administration/friendsitescreate/',
+         FriendSitesCreateView.as_view(), name="friendSiteCreate"),
+    path('administration/friendsiteupdate/<int:pk>/',
+         FriendSitesUpdateView.as_view(), name='friendSiteUpdate'),
+
+    path('administration/friendsitelist/',
+         FriendSitesAdminView.as_view(), name='friendSiteList'),
+
+    path('administration/friendsitestate/<str:friendsite_id>/',
+         FriendSitesChageStateView.as_view(), name='friendSiteChangeState'),
+
     path('profile/', ProfileUpdate.as_view(), name="profile"),
     path('profile/email/', EmailUpdate.as_view(), name="profile_email"),
     path('profile/name/', NameUpdate.as_view(), name="profile_name"),
     path('resultados/', SearchView.as_view(), name='search'),
     path('subscribe/', SuscribeView.as_view(), name='suscribe'),
+
 
 
 ]

@@ -1,0 +1,97 @@
+{% extends 'baseregistration.html' %}
+{% load static %}
+{% block title %}Suscriptores{% endblock %}
+
+
+{% block content %}
+<div class="container p-3" style="background-color: oldlace;">
+    <h2> Lista de Suscriptores </h1>
+
+        <hr size="2px" color="black" />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="text-center">ID</th>
+                    <th> E-mail </th>
+                    <th class="text-right">Activo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for object in suscritors %}
+                    <td class="text-center">{{ object.id }}</td>
+                    <td>{{ object.email }}</td>
+                    <td class="td-actions text-right">
+                        <div class="togglebutton">
+                            <label>
+                                {% if object.active %}
+                                <input type="checkbox" id="switch-{{object.id}}" checked=""
+                                    onclick="changeState('{{object.id}}', 'true')">
+                                {%else%}
+                                <input type="checkbox" id="switch-{{object.id}}"
+                                    onclick="changeState('{{object.id}}', 'false')">
+                                {% endif %}
+                                <span class="toggle"></span>
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!--
+<div class="col-md-6">
+{% comment %}
+  {% if is_paginated %}
+  <ul class="pagination pagination-info">
+    {% if page_obj.has_previous %}   
+    <li class="page-item"><a href="?{% url_replace page=1 %}" class="page-link">&laquo; Primera</a></li>
+    <li class="page-item"><a href="?{% url_replace page=page_obj.previous_page_number %}" class="page-link">&laquo; Anterior</a></li>
+    {% endif %}
+    <span class="current">Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.</page>
+    {% if page_obj.has_next %}
+    <li class="page-item"><a href="?{% url_replace page=page_obj.next_page_number %}" class="page-link">Siguiente</a></li>
+    <li class="page-item"><a href="?{% url_replace page=page_obj.paginator.num_pages %}" class="page-link">Ultima</a></li>
+    {% endif %} 
+  </ul>
+  {% endif %}
+  {% endcomment %}
+  -->
+</div>
+<script>
+    function changeState(subcritor_id, blogstate) {
+        var url = "{% url 'suscriptorChangeState' 0 %}";
+        url = url.replace(0, subcritor_id);
+
+        $.ajax({
+            url: url,
+            method: "POST",
+            data: { "csrfmiddlewaretoken": '{{ csrf_token }}' },
+            success: function (data) {
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                if (xhr.status == 404 || xhr.status == 500) {
+                    var switch_name = "#switch-" + subcritor_id;
+                    var switch_id = "switch-" + subcritor_id;
+                    if (teacherState == "true") {
+                        var new_button = "<input type='checkbox'  checked  id=switch_name onclick=\"changeState(subcritor_id, \'true\')\">".replace("switch_name", switch_id).replace("subcritor_id", subcritor_id);
+                        $(switch_name).replaceWith(new_button);
+                    }
+                    else {
+                        var new_button = "<input type='checkbox'  id=switch_name onclick=\"changeState(subcritor_id, \'false\')\">".replace("switch_name", switch_id).replace("subcritor_id", subcritor_id);
+                        $(switch_name).replaceWith(new_button);
+                    }
+                    if (xhr.status == 404) {
+                        alert("No se encontro profesor (404)");
+                    }
+                    if (xhr.status == 500) {
+                        alert("Error de conexion (500))");
+                    }
+                }
+            },
+        });
+    }
+</script>
+
+{% endblock %}

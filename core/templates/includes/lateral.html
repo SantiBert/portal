@@ -1,6 +1,15 @@
 {% load static %}
 <div class="col-lg-4">
     <div class="sidebars-area">
+        <div class="single-sidebar-widget social-network-widget">
+            <h6 class="title" style="background-color: #0B3182;">SUSCRÍBETE</h6>
+            <form action="{% url 'suscribe'%}" method="post" class="from-footer-subcribe">{% csrf_token %}
+                <div class="form-group d-flex">
+                    <input type="text" class="form-control" placeholder="Ingresa tu e-mail" name="email" id="">
+                    <button type="subtim" class="btn text-white" style="background-color: #F6214B;">SUSCRIBIRSE</button>
+                </div>
+            </form>
+        </div>
         <div style="text-align:center;padding:1em 0;">
             <h3><a style="text-decoration:none;" href="https://www.zeitverschiebung.net/es/city/3838233"><span
                         style="color:gray;">Hora actual en</span><br />Salta, Argentina</a></h3> <iframe
@@ -24,15 +33,6 @@
                 </div>
             </div>
             {% endfor %}
-        </div>
-        <div class="single-sidebar-widget social-network-widget">
-            <h6 class="title" style="background-color: #0B3182;">SUSCRÍBETE</h6>
-            <form action="{% url 'suscribe'%}" method="post" class="from-footer-subcribe">{% csrf_token %}
-                <div class="form-group d-flex">
-                    <input type="text" class="form-control" placeholder="Ingresa tu e-mail" name="email" id="">
-                    <button type="subtim" class="btn text-white" style="background-color: #F6214B;">SUSCRIBIRSE</button>
-                </div>
-            </form>
         </div>
         <div class="single-sidebar-widget social-network-widget">
             <h6 class="title" style="background-color: #0B3182;">Sitios amigos o de interés</h6>

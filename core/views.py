@@ -1,5 +1,4 @@
 import random
-import secrets
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.forms import UserCreationForm
@@ -20,9 +19,9 @@ from contac.models import Contact
 from audit.signals import Audits
 from newportal.settings.local_settings import EMAIL_HOST_USER
 #from newportal.settings.prod_settings import EMAIL_HOST_USER
-from .models import Profile, Description, OtherSites, Quote, Suscriptor
-from .forms import ProfileForm, EmailForm, NameUpdateForm, DescriptionForm, OtherSitesForm, QuoteForm
-from .filters import OtherSitesListFilter, QuoteListFilter
+from .models import Profile, Description, OtherSites, Quote, Suscriptor, FriendSites
+from .forms import ProfileForm, EmailForm, NameUpdateForm, DescriptionForm, OtherSitesForm, QuoteForm, FriendSitesForm
+from .filters import OtherSitesListFilter, QuoteListFilter, SuscriptorListFilter, FriendSitesFilter
 
 
 class IndexView(View):
@@ -31,11 +30,6 @@ class IndexView(View):
             posts = BlogEntry.objects.filter(
                 active=True).order_by('-created_date')[:10]
             categories = BlogCategory.objects.filter(is_active=True)
-            secure_random = secrets.SystemRandom()
-            list_random = list(BlogEntry.objects.filter(
-                active=True))
-            num_to_select = 4
-            randoms = secure_random.sample(list_random, num_to_select)
             web = Description.objects.filter(is_active=True)
             #category = BlogCategory.objects.get(slug=slug)
             featured = BlogEntry.objects.filter(
@@ -45,13 +39,16 @@ class IndexView(View):
             sites = OtherSites.objects.filter(
                 active=True).order_by('name')
             quotes = Quote.objects.filter(active=True)
+            friendsites = FriendSites.objects.filter(
+                active=True).order_by('-date')[:5]
 
             context = {
                 'posts': posts,
-                'randoms': randoms,
+
                 'categories': categories,
                 # 'category': category,
                 'featured': featured,
+                'friendsites': friendsites,
                 'quote': random.choice(quotes),
                 'sites': sites,
                 'recientes': recientes,
@@ -335,3 +332,96 @@ class SuscribeView(View):
         except:
             pass
         return redirect('index')
+
+
+@method_decorator(login_required, name='dispatch')
+class SuscritorAdminView(FilterView):
+    model = Suscriptor
+    filterset_class = SuscriptorListFilter
+    context_object_name = 'suscritors'
+    template_name = 'suscriptor/suscriptorAdmin.html'
+    paginate_by = 30  # TODO obtener dato de un constants.py
+    ordering = ["date"]
+
+    def get_queryset(self):
+        return Suscriptor.objects.all()
+
+
+@method_decorator(login_required, name='dispatch')
+class SuscriptorChageStateView(View):
+    # Cambia el estado de un blog, usado en el jquerry de blogadmin-list.html
+    def post(self, request, subcritor_id, *args, **kwargs):
+        try:
+            subcritor = Suscriptor.objects.get(id=subcritor_id)
+            subcritor.active = not subcritor.active
+            subcritor.save()
+            if subcritor.active:
+                audit_description = f"Se activa el Sitio :{subcritor_id}"
+            else:
+                audit_description = f"Se desactiva el Sitio :{subcritor_id}"
+            Audits.audit_action(request.user, "", audit_description, "DELETE")
+            return HttpResponse("ok", status=200)
+        except Suscriptor.DoesNotExist:
+            return HttpResponse("Cita not found", status=404)
+        except Exception as e:
+            print(e)
+            return HttpResponse("error code", status=500)
+
+
+@method_decorator(login_required, name='dispatch')
+class FriendSitesCreateView(CreateView):
+    # Vista para crear los post con un de decorador para que solo los administardores puedan acceder
+    model = FriendSites
+    form_class = FriendSitesForm
+    success_url = reverse_lazy('administration')
+    template_name = 'othersides/friendssites_form.html'
+
+    # Devuelve al usuario actualmente logueado para el campo de User del Blog creado
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(FriendSitesCreateView, self).form_valid(form)
+
+
+@method_decorator(login_required, name='dispatch')
+class FriendSitesUpdateView(UpdateView):
+    model = FriendSites
+    form_class = FriendSitesForm
+    template_name = 'othersides/friendssites_update_form.html'
+    template_name_suffix = '_update_form'
+
+    def get_success_url(self):
+        return reverse_lazy('friendSiteUpdate', args=[self.object.id]) + '?ok'
+
+
+@method_decorator(login_required, name='dispatch')
+class FriendSitesAdminView(FilterView):
+    model = FriendSites
+    filterset_class = FriendSitesFilter
+    context_object_name = 'friendsites'
+    template_name = 'othersides/friendssitesAdmin.html'
+    paginate_by = 30  # TODO obtener dato de un constants.py
+    ordering = ["date"]
+
+    def get_queryset(self):
+        return FriendSites.objects.all()
+
+
+@method_decorator(login_required, name='dispatch')
+class FriendSitesChageStateView(View):
+    # Cambia el estado de un blog, usado en el jquerry de blogadmin-list.html
+    def post(self, request, friendsite_id, *args, **kwargs):
+        try:
+            friendsite = FriendSites.objects.get(id=friendsite_id)
+            friendsite.active = not friendsite.active
+            friendsite.save()
+            if friendsite.active:
+                audit_description = f"Se activa el Sitio :{friendsite_id}"
+            else:
+                audit_description = f"Se desactiva el Sitio :{friendsite_id}"
+            Audits.audit_action(request.user, "", audit_description, "DELETE")
+            return HttpResponse("ok", status=200)
+        except FriendSites.DoesNotExist:
+            return HttpResponse("Cita not found", status=404)
+        except Exception as e:
+            print(e)
+            return HttpResponse("error code", status=500)

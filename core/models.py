@@ -68,3 +68,14 @@ class Suscriptor(models.Model):
 
     def __str__(self):
         return self.email
+
+
+class FriendSites(models.Model):
+    id = models.AutoField(primary_key=True)
+    date = models.DateField(auto_now=False, auto_now_add=True)
+    active = models.BooleanField(default=True)
+    name = models.CharField('titulo', null=True, blank=True, max_length=50)
+    site_name = models.CharField('sitio', null=True, blank=True, max_length=50)
+    link = models.URLField(max_length=255, null=True, blank=True)
+    image_ref = models.ImageField(
+        upload_to='friendsites/', default="default.jpg", null=True, blank=True)
