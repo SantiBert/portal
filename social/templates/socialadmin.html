@@ -1,0 +1,55 @@
+{% extends 'baseregistration.html' %}
+{% load static %}
+{% block title %}Redes sociales{% endblock %}
+
+
+{% block content %}
+<div class="container p-3" style="background-color: oldlace;">
+    <h2> Redes sociales </h1>
+
+        <hr size="2px" color="black" />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="text-center">ID</th>
+                    <th> Red social </th>
+                    <th> Link </th>
+                    <th>Editar.</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for object in links %}
+                    <td class="text-center">{{ object.id }}</td>
+                    <td>{{ object.name }}</td>
+                    <td>{{ object.url }}</td>
+                    <td class="text-center">
+                        <p>
+                            <a href="{% url 'socialUpdate' object.id %}"> Editar </a>
+                        </p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!--
+<div class="col-md-6">
+{% comment %}
+  {% if is_paginated %}
+  <ul class="pagination pagination-info">
+    {% if page_obj.has_previous %}   
+    <li class="page-item"><a href="?{% url_replace page=1 %}" class="page-link">&laquo; Primera</a></li>
+    <li class="page-item"><a href="?{% url_replace page=page_obj.previous_page_number %}" class="page-link">&laquo; Anterior</a></li>
+    {% endif %}
+    <span class="current">Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.</page>
+    {% if page_obj.has_next %}
+    <li class="page-item"><a href="?{% url_replace page=page_obj.next_page_number %}" class="page-link">Siguiente</a></li>
+    <li class="page-item"><a href="?{% url_replace page=page_obj.paginator.num_pages %}" class="page-link">Ultima</a></li>
+    {% endif %} 
+  </ul>
+  {% endif %}
+  {% endcomment %}
+  -->
+</div>
+{% endblock %}

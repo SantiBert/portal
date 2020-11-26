@@ -12,6 +12,7 @@ urlpatterns = [
     path('', include('core.urls')),
     path('contact_us/', include('contac.urls')),
     path('book/', include('books.urls')),
+    path('social/', include('social.urls')),
     path('blog/', include(blog_patterns)),
     path('administration/', include(blog_admin_patterns)),
     path('ckeditor', include('ckeditor_uploader.urls')),

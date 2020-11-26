@@ -1,0 +1,30 @@
+{% extends 'baseregistration.html' %}
+{% load static %}
+{% block title %}Editar {{object.name}}{% endblock %}
+{% block content %}
+<main role="main">
+    <style>
+        .errorlist {
+            color: red;
+        }
+
+        label {
+            display: none
+        }
+    </style>
+    <main role="main">
+        <div class="container">
+            <div class="row mt-3">
+                <div class="col-md-9 mx-auto mb-5">
+                    <div class="card p-3 my-3 border">
+                        <h1>{{object.name}}</h1>
+                        <form action="" method="post">{% csrf_token %}
+                            {{form.as_p}}
+                            <p><input type="submit" class="btn btn-primary btn-block" value="Editar"></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    {% endblock %}

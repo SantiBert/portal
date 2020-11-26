@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'audit',
     'contac',
     'books',
+    'social',
 ]
 
 MIDDLEWARE = [

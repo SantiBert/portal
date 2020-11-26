@@ -12,6 +12,7 @@ from .forms import ContactForm
 from .models import Contact
 from blog.models import BlogEntry, BlogCategory
 from core.models import Profile, Description, Quote
+from social.models import Link
 # Create your views here.
 
 
@@ -20,12 +21,14 @@ class ContactFormView(View):
         posts = BlogEntry.objects.filter(active=True)
         categories = BlogCategory.objects.filter(is_active=True)
         web = Description.objects.filter(is_active=True)
+        links = Link.objects.all()
         form = ContactForm()
         person = User.objects.all(),
         quotes = Quote.objects.filter(active=True)
         context = {
             'form': form,
             'posts': posts,
+            'links': links,
             'quote': random.choice(quotes),
             'categories': categories,
             'person': person,

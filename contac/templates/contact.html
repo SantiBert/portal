@@ -32,6 +32,40 @@
                             <h5>odelmastroing@gmail.com</h5>
                         </div>
                     </div>
+                    <div class="single-contact-address d-flex flex-row">
+                        <div class="icon">
+                            <span class="lnr lnr-users"></span>
+                        </div>
+                        <div class="contact-details">
+                            <p>Redes Sociales</p>
+                            {% for link in links %}
+                            {% if link.name == 'Facebook' and link.url %}
+                            <a class="btn btn-info btn-social btn-facebook p-2" style="color: white;"
+                                href="{{link.url}}" target="_blank">
+                                <span class=" fa fa-facebook"></span> Facebook
+                            </a>
+                            {% endif %}
+                            {% if link.name == 'Twitter' and link.url %}
+                            <a class="btn btn-success btn-social btn-twitter p-2" style="color: white;"
+                                href="{{link.url}}" target="_blank">
+                                <span class=" fa fa-twitter"></span> Twitter
+                            </a>
+                            {% endif %}
+                            {% if link.name == 'Instagram' and link.url %}
+                            <a class="btn btn-rose btn-social btn-instagram p-2" style="color: white;"
+                                href="{{link.url}}" target="_blank">
+                                <span class=" fa fa-instagram"></span> Instagram
+                            </a>
+                            {% endif %}
+                            {% if link.name == 'Linkedin' and link.url %}
+                            <a class="btn btn-info btn-social btn-linkedin p-2" style="color: white;"
+                                href="{{link.url}}" target="_blank">
+                                <span class=" fa fa-linkedin"></span> Linkedin
+                            </a>
+                            {% endif %}
+                            {% endfor%}
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-9">
                     <form action="#" method="post">{% csrf_token %}
