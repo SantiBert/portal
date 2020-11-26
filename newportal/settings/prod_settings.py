@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'contac',
     'books',
     'social',
+    'import_export',
 ]
 
 MIDDLEWARE = [
