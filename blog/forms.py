@@ -1,4 +1,5 @@
 from django import forms
+from datetime import date
 
 from .models import BlogEntry, BlogCategory
 
@@ -8,16 +9,14 @@ class BlogEntryForm(forms.ModelForm):
     class Meta:
         model = BlogEntry
         fields = ['name', 'description', 'category',
-                  'image_ref', 'date', 'featured']
+                  'image_ref', 'featured']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Título'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
             'category': forms.CheckboxSelectMultiple(attrs={'class': 'custom-control custom-radio custom-control-inline'}),
-            'featured': forms.CheckboxInput(),
-            'date': forms.TimeInput(attrs={'type': 'datetime-local'}),
-        }
+            'featured': forms.CheckboxInput(), }
         labels = {
-            'name': '', 'description': '', 'category': '', 'featured': '', 'image_ref': '', 'date': '',
+            'name': '', 'description': '', 'category': '', 'featured': '', 'image_ref': '',
         }
 
 
