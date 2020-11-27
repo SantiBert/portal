@@ -20,7 +20,7 @@ from newportal.settings.local_settings import EMAIL_HOST_USER, SITE_URL_DETAIL
 
 from audit.signals import Audits
 from unicodedata import category, category
-from core.models import Description, OtherSites, Quote, Suscriptor
+from core.models import Description, OtherSites, Quote, Suscriptor, FriendSites
 
 
 class BlogEntryListView(ListView):
@@ -64,11 +64,13 @@ class BlogEntryCategoryList(ListView):
             page = request.GET.get('page', 1)
             new_context = BlogEntry.objects.filter(
                 category=category, active=True).order_by('-created_date')
-            paginator = Paginator(new_context, 5)
+            paginator = Paginator(new_context, 10)
             web = Description.objects.filter(is_active=True)
             sites = OtherSites.objects.filter(
                 active=True).order_by('name')
             quotes = Quote.objects.filter(active=True)
+            friendsites = FriendSites.objects.filter(
+                active=True).order_by('-date')[:5]
 
         except:
             quotes = None
@@ -93,6 +95,7 @@ class BlogEntryCategoryList(ListView):
             'featured': featured,
             'web': web,
             'quote': random.choice(quotes),
+            'friendsites': friendsites,
         }
         return render(request, 'blog/categories-post.html', context)
 

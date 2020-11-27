@@ -91,6 +91,48 @@
 					</ul>
 					{% endif %}
 				</nav>
+				{% if friendsites %}
+				<div class="latest-post-wrap">
+					<h4 class="cat-title" style="background-color: #0B3182;">Tambien puede interesarte</h4>
+					{% for random in friendsites %}
+					<div class="single-latest-post row align-items-center">
+						<div class="col-lg-5 post-left">
+							<div class="feature-img relative">
+								<div class="overlay overlay-bg"></div>
+								{% if random.image_ref %}
+								<img src="{{random.image_ref.url}}" width="182px" height="189px">
+								{% else %}
+								<img class="img-fluid" src="{% static './img/default.jpg'%}" alt="">
+								{% endif %}
+							</div>
+							<ul class="tags">
+								<li>
+									<a href="{{ random.link }}" target="_blank">{{ random.site_name }}</a>
+								</li>
+							</ul>
+						</div>
+						<div class="col-lg-7 post-right">
+							<a href="{{ random.link }}" target="_blank">
+								<h4>{{ random.name }}</h4>
+							</a>
+							<ul class="meta">
+								<li><a><span class="lnr lnr-calendar-full"></span>{{ random.date }}</a>
+								</li>
+							</ul>
+							<p class="excert">
+								El sitio {{ random.site_name }} ha publicado una nota muy interesante, puedes leerla
+								haciendo click <a href="{{ random.link }}" target="_blank">aqui</a>.
+							</p>
+							{% if request.user.is_authenticated %}
+							<p>
+								<a href="{% url 'friendSiteUpdate' random.id %}"> Editar </a>
+							</p>
+							{% endif %}
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+				{% endif %}
 			</div>
 			{% include 'includes/lateral.html'%}
 		</div>
