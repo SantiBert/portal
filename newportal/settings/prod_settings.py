@@ -105,26 +105,37 @@ DATABASES = {
         'HOST': 'OSCARDELMASTRO.mysql.pythonanywhere-services.com',
     }
 }
-
+"""
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'full',
     },
 }
+
 """
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Custom',
         'toolbar_Custom': [
-            ['Bold', 'Italic', 'Underline'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Image', ],
             ['Link', 'Unlink'],
-            ['RemoveFormat', 'Source'],
-
+            ['Undo', 'Redo'],
+            ['Iframe'],
+            '/',
+            ['Bold', 'Italic', 'Underline', 'Blockquote'],
+            ['clipboard', 'undo'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-',
+                'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Cut', 'Copy', 'Paste', 'PasteText',
+                'PasteFromWord'],
+            ['RemoveFormat', 'SelectAll', '-', 'Scayt'],
+            '/',
+            ['Styles', 'Format', 'Font', 'FontSize'],
+            ['TextColor', 'BGColor'],
+            ['Maximize', 'ShowBlocks'],
         ]
     }
 }
-"""
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -167,5 +178,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'administration'
 LOGOUT_REDIRECT_URL = 'index'
