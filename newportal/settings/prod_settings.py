@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'books',
     'social',
     'import_export',
+    'taggit',
 ]
 
 MIDDLEWARE = [

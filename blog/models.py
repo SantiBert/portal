@@ -7,6 +7,7 @@ from django.utils import timezone
 
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
+from taggit.managers import TaggableManager
 
 
 def get_upload_blog_path(instance, filename):
@@ -37,6 +38,7 @@ class BlogEntry(models.Model):
     featured = models.BooleanField(default=False)
     image_ref = models.ImageField(
         upload_to='blog/', default="image_placeholder.jpg", null=True, blank=True)
+    tags = TaggableManager(blank=True)
 
     def __str__(self):
         return "blog: {} // De: ".format(self.name, self.user.username)
