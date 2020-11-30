@@ -38,15 +38,24 @@
 							<li><a href="{% url 'blog:update' object.id %}"> Editar </a></li>
 							{% endif %}
 						</ul>
-						<a href="#">
-							<h3>{{object.name}}</h3>
-						</a>
+						<h3>{{object.name}}</h3>
 						<ul class="meta pb-20">
 							<li><a><span class="lnr lnr-user"></span>{{object.user.get_full_name}}</a></li>
 							<li><a><span class="lnr lnr-calendar-full"></span>{{ object.created_date.date }}</a></li>
 						</ul>
 						{{object.description|safe}}
-
+						<hr style="border:3px;">
+						<h3>Etiquetas: </h3>
+						<div class="content-wrap">
+							<ul class="tags mt-10">
+								{% for tag in object.tags.all %}
+								<li><a method="POST" href="{% url 'search' %}" value='{{ tag }}'
+										name="buscar">{{ tag }}</a></li>
+								{% endfor %}
+							</ul>
+						</div>
+						<br>
+						<hr style="border:3px;">
 						<div class="blog-post-author d-flex">
 							<div class="author-thumbnail">
 								<div class="overlay overlay-bg"></div>

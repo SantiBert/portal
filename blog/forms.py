@@ -16,10 +16,10 @@ class BlogEntryForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'class': 'form-control'}),
             'category': forms.CheckboxSelectMultiple(attrs={'class': 'custom-control custom-radio custom-control-inline'}),
             'featured': forms.CheckboxInput(),
-            'tags': TagWidget(),
+            'tags': TagWidget(attrs={'class': 'form-control', 'type': 'text', 'value': '', 'data-role': 'tagsinput', 'id': 'tags', 'placeholder': 'Una lista de etiquetas separadas por coma.'}),
         }
         labels = {
-            'name': '', 'description': '', 'category': '', 'featured': '', 'image_ref': '',
+            'name': '', 'description': '', 'category': '', 'featured': '', 'image_ref': '', 'tags': '',
         }
 
 

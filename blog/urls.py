@@ -13,7 +13,7 @@ from .views import (BlogEntryDetailView,
                     BlogAdminListView,
                     BlogChangeStateView,
                     BlogEntryCategoryList,
-                    BlogChangeFeaturedView
+                    BlogChangeFeaturedView,
                     )
 
 
@@ -28,7 +28,8 @@ blog_patterns = ([
          BlogCategoryUpdateView.as_view(), name='categoryUpdate'),
     path('categories/delete/<str:category_id>/',
          BlogCategoryChangeState.as_view(), name='categoriesChangeState'),
-    path('categories/<str:slug>', BlogEntryCategoryList.as_view(), name='categories'),
+    path('categories/<str:slug>/',
+         BlogEntryCategoryList.as_view(), name='categories'),
 
 ], 'blog')
 
