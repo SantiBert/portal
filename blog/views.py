@@ -238,3 +238,31 @@ class BlogChangeFeaturedView(View):
         except Exception as e:
             print(e)
             return HttpResponse("error code", status=500)
+
+class SearchTagView(View):
+    def get(self, request, tag, *args, **kwargs):
+        queryset = tag
+        categories = BlogCategory.objects.filter(is_active=True)
+        web = Description.objects.filter(is_active=True)
+        featured = BlogEntry.objects.filter(
+            active=True, featured=True).order_by('-created_date')
+        sites = OtherSites.objects.filter(
+            active=True).order_by('name')
+        quotes = Quote.objects.filter(active=True)
+        if queryset:
+            posts = BlogEntry.objects.filter(
+                Q(name__icontains=queryset) |
+                Q(description__icontains=queryset),
+                active=True
+            ).distinct().order_by('-created_date')
+
+        context = {
+            'categories': categories,
+            'featured': featured,
+            'quote': random.choice(quotes),
+            'web': web,
+            'sites': sites,
+            'object_list': posts,
+        }
+
+        return render(request, 'results.html', context)

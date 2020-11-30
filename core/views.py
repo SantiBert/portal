@@ -88,6 +88,7 @@ class NavbarView(View):
 
 
 class SearchView(View):
+    '''
     def get(self, request, *args, **kwargs):
         queryset = request.POST.get("buscar")
         categories = BlogCategory.objects.filter(is_active=True)
@@ -104,7 +105,7 @@ class SearchView(View):
         }
 
         return render(request, 'results.html', context)
-
+        '''
     def post(self, request, *args, **kwargs):
         queryset = request.POST.get("buscar")
         categories = BlogCategory.objects.filter(is_active=True)
