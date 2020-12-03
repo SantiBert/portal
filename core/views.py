@@ -326,7 +326,7 @@ class SuscribeView(View):
         email = request.POST.get('email')
         Suscriptor.objects.create(email=email)
         asunto = 'Gracias por suscribirte'
-        mensaje = 'Te haz suscripto exitosamente. Muchas gracias'
+        mensaje = 'Te has suscripto exitosamente. Muchas gracias'
         # EMAIL_HOST_USER (cambiar en local)
         try:
             send_mail(asunto, mensaje, EMAIL_HOST_USER, [email])
