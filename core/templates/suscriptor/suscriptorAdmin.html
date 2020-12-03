@@ -39,26 +39,31 @@
                 {% endfor %}
             </tbody>
         </table>
-
-        <!--
-<div class="col-md-6">
-{% comment %}
-  {% if is_paginated %}
-  <ul class="pagination pagination-info">
-    {% if page_obj.has_previous %}   
-    <li class="page-item"><a href="?{% url_replace page=1 %}" class="page-link">&laquo; Primera</a></li>
-    <li class="page-item"><a href="?{% url_replace page=page_obj.previous_page_number %}" class="page-link">&laquo; Anterior</a></li>
-    {% endif %}
-    <span class="current">Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.</page>
-    {% if page_obj.has_next %}
-    <li class="page-item"><a href="?{% url_replace page=page_obj.next_page_number %}" class="page-link">Siguiente</a></li>
-    <li class="page-item"><a href="?{% url_replace page=page_obj.paginator.num_pages %}" class="page-link">Ultima</a></li>
-    {% endif %} 
-  </ul>
-  {% endif %}
-  {% endcomment %}
-  -->
-</div>
+      
+<nav aria-label="Page navigation example">
+      {% if page_obj.has_other_pages %}
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li class="page-item disabled"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+        </li>
+        {% else %}
+        <li class="page-link disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in page_obj.paginator.page_range %}
+        {% if page_obj.number == i %}
+        <li class="page-link active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+        {% else %}
+        <li><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <li><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+        {% else %}
+        <li class="page-link disabled"><span>&raquo;</span></li>
+        {% endif %}
+      </ul>
+      {% endif %}
+</nav>
 <script>
     function changeState(subcritor_id, blogstate) {
         var url = "{% url 'suscriptorChangeState' 0 %}";
