@@ -1,4 +1,3 @@
-import pdb
 import random
 from django.shortcuts import render
 from django.views.generic.list import View, ListView
@@ -13,7 +12,6 @@ from django.core.mail import send_mail
 from django_filters.views import FilterView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.text import slugify
-
 
 
 from .models import BlogEntry, BlogCategory
@@ -113,17 +111,17 @@ class BlogEntryCreateView(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         form.save()
-        slug = slugify(form.instance.name, allow_unicode=True)       
+        slug = slugify(form.instance.name, allow_unicode=True)
         pk_url = form.instance.id
         link = SITE_URL_DETAIL + str(pk_url) + '/' + slugify(slug)
         asunto = form.instance.name
         mensaje = 'He publicado un nuevo articulo, ' + \
-        form.instance.name + ' puedes leerlo aquí: ' + link
+            form.instance.name + ' puedes leerlo aquí: ' + link
         qs = Suscriptor.objects.filter(active=True)
         for suscriptor in qs:
-            pdb.set_trace()
             try:
-                send_mail(asunto, mensaje, EMAIL_HOST_USER, [suscriptor.email,])
+                send_mail(asunto, mensaje, EMAIL_HOST_USER,
+                          [suscriptor.email, ])
             except:
                 pass
         return super(BlogEntryCreateView, self).form_valid(form)
@@ -242,6 +240,7 @@ class BlogChangeFeaturedView(View):
         except Exception as e:
             print(e)
             return HttpResponse("error code", status=500)
+
 
 class SearchTagView(View):
     def get(self, request, tag, *args, **kwargs):
