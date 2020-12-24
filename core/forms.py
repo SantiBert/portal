@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import Profile, Description, OtherSites, Quote, FriendSites
+from .models import Profile, Description, OtherSites, Quote, FriendSites, Suscriptor
 
 
 class ProfileForm(forms.ModelForm):  # Formulario para editar perfil
@@ -84,3 +84,20 @@ class FriendSitesForm(forms.ModelForm):
             'site_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre del sitio'}),
             'link': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'URL'}),
         }
+
+
+class SuscriptorEmailForm(forms.ModelForm):  # Formulario para editar email
+    email = forms.EmailField(
+        required=True, help_text="Requerido. 254 carácteres como máximo y debe ser válido.")
+
+    class Meta:
+        model = Suscriptor
+        fields = ['email']
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        if 'email' == self.changed_data:
+            if Suscriptor.objects.filter(email=email).exists():
+                raise forms.ValidationError(
+                    "El e-mail ya está registrado, prueba con otro.")
+        return email

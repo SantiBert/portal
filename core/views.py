@@ -2,7 +2,7 @@ import random
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, DeleteView
 from django.views.generic.edit import UpdateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -20,7 +20,7 @@ from audit.signals import Audits
 from newportal.settings.local_settings import EMAIL_HOST_USER
 #from newportal.settings.prod_settings import EMAIL_HOST_USER
 from .models import Profile, Description, OtherSites, Quote, Suscriptor, FriendSites
-from .forms import ProfileForm, EmailForm, NameUpdateForm, DescriptionForm, OtherSitesForm, QuoteForm, FriendSitesForm
+from .forms import ProfileForm, EmailForm, NameUpdateForm, DescriptionForm, OtherSitesForm, QuoteForm, FriendSitesForm, SuscriptorEmailForm
 from .filters import OtherSitesListFilter, QuoteListFilter, SuscriptorListFilter, FriendSitesFilter
 
 
@@ -106,6 +106,7 @@ class SearchView(View):
 
         return render(request, 'results.html', context)
         '''
+
     def post(self, request, *args, **kwargs):
         queryset = request.POST.get("buscar")
         categories = BlogCategory.objects.filter(is_active=True)
@@ -346,6 +347,31 @@ class SuscritorAdminView(FilterView):
 
     def get_queryset(self):
         return Suscriptor.objects.all()
+
+
+@method_decorator(login_required, name='dispatch')
+class SuscritorUpdateView(UpdateView):
+    model = Suscriptor
+    form_class = SuscriptorEmailForm
+    template_name_suffix = '_update_form'
+    template_name = 'suscriptor/suscriptorUpdate.html'
+    pk_url_kwarg = 'pk'
+    success_url = reverse_lazy('suscriptoradminlist')
+
+    def get_form(self, form_class=None):
+        form = super(SuscritorUpdateView, self).get_form()
+        # Modificar en tiempo real
+        form.fields['email'].widget = forms.EmailInput(
+            attrs={'class': 'form-control mb-2', 'placeholder': 'Email'})
+        return form
+
+
+@method_decorator(login_required, name='dispatch')
+class SuscritorDeleteView(DeleteView):
+    # Vista del contendido de cada post
+    model = Suscriptor
+    success_url = reverse_lazy('suscriptoradminlist')
+    template_name = 'suscriptor/suscriptor_confirm_delete.html'
 
 
 @method_decorator(login_required, name='dispatch')

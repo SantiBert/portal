@@ -13,6 +13,8 @@
                 <tr>
                     <th class="text-center">ID</th>
                     <th> E-mail </th>
+                    <th> Editar </th>
+                    <th> Eliminar </th>
                     <th class="text-right">Activo</th>
                 </tr>
             </thead>
@@ -21,6 +23,16 @@
                     {% for object in suscritors %}
                     <td class="text-center">{{ object.id }}</td>
                     <td>{{ object.email }}</td>
+                    <td class="td-actions text-right">
+                        <p>
+                            <a href="{% url 'suscriptorUpdate' object.id %}"> Editar </a>
+                        </p>
+                    </td>
+                    <td class="td-actions text-right">
+                        <p>
+                            <a href="{% url 'suscriptorDelete' object.id %}"> Eliminar </a>
+                        </p>
+                    </td>
                     <td class="td-actions text-right">
                         <div class="togglebutton">
                             <label>
@@ -39,64 +51,65 @@
                 {% endfor %}
             </tbody>
         </table>
-      
-<nav aria-label="Page navigation example">
-      {% if page_obj.has_other_pages %}
-      <ul class="pagination">
-        {% if page_obj.has_previous %}
-        <li class="page-item disabled"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
-        </li>
-        {% else %}
-        <li class="page-link disabled"><span>&laquo;</span></li>
-        {% endif %}
-        {% for i in page_obj.paginator.page_range %}
-        {% if page_obj.number == i %}
-        <li class="page-link active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-        {% else %}
-        <li><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-        {% endif %}
-        {% endfor %}
-        {% if page_obj.has_next %}
-        <li><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-        {% else %}
-        <li class="page-link disabled"><span>&raquo;</span></li>
-        {% endif %}
-      </ul>
-      {% endif %}
-</nav>
-<script>
-    function changeState(subcritor_id, blogstate) {
-        var url = "{% url 'suscriptorChangeState' 0 %}";
-        url = url.replace(0, subcritor_id);
 
-        $.ajax({
-            url: url,
-            method: "POST",
-            data: { "csrfmiddlewaretoken": '{{ csrf_token }}' },
-            success: function (data) {
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                if (xhr.status == 404 || xhr.status == 500) {
-                    var switch_name = "#switch-" + subcritor_id;
-                    var switch_id = "switch-" + subcritor_id;
-                    if (teacherState == "true") {
-                        var new_button = "<input type='checkbox'  checked  id=switch_name onclick=\"changeState(subcritor_id, \'true\')\">".replace("switch_name", switch_id).replace("subcritor_id", subcritor_id);
-                        $(switch_name).replaceWith(new_button);
-                    }
-                    else {
-                        var new_button = "<input type='checkbox'  id=switch_name onclick=\"changeState(subcritor_id, \'false\')\">".replace("switch_name", switch_id).replace("subcritor_id", subcritor_id);
-                        $(switch_name).replaceWith(new_button);
-                    }
-                    if (xhr.status == 404) {
-                        alert("No se encontro profesor (404)");
-                    }
-                    if (xhr.status == 500) {
-                        alert("Error de conexion (500))");
-                    }
-                }
-            },
-        });
-    }
-</script>
+        <nav aria-label="Page navigation example">
+            {% if page_obj.has_other_pages %}
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                <li class="page-item disabled"><a class="page-link"
+                        href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+                </li>
+                {% else %}
+                <li class="page-link disabled"><span>&laquo;</span></li>
+                {% endif %}
+                {% for i in page_obj.paginator.page_range %}
+                {% if page_obj.number == i %}
+                <li class="page-link active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                <li><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <li><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                <li class="page-link disabled"><span>&raquo;</span></li>
+                {% endif %}
+            </ul>
+            {% endif %}
+        </nav>
+        <script>
+            function changeState(subcritor_id, blogstate) {
+                var url = "{% url 'suscriptorChangeState' 0 %}";
+                url = url.replace(0, subcritor_id);
 
-{% endblock %}
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: { "csrfmiddlewaretoken": '{{ csrf_token }}' },
+                    success: function (data) {
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        if (xhr.status == 404 || xhr.status == 500) {
+                            var switch_name = "#switch-" + subcritor_id;
+                            var switch_id = "switch-" + subcritor_id;
+                            if (teacherState == "true") {
+                                var new_button = "<input type='checkbox'  checked  id=switch_name onclick=\"changeState(subcritor_id, \'true\')\">".replace("switch_name", switch_id).replace("subcritor_id", subcritor_id);
+                                $(switch_name).replaceWith(new_button);
+                            }
+                            else {
+                                var new_button = "<input type='checkbox'  id=switch_name onclick=\"changeState(subcritor_id, \'false\')\">".replace("switch_name", switch_id).replace("subcritor_id", subcritor_id);
+                                $(switch_name).replaceWith(new_button);
+                            }
+                            if (xhr.status == 404) {
+                                alert("No se encontro profesor (404)");
+                            }
+                            if (xhr.status == 500) {
+                                alert("Error de conexion (500))");
+                            }
+                        }
+                    },
+                });
+            }
+        </script>
+
+        {% endblock %}
