@@ -343,7 +343,7 @@ class SuscritorAdminView(FilterView):
     context_object_name = 'suscritors'
     template_name = 'suscriptor/suscriptorAdmin.html'
     paginate_by = 30  # TODO obtener dato de un constants.py
-    ordering = ["date"]
+    ordering = ["-date"]
 
     def get_queryset(self):
         return Suscriptor.objects.all()
@@ -372,6 +372,22 @@ class SuscritorDeleteView(DeleteView):
     model = Suscriptor
     success_url = reverse_lazy('suscriptoradminlist')
     template_name = 'suscriptor/suscriptor_confirm_delete.html'
+
+
+@method_decorator(login_required, name='dispatch')
+class SuscritorSearchView(View):
+    def post(self, request, *args, **kwargs):
+        queryset = request.POST.get("buscar")
+        if queryset:
+            posts = Suscriptor.objects.filter(
+                Q(email__icontains=queryset)
+            ).distinct().order_by('-date')
+
+        context = {
+            'object_list': posts,
+        }
+
+        return render(request, 'suscriptor/suscriptor_result.html', context)
 
 
 @method_decorator(login_required, name='dispatch')

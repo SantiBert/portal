@@ -26,7 +26,7 @@
             </thead>
             <tbody>
                 <tr>
-                    {% for object in suscritors %}
+                    {% for object in object_list %}
                     <td class="text-center">{{ object.id }}</td>
                     <td>{{ object.email }}</td>
                     <td class="td-actions text-right">
@@ -58,7 +58,7 @@
             </tbody>
         </table>
 
-        <nav aria-label="Page navigation example">
+        <!--nav aria-label="Page navigation example">
             {% if page_obj.has_other_pages %}
             <ul class="pagination">
                 {% if page_obj.has_previous %}
@@ -82,7 +82,7 @@
                 {% endif %}
             </ul>
             {% endif %}
-        </nav>
+        </nav-->
         <script>
             function changeState(subcritor_id, blogstate) {
                 var url = "{% url 'suscriptorChangeState' 0 %}";
