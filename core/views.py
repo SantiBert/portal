@@ -21,7 +21,8 @@ from blog.models import BlogEntry, BlogCategory
 from contac.models import Contact
 from audit.signals import Audits
 from newportal.settings.base import EMAIL_HOST_USER
-from .models import Profile, Description, OtherSites, Quote, Suscriptor, FriendSites
+from .models import Profile, Description, OtherSites, Quote, Suscriptor, FriendSites, Music
+
 from .forms import ProfileForm, EmailForm, NameUpdateForm, DescriptionForm, OtherSitesForm, QuoteForm, FriendSitesForm, SuscriptorEmailForm
 from .filters import OtherSitesListFilter, QuoteListFilter, SuscriptorListFilter, FriendSitesFilter
 
