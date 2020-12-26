@@ -380,7 +380,8 @@ class SuscritorSearchView(View):
         queryset = request.POST.get("buscar")
         if queryset:
             posts = Suscriptor.objects.filter(
-                Q(email__icontains=queryset)
+                Q(email__icontains=queryset)|
+                Q(name__icontains=queryset)
             ).distinct().order_by('-date')
 
         context = {

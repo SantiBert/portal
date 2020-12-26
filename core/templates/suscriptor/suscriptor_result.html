@@ -19,6 +19,7 @@
                 <tr>
                     <th class="text-center">ID</th>
                     <th> E-mail </th>
+                    <th> Nombre </th>
                     <th> Editar </th>
                     <th> Eliminar </th>
                     <th class="text-right">Activo</th>
@@ -29,6 +30,7 @@
                     {% for object in object_list %}
                     <td class="text-center">{{ object.id }}</td>
                     <td>{{ object.email }}</td>
+                    <td>{{ object.name }}</td>
                     <td class="td-actions text-right">
                         <p>
                             <a href="{% url 'suscriptorUpdate' object.id %}"> Editar </a>

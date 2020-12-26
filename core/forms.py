@@ -92,7 +92,10 @@ class SuscriptorEmailForm(forms.ModelForm):  # Formulario para editar email
 
     class Meta:
         model = Suscriptor
-        fields = ['email']
+        fields = ['email', 'name']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
+        }
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
