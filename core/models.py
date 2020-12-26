@@ -62,6 +62,7 @@ class Quote(models.Model):
 
 class Suscriptor(models.Model):
     id = models.AutoField(primary_key=True)
+    name =  models.CharField('Nombre', null=True, blank=True, max_length=250)
     date = models.DateField(auto_now=False, auto_now_add=True)
     active = models.BooleanField(default=True)
     email = models.EmailField('E-mail', max_length=200)
