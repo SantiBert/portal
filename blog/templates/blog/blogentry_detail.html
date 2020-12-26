@@ -58,14 +58,15 @@
 						<div class="blog-post-author d-flex">
 							<div class="author-thumbnail">
 								<div class="overlay overlay-bg"></div>
-								<img class="img-fluid" src="{{object.user.Profile.image.url}}" width="70px">								
+								<img class="img" src="{{object.user.Profile.image.url}}" width="70px">
 								<div class="overlay overlay-bg"></div>
-								<img class="img" src="{% static 'img/Bandera de Piemonte 2.jpg'%}" style="position: absolute; width: 100px; bottom: 0; margin-left: calc(-11% / 2);">								
+								<img class="img" src="{% static 'img/Bandera de Piemonte 2.jpg'%}"
+									style="position: absolute; width: 100px; bottom: 0; margin-left: calc(-11% / 2);">
 							</div>
 							<div class="author-info">
 								<a class="author-name"> {{object.user.get_full_name}}</a>
 								<p>{{object.user.Profile.description}}</p>
-							</div>							
+							</div>
 						</div>
 					</div>
 					{% include 'include/comments.html' with url=object.slug %}

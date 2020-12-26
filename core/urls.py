@@ -24,6 +24,9 @@ from .views import (ProfileUpdate,
                     FriendSitesUpdateView,
                     FriendSitesAdminView,
                     FriendSitesChageStateView,
+                    SuscritorUpdateView,
+                    SuscritorDeleteView,
+                    SuscritorSearchView,
                     )
 
 urlpatterns = [
@@ -51,6 +54,12 @@ urlpatterns = [
          SuscritorAdminView.as_view(), name='suscriptoradminlist'),
     path('administration/suscriptorstate/<str:subcritor_id>/',
          SuscriptorChageStateView.as_view(), name='suscriptorChangeState'),
+    path('administration/suscriptordelete/<int:pk>/',
+         SuscritorDeleteView.as_view(), name='suscriptorDelete'),
+    path('administration/suscriptorupdate/<int:pk>/',
+         SuscritorUpdateView.as_view(), name='suscriptorUpdate'),
+    path('administration/suscriptors/results',
+         SuscritorSearchView.as_view(), name='suscriptorSearch'),
     path('administration/friendsitescreate/',
          FriendSitesCreateView.as_view(), name="friendSiteCreate"),
     path('administration/friendsiteupdate/<int:pk>/',
