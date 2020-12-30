@@ -72,7 +72,7 @@
 				<div class="row justify-content-between align-items-center">
 					<div class="col-lg-4 col-md-4 col-sm-12 logo-left no-padding">
 						<a href="{% url 'index' %}">
-							<img class="img-fluid" src="{% static 'img/DELMA2.jpg'%}" alt="">
+							<img class="img-fluid" src="{% static 'img/DELMA3.jpg'%}" alt="">
 						</a>
 					</div>
 					<div class="col-lg-8 col-md-8">
@@ -375,8 +375,7 @@
 					<h3 class="footer-heading mb-4 text-white">Menú Rápido</h3>
 					<ul class="list-unstyled float-center entry2">
 						{% for category in categories %}
-						<li><a href="{% url 'blog:categories' category.slug %}" class="text-white">{{ category.name
-								}}</a></li>
+						<li><a href="{% url 'blog:categories' category.slug %}" class="text-white">{{category.name}}</a></li>
 						{% endfor %}
 						<li><a href="{% url 'mybooks' %}" class="text-white">Mis libros</a></li>
 						<li><a href="{% url 'contact_us' %}" class="text-white">Contáctenos</a></li>
