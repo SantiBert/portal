@@ -266,7 +266,7 @@
 					<!-- End banner-ads Area -->
 					<!-- Start popular-post Area -->
 					<!-- End popular-post Area -->
-					<!-- Start relavent-story-post Area 
+					<!-- Start relavent-story-post Area
 						<div class="relavent-story-post-wrap mt-30">
 							<h4 class="title" style="background-color: #0B3182;">Relavent Stories</h4>
 							<div class="relavent-story-list-wrap">
@@ -376,7 +376,7 @@
 					<h3 class="footer-heading mb-4 text-white">Menú Rápido</h3>
 					<ul class="list-unstyled float-center entry2">
 						{% for category in categories %}
-						<li><a href="{% url 'blog:categories' category.slug %}" class="text-white">{{category.name}}</a></li>
+						<li><a href="{% url 'blog:categories' category.slug %}" class="text-white">{{ category.name }}</a></li>
 						{% endfor %}
 						<li><a href="{% url 'mybooks' %}" class="text-white">Mis libros</a></li>
 						<li><a href="{% url 'contact_us' %}" class="text-white">Contáctenos</a></li>
