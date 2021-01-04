@@ -80,3 +80,8 @@ class FriendSites(models.Model):
     link = models.URLField(max_length=255, null=True, blank=True)
     image_ref = models.ImageField(
         upload_to='friendsites/', default="default.jpg", null=True, blank=True)
+
+class Music(models.Model):
+    id = models.AutoField(primary_key=True)
+    song = models.FileField()
+    is_active = models.BooleanField(default=True)

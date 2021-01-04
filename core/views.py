@@ -19,7 +19,7 @@ from contac.models import Contact
 from audit.signals import Audits
 from newportal.settings.local_settings import EMAIL_HOST_USER
 #from newportal.settings.prod_settings import EMAIL_HOST_USER
-from .models import Profile, Description, OtherSites, Quote, Suscriptor, FriendSites
+from .models import Profile, Description, OtherSites, Quote, Suscriptor, FriendSites, Music
 from .forms import ProfileForm, EmailForm, NameUpdateForm, DescriptionForm, OtherSitesForm, QuoteForm, FriendSitesForm, SuscriptorEmailForm
 from .filters import OtherSitesListFilter, QuoteListFilter, SuscriptorListFilter, FriendSitesFilter
 
@@ -41,6 +41,7 @@ class IndexView(View):
             quotes = Quote.objects.filter(active=True)
             friendsites = FriendSites.objects.filter(
                 active=True).order_by('-date')[:5]
+            song = Music.objects.get(song)
 
             context = {
                 'posts': posts,
@@ -52,6 +53,7 @@ class IndexView(View):
                 'quote': random.choice(quotes),
                 'sites': sites,
                 'recientes': recientes,
+                'song':song,
                 'web': web,
             }
         except:
