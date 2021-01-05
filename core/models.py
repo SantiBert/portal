@@ -83,5 +83,5 @@ class FriendSites(models.Model):
 
 class Music(models.Model):
     id = models.AutoField(primary_key=True)
-    song = models.FileField()
+    song = models.FileField(upload_to='music/')
     is_active = models.BooleanField(default=True)

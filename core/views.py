@@ -41,7 +41,7 @@ class IndexView(View):
             quotes = Quote.objects.filter(active=True)
             friendsites = FriendSites.objects.filter(
                 active=True).order_by('-date')[:5]
-            song = Music.objects.get(song)
+            music = Music.objects.filter(is_active=True)
 
             context = {
                 'posts': posts,
@@ -53,7 +53,7 @@ class IndexView(View):
                 'quote': random.choice(quotes),
                 'sites': sites,
                 'recientes': recientes,
-                'song':song,
+                'music':music,
                 'web': web,
             }
         except:
