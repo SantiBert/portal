@@ -21,7 +21,7 @@ from newportal.settings.local_settings import EMAIL_HOST_USER, SITE_URL_DETAIL
 
 from audit.signals import Audits
 from unicodedata import category, category
-from core.models import Description, OtherSites, Quote, Suscriptor, FriendSites
+from core.models import Description, OtherSites, Quote, Suscriptor, FriendSites, Music
 
 
 class BlogEntryListView(ListView):
@@ -49,6 +49,7 @@ class BlogEntryDetailView(DetailView):
         context['sites'] = OtherSites.objects.filter(
             active=True).order_by('name')
         context['quote'] = random.choice(Quote.objects.filter(active=True))
+        context['music'] = Music.objects.filter(is_active=True)
         # other code
         return context
 
@@ -69,6 +70,7 @@ class BlogEntryCategoryList(ListView):
             web = Description.objects.filter(is_active=True)
             sites = OtherSites.objects.filter(
                 active=True).order_by('name')
+            music = Music.objects.filter(is_active=True)
             quotes = Quote.objects.filter(active=True)
             friendsites = FriendSites.objects.filter(
                 active=True).order_by('-date')[:5]
@@ -94,6 +96,7 @@ class BlogEntryCategoryList(ListView):
             'category': category,
             'sites': sites,
             'featured': featured,
+            'music':music,
             'web': web,
             'quote': random.choice(quotes),
             'friendsites': friendsites,

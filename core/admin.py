@@ -3,7 +3,7 @@ from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
-from .models import Profile, Description, Quote, OtherSites, Suscriptor, FriendSites
+from .models import Profile, Description, Quote, OtherSites, Suscriptor, FriendSites, Music
 
 
 class ProfileResourseces(resources.ModelResource):
@@ -78,3 +78,4 @@ admin.site.register(Quote, QuoteAdmin)
 admin.site.register(OtherSites, OtherSitesAdmin)
 admin.site.register(Suscriptor, SuscriptorAdmin)
 admin.site.register(FriendSites, FriendSitesAdmin)
+admin.site.register(Music)
