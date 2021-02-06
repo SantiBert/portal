@@ -1,24 +1,26 @@
 import random
+from django.http import response
 from django.shortcuts import render, redirect
 from django.views import View
+from django.utils import timezone
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic import CreateView, ListView, DeleteView
+from django.views.generic import CreateView, ListView, DeleteView, TemplateView
 from django.views.generic.edit import UpdateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.shortcuts import HttpResponse
+from django.http.response import HttpResponse
 from django.urls import reverse_lazy
 from django.core.mail import send_mail
 from django import forms
 from django_filters.views import FilterView
 from django.views.defaults import page_not_found
+from openpyxl import Workbook
 
 from blog.models import BlogEntry, BlogCategory
 from contac.models import Contact
 from audit.signals import Audits
-from newportal.settings.local_settings import EMAIL_HOST_USER
-#from newportal.settings.prod_settings import EMAIL_HOST_USER
+from newportal.settings.base import EMAIL_HOST_USER
 from .models import Profile, Description, OtherSites, Quote, Suscriptor, FriendSites
 from .forms import ProfileForm, EmailForm, NameUpdateForm, DescriptionForm, OtherSitesForm, QuoteForm, FriendSitesForm, SuscriptorEmailForm
 from .filters import OtherSitesListFilter, QuoteListFilter, SuscriptorListFilter, FriendSitesFilter
@@ -350,6 +352,45 @@ class SuscritorAdminView(FilterView):
 
 
 @method_decorator(login_required, name='dispatch')
+class ExcelSuscritorAdminView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        subs = Suscriptor.objects.all()
+        wb = Workbook()
+        ws = wb.active
+        ws['B1'] = 'Lista de suscriptores'
+        time = timezone.now()
+
+        ws.merge_cells('B1:E1')
+
+        ws['B3'] = 'ID'
+        ws['C3'] = 'Nombre'
+        ws['D3'] = 'E-mail'
+        ws['E3'] = 'Estado'
+
+        cont = 4
+
+        for sub in subs:
+            if sub.active == True:
+                state = "activo"
+            else:
+                state = "inactivo"
+
+            ws.cell(row=cont, column=2).value = sub.id
+            ws.cell(row=cont, column=3).value = sub.name
+            ws.cell(row=cont, column=4).value = sub.email
+            ws.cell(row=cont, column=4).value = state
+
+            cont += 1
+
+        filename = str(time) + "subscritores.xlsx"
+        response = HttpResponse(content_type="application/ms-excel")
+        content = "attachment; filename = {0}".format(filename)
+        response['Content-Disposition'] = content
+        wb.save(response)
+        return response
+
+
+@method_decorator(login_required, name='dispatch')
 class SuscritorUpdateView(UpdateView):
     model = Suscriptor
     form_class = SuscriptorEmailForm
@@ -380,7 +421,7 @@ class SuscritorSearchView(View):
         queryset = request.POST.get("buscar")
         if queryset:
             posts = Suscriptor.objects.filter(
-                Q(email__icontains=queryset)|
+                Q(email__icontains=queryset) |
                 Q(name__icontains=queryset)
             ).distinct().order_by('-date')
 

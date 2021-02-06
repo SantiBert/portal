@@ -27,6 +27,7 @@ from .views import (ProfileUpdate,
                     SuscritorUpdateView,
                     SuscritorDeleteView,
                     SuscritorSearchView,
+                    ExcelSuscritorAdminView,
                     )
 
 urlpatterns = [
@@ -34,6 +35,7 @@ urlpatterns = [
     path('administration/', AdministrationView.as_view(), name="administration"),
     path('administration/about_us/<int:pk>/',
          AboutUsFormView.as_view(), name="aboutus"),
+    # Otros sitios
     path('administration/othersitecreate/',
          OtherSitesCreateView.as_view(), name="otherSitesCreate"),
     path('administration/othersitedelete/<str:site_id>/',
@@ -42,6 +44,7 @@ urlpatterns = [
          OtherSitesAdminListView.as_view(), name="otherSitesList"),
     path('administration/othersiteupdate/<int:pk>/',
          OtherSitesUpdateView.as_view(), name="sitesupdate"),
+    # Sitas
     path('administration/quotecreate/',
          QuoteCreateView.as_view(), name="quoteCreate"),
     path('administration/quotelist/',
@@ -50,6 +53,7 @@ urlpatterns = [
          QuoteUpdateView.as_view(), name="quoteUpdate"),
     path('administration/quotedelete/<str:quote_id>/',
          QuoteChageStateView.as_view(), name="quoteDelete"),
+    # Subscritores
     path('administration/suscritorslist/',
          SuscritorAdminView.as_view(), name='suscriptoradminlist'),
     path('administration/suscriptorstate/<str:subcritor_id>/',
@@ -60,17 +64,18 @@ urlpatterns = [
          SuscritorUpdateView.as_view(), name='suscriptorUpdate'),
     path('administration/suscriptors/results',
          SuscritorSearchView.as_view(), name='suscriptorSearch'),
+    path('administration/suscriptors/excel',
+         ExcelSuscritorAdminView.as_view(), name='suscriptorExcel'),
+    # Notas de otros sitios
     path('administration/friendsitescreate/',
          FriendSitesCreateView.as_view(), name="friendSiteCreate"),
     path('administration/friendsiteupdate/<int:pk>/',
          FriendSitesUpdateView.as_view(), name='friendSiteUpdate'),
-
     path('administration/friendsitelist/',
          FriendSitesAdminView.as_view(), name='friendSiteList'),
-
     path('administration/friendsitestate/<str:friendsite_id>/',
          FriendSitesChageStateView.as_view(), name='friendSiteChangeState'),
-
+    # Perfil
     path('profile/', ProfileUpdate.as_view(), name="profile"),
     path('profile/email/', EmailUpdate.as_view(), name="profile_email"),
     path('profile/name/', NameUpdate.as_view(), name="profile_name"),
