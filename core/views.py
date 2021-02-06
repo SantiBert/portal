@@ -20,14 +20,8 @@ from openpyxl import Workbook
 from blog.models import BlogEntry, BlogCategory
 from contac.models import Contact
 from audit.signals import Audits
-<<<<<<< HEAD
 from newportal.settings.base import EMAIL_HOST_USER
 from .models import Profile, Description, OtherSites, Quote, Suscriptor, FriendSites
-=======
-from newportal.settings.local_settings import EMAIL_HOST_USER
-#from newportal.settings.prod_settings import EMAIL_HOST_USER
-from .models import Profile, Description, OtherSites, Quote, Suscriptor, FriendSites, Music
->>>>>>> b81418642a4d7d59bb0bfe20a8917ffe6c999caa
 from .forms import ProfileForm, EmailForm, NameUpdateForm, DescriptionForm, OtherSitesForm, QuoteForm, FriendSitesForm, SuscriptorEmailForm
 from .filters import OtherSitesListFilter, QuoteListFilter, SuscriptorListFilter, FriendSitesFilter
 
@@ -61,7 +55,7 @@ class IndexView(View):
                 'quote': random.choice(quotes),
                 'sites': sites,
                 'recientes': recientes,
-                'music':music,
+                'music': music,
                 'web': web,
             }
         except:
@@ -386,7 +380,7 @@ class ExcelSuscritorAdminView(TemplateView):
             ws.cell(row=cont, column=2).value = sub.id
             ws.cell(row=cont, column=3).value = sub.name
             ws.cell(row=cont, column=4).value = sub.email
-            ws.cell(row=cont, column=4).value = state
+            ws.cell(row=cont, column=5).value = state
 
             cont += 1
 
