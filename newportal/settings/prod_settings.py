@@ -5,8 +5,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['oscardelmastro.pythonanywhere.com']
 
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+SITE_URL_DETAIL = 'http://oscardelmastro.pythonanywhere.com/blog/'
 
 DATABASES = {
     'default': {

@@ -19,7 +19,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.yandex.com'
 EMAIL_HOST_USER = 'oscar.delmastro@yandex.com'
-EMAIL_HOST_PASSWORD = 'sunchales'
+EMAIL_HOST_PASSWORD = 'keyfor$zama$'
 EMAIL_PORT = 587
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -27,7 +27,6 @@ EMAIL_PORT = 587
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'se^yb^lbe0d=t-9ab2^*k$v6im&4l^_ey@jz4@t6$+ios25iu5'
 
-SITE_URL_DETAIL = 'http://127.0.0.1:8002/blog/'
 # Application definition
 
 INSTALLED_APPS = [
