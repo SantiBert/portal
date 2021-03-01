@@ -1,7 +1,7 @@
 import random
 from django.shortcuts import render
 from django.views.generic.list import View, ListView
-from django.views.generic import DetailView
+from django.views.generic import DetailView, base
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
@@ -18,7 +18,7 @@ from .models import BlogEntry, BlogCategory
 from .filters import BlogAdminListFilter
 from .forms import BlogEntryForm, BlogCategoryEntryForm
 from newportal.settings.base import EMAIL_HOST_USER
-from newportal.settings.prod_settings import SITE_URL_DETAIL
+from newportal.settings.local_settings import SITE_URL_DETAIL
 from audit.signals import Audits
 from unicodedata import category, category
 from core.models import Description, OtherSites, Quote, Suscriptor, FriendSites, Music
@@ -96,7 +96,7 @@ class BlogEntryCategoryList(ListView):
             'category': category,
             'sites': sites,
             'featured': featured,
-            'music':music,
+            'music': music,
             'web': web,
             'quote': random.choice(quotes),
             'friendsites': friendsites,

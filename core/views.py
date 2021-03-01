@@ -1,4 +1,6 @@
 import random
+import json
+import requests
 from django.http import response
 from django.shortcuts import render, redirect
 from django.views import View
@@ -20,11 +22,17 @@ from openpyxl import Workbook
 from blog.models import BlogEntry, BlogCategory
 from contac.models import Contact
 from audit.signals import Audits
+# MAILCHIP_API_KEY, MAILCHIP_DATA_CENTER, MAILCHIP_EMAIL_LIST_ID
 from newportal.settings.base import EMAIL_HOST_USER
 from .models import Profile, Description, OtherSites, Quote, Suscriptor, FriendSites, Music
 
 from .forms import ProfileForm, EmailForm, NameUpdateForm, DescriptionForm, OtherSitesForm, QuoteForm, FriendSitesForm, SuscriptorEmailForm
 from .filters import OtherSitesListFilter, QuoteListFilter, SuscriptorListFilter, FriendSitesFilter
+
+"""
+api_url = f'http://{MAILCHIP_DATA_CENTER}.api.mailchimp.com/3.0'
+members_endpoint = f'{api_url}/list/{MAILCHIP_EMAIL_LIST_ID}/members'
+"""
 
 
 class IndexView(View):

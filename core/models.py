@@ -62,13 +62,16 @@ class Quote(models.Model):
 
 class Suscriptor(models.Model):
     id = models.AutoField(primary_key=True)
-    name =  models.CharField('Nombre', null=True, blank=True, max_length=250)
+    name = models.CharField('Nombre', null=True, blank=True, max_length=250)
     date = models.DateField(auto_now=False, auto_now_add=True)
     active = models.BooleanField(default=True)
     email = models.EmailField('E-mail', max_length=200)
 
     def __str__(self):
         return self.email
+
+    class Meta:
+        ordering = ['date']
 
 
 class FriendSites(models.Model):
@@ -80,6 +83,7 @@ class FriendSites(models.Model):
     link = models.URLField(max_length=255, null=True, blank=True)
     image_ref = models.ImageField(
         upload_to='friendsites/', default="default.jpg", null=True, blank=True)
+
 
 class Music(models.Model):
     id = models.AutoField(primary_key=True)

@@ -17,10 +17,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.yandex.com'
-EMAIL_HOST_USER = 'oscar.delmastro@yandex.com'
-EMAIL_HOST_PASSWORD = 'keyfor$zama$'
+EMAIL_USE_SSL = False
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'oscardelmastro3@gmail.com'
+EMAIL_HOST_PASSWORD = 'ozqbzrkobjczndtw'
 EMAIL_PORT = 587
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -149,3 +151,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+"""
+MAILCHIP_API_KEY = '243682cedf5e13f21b22cb8ab352d245-us1'
+MAILCHIP_DATA_CENTER = 'us1'
+MAILCHIP_EMAIL_LIST_ID = '337694352e'
+"""
