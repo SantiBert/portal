@@ -18,7 +18,7 @@ from .models import BlogEntry, BlogCategory
 from .filters import BlogAdminListFilter
 from .forms import BlogEntryForm, BlogCategoryEntryForm
 from newportal.settings.base import EMAIL_HOST_USER
-from newportal.settings.local_settings import SITE_URL_DETAIL
+from newportal.settings.prod_settings import SITE_URL_DETAIL
 from audit.signals import Audits
 from unicodedata import category, category
 from core.models import Description, OtherSites, Quote, Suscriptor, FriendSites, Music
